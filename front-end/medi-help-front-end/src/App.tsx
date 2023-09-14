@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Navbar } from './layouts/NavbarAndFooter/Navbar';
-import { ImageContainer } from './layouts/Banner/Ad';
+import { ImageContainer } from './layouts/Banner/homepage-banner';
 
 function App() {
   return (

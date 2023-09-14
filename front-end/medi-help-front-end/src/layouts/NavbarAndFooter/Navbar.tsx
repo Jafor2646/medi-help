@@ -5,7 +5,7 @@ export const Navbar = () => {
         <span className="navbar-brand">
           <a className="nav-link" href="#">
             <img
-              src={require("./../../images/medi-help-logo-no-bg.png")}
+              src={require("./../../images/App-logos/medi-help-logo-no-bg.png")}
               height="50"
               alt="Logo"
             />
