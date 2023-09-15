@@ -6,6 +6,10 @@
 background-color: #0087bd ;
 }
 
+.home-thread-bg {
+    background-color: #e3e3e3 ;
+}
+
 .inactiveLink {
     pointer-events: none;
     cursor: default;
