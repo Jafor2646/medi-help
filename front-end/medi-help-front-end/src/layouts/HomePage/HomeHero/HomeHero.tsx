@@ -11,11 +11,9 @@ export const HomeHero = () => {
                             <ThreadViewerHomepage />
                         </div>
                     </div>
-                    <div className="col-md my-auto p-5">
-                        <div>
-                            <DoctorOfTheDay />
-                        </div>
-                    </div>
+                    <div className="col-md p-5">
+                        <DoctorOfTheDay />
+                    </div>   
                 </div>
             </div>
         </div>
