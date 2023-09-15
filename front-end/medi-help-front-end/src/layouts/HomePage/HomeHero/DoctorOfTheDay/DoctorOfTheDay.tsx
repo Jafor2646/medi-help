@@ -1,6 +1,6 @@
 export const DoctorOfTheDay = () => {
   return (
-    <div className="card shadow mx-auto">
+    <div className="card shadow home-doctor-of-the-day-bg mx-auto">
       <div className="card-body">
         <h4 className="p-4 text-white bg-primary fw-bold fs-5">
           DOCTOR OF THE DAY!!!!

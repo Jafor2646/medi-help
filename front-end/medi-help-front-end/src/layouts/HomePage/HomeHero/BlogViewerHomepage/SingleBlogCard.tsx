@@ -1,4 +1,4 @@
-export const SingleThreadCard = () => {
+export const SingleBlogCard = () => {
   return (
     <div className="col-md-6 mt-2">
       <div className="lc-block">

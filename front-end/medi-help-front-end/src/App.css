@@ -1,17 +1,26 @@
-:root{
-    --mainOpacity: rgba(0, 0, 0, 0.55);
+:root {
+  --mainOpacity: rgba(0, 0, 0, 0.55);
 }
 
 .main-color {
-background-color: #0087bd ;
+  background-color: #0087bd;
 }
 
 .home-thread-bg {
-    background-color: #e3e3e3 ;
-    border-radius: 0.7rem;
+  background-color: #e3e3e3;
+  border-radius: 0.7rem;
+}
+
+.home-blog-bg {
+  background-color: #dcdee8;
+  border-radius: 0.7rem;
+}
+
+.home-doctor-of-the-day-bg {
+  background-color: #e1dce8;
 }
 
 .inactiveLink {
-    pointer-events: none;
-    cursor: default;
- }
+  pointer-events: none;
+  cursor: default;
+}

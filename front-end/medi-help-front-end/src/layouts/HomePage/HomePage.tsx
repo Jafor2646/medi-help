@@ -1,11 +1,12 @@
-import {HomePageBanner} from "./Banner/HomePageBanner";
-import {HomeHero} from "./HomeHero/HomeHero";
+import { HomePageBanner } from "./Banner/HomePageBanner";
+import { HomeHero } from "./HomeHero/HomeHero";
 
 export const HomePage = () => {
-    return (
-        <div>
-            <HomePageBanner/>
-                        
-            <HomeHero/>
-        </div>
-    )}
+  return (
+    <div>
+      <HomePageBanner />
+
+      <HomeHero />
+    </div>
+  );
+};
