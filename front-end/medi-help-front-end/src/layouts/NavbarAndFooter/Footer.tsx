@@ -20,7 +20,10 @@ export const Footer = () => {
 
         <div className="col-md-4 justify-content-end d-flex gap-3">
           <div className="lc-block">
-            <a href="https://github.com/ShariarShuvo1/medi-help" target="_blank">
+            <a
+              href="https://github.com/ShariarShuvo1/medi-help"
+              target="_blank"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="36"
