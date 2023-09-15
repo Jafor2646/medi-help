@@ -1,3 +1,5 @@
+import {ThreadViewerHomepage} from "./ThreadViewerHomepage/ThreadViewerHomepage";
+
 export const HomeHero = () => {
     return (
         <div>
@@ -5,7 +7,7 @@ export const HomeHero = () => {
                 <div className="row">
                     <div className="col-md-9 my-auto p-5">
                         <div>
-                            Here goes Thread Container
+                            <ThreadViewerHomepage/>
                         </div>
                     </div>
                     <div className="col-sm my-auto p-5">
