@@ -1,4 +1,5 @@
 import {SingleThreadCard} from "./SingleThreadCard";
+import {HomePagePagination} from "./HomePagePagination";
 
 export const ThreadViewerHomepage = () => {
     return (
@@ -34,6 +35,8 @@ export const ThreadViewerHomepage = () => {
                     <SingleThreadCard/>
                 </div>
             </div>
+
+            <HomePagePagination/>
 
         </div>
     )}
