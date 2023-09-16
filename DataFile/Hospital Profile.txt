@@ -1,0 +1,1000 @@
+ {
+    "Name": "City General Hospital",
+    "Address": "123 Main Street",
+    "City": "Cityville",
+    "Website": "https://www.citygeneralhospital.com",
+    "Email": "info@citygeneralhospital.com",
+    "Contact": "+1 (555) 123-4567",
+    "Status": "Public",
+    "Governance Details": "City Health Authority",
+    "Management": "Dr. Sarah Johnson (CEO)",
+    "Staff Details": {
+      "Total Staff": 500,
+      "Doctors": 75,
+      "Nurses": 200,
+      "Administrative": 100,
+      "Support": 125
+    },
+    "Equipment Details": [
+      {
+        "Equipment Name": "MRI Machine",
+        "Quantity": 3
+      },
+      {
+        "Equipment Name": "CT Scanner",
+        "Quantity": 4
+      },
+      {
+        "Equipment Name": "X-ray Machine",
+        "Quantity": 5
+      }
+    ],
+    "Doctor Details": [
+      {
+        "Name": "Dr. John Smith",
+        "Specialty": "Cardiologist",
+        "Experience": "15 years"
+      },
+      {
+        "Name": "Dr. Emily Davis",
+        "Specialty": "Pediatrician",
+        "Experience": "12 years"
+      },
+      {
+        "Name": "Dr. Maria Rodriguez",
+        "Specialty": "Dermatologist",
+        "Experience": "18 years"
+      }
+    ],
+    "About Us": "City General Hospital is a leading healthcare institution in Cityville, dedicated to providing high-quality medical services to our community. With a team of experienced doctors and state-of-the-art equipment, we are committed to delivering exceptional patient care."
+  },
+  {
+  "Name": "Sunshine Regional Medical Center",
+  "Address": "789 Oak Street",
+  "City": "Sunshine City",
+  "Website": "https://www.sunshineregionalmedical.com",
+  "Email": "info@sunshinemedical.com",
+  "Contact": "+1 (555) 987-6543",
+  "Status": "Private",
+  "Governance Details": "Sunshine Healthcare Group",
+  "Management": "Dr. Robert Anderson (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 90,
+    "Nurses": 250,
+    "Administrative": 120,
+    "Support": 140
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 2
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "Ultrasound Machine",
+      "Quantity": 4
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Lisa Adams",
+      "Specialty": "Obstetrician-Gynecologist",
+      "Experience": "18 years"
+    },
+    {
+      "Name": "Dr. Michael Carter",
+      "Specialty": "Orthopedic Surgeon",
+      "Experience": "20 years"
+    },
+    {
+      "Name": "Dr. Sarah Lewis",
+      "Specialty": "Psychiatrist",
+      "Experience": "15 years"
+    }
+  ],
+  "About Us": "Sunshine Regional Medical Center is a premier private hospital in Sunshine City, dedicated to providing advanced medical care and personalized services. Our team of highly qualified doctors and cutting-edge equipment ensures the best healthcare experience for our patients."
+},
+{
+  "Name": "Evergreen Memorial Hospital",
+  "Address": "456 Pine Avenue",
+  "City": "Evergreen City",
+  "Website": "https://www.evergreenmemorialhospital.org",
+  "Email": "info@evergreenhospital.com",
+  "Contact": "+1 (555) 789-1234",
+  "Status": "Non-Profit",
+  "Governance Details": "Evergreen Healthcare Foundation",
+  "Management": "Dr. Patricia Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 550,
+    "Doctors": 80,
+    "Nurses": 220,
+    "Administrative": 100,
+    "Support": 150
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 2
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "Radiography System",
+      "Quantity": 4
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. William Turner",
+      "Specialty": "Cardiothoracic Surgeon",
+      "Experience": "22 years"
+    },
+    {
+      "Name": "Dr. Emily Anderson",
+      "Specialty": "Oncologist",
+      "Experience": "16 years"
+    },
+    {
+      "Name": "Dr. James Martinez",
+      "Specialty": "Neurosurgeon",
+      "Experience": "19 years"
+    }
+  ],
+  "About Us": "Evergreen Memorial Hospital is a non-profit healthcare institution in Evergreen City, dedicated to providing compassionate and affordable medical care to the community. Our experienced medical team and modern equipment ensure the highest standard of healthcare services."
+},
+{
+  "Name": "Pineview Medical Center",
+  "Address": "789 Maple Lane",
+  "City": "Pineview Town",
+  "Website": "https://www.pineviewmedicalcenter.com",
+  "Email": "info@pineviewmedical.com",
+  "Contact": "+1 (555) 123-7890",
+  "Status": "Community",
+  "Governance Details": "Pineview Healthcare Board",
+  "Management": "Dr. Jennifer Miller (CEO)",
+  "Staff Details": {
+    "Total Staff": 450,
+    "Doctors": 70,
+    "Nurses": 180,
+    "Administrative": 90,
+    "Support": 110
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 2
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 2
+    },
+    {
+      "Equipment Name": "Laboratory Analyzer",
+      "Quantity": 5
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Sophia Lee",
+      "Specialty": "Family Medicine Physician",
+      "Experience": "14 years"
+    },
+    {
+      "Name": "Dr. Benjamin Turner",
+      "Specialty": "Urologist",
+      "Experience": "18 years"
+    },
+    {
+      "Name": "Dr. Olivia Harris",
+      "Specialty": "Ophthalmologist",
+      "Experience": "16 years"
+    }
+  ],
+  "About Us": "Pineview Medical Center is a community-based healthcare facility in Pineview Town, dedicated to providing accessible and comprehensive medical services. Our committed staff and modern equipment ensure that our patients receive the best care possible."
+},
+{
+  "Name": "Unity Regional Hospital",
+  "Address": "456 Oakwood Avenue",
+  "City": "Unityville",
+  "Website": "https://www.unityregionalhospital.org",
+  "Email": "info@unityhospital.com",
+  "Contact": "+1 (555) 987-6543",
+  "Status": "Public",
+  "Governance Details": "Unity Healthcare Authority",
+  "Management": "Dr. Michael Davis (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 85,
+    "Nurses": 230,
+    "Administrative": 120,
+    "Support": 165
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "Endoscopy System",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Jessica Carter",
+      "Specialty": "Internal Medicine",
+      "Experience": "19 years"
+    },
+    {
+      "Name": "Dr. Richard Adams",
+      "Specialty": "Gastroenterologist",
+      "Experience": "21 years"
+    },
+    {
+      "Name": "Dr. Lisa Turner",
+      "Specialty": "Radiologist",
+      "Experience": "17 years"
+    }
+  ],
+  "About Us": "Unity Regional Hospital is a public healthcare institution in Unityville, committed to providing quality medical care to the community. Our skilled medical team and advanced equipment ensure that patients receive comprehensive healthcare services."
+},
+{
+  "Name": "Golden State Medical Center",
+  "Address": "789 Oak Avenue",
+  "City": "Golden City",
+  "Website": "https://www.goldenstatemedicalcenter.com",
+  "Email": "info@goldenmedical.com",
+  "Contact": "+1 (555) 123-4567",
+  "Status": "Private",
+  "Governance Details": "Golden Healthcare Group",
+  "Management": "Dr. David Wilson (CEO)",
+  "Staff Details": {
+    "Total Staff": 550,
+    "Doctors": 80,
+    "Nurses": 220,
+    "Administrative": 100,
+    "Support": 150
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "Mammography Machine",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Emma Davis",
+      "Specialty": "Oncologist",
+      "Experience": "15 years"
+    },
+    {
+      "Name": "Dr. Alexander Turner",
+      "Specialty": "Neurologist",
+      "Experience": "20 years"
+    },
+    {
+      "Name": "Dr. Sophia Miller",
+      "Specialty": "Obstetrician-Gynecologist",
+      "Experience": "18 years"
+    }
+  ],
+  "About Us": "Golden State Medical Center is a private healthcare institution in Golden City, dedicated to providing cutting-edge medical care in a luxurious environment. Our team of experienced doctors and state-of-the-art equipment ensures top-quality healthcare services."
+},
+{
+  "Name": "Meadowbrook General Hospital",
+  "Address": "123 Meadow Lane",
+  "City": "Meadowville",
+  "Website": "https://www.meadowbrookhospital.com",
+  "Email": "info@meadowbrookmedical.com",
+  "Contact": "+1 (555) 987-6543",
+  "Status": "Non-Profit",
+  "Governance Details": "Meadowbrook Healthcare Foundation",
+  "Management": "Dr. Sarah Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 500,
+    "Doctors": 75,
+    "Nurses": 200,
+    "Administrative": 100,
+    "Support": 125
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 2
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "Laboratory Analyzer",
+      "Quantity": 5
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. William Martinez",
+      "Specialty": "Cardiologist",
+      "Experience": "18 years"
+    },
+    {
+      "Name": "Dr. Emily Harris",
+      "Specialty": "Pediatrician",
+      "Experience": "12 years"
+    },
+    {
+      "Name": "Dr. Olivia Adams",
+      "Specialty": "Dermatologist",
+      "Experience": "20 years"
+    }
+  ],
+  "About Us": "Meadowbrook General Hospital is a non-profit healthcare institution in Meadowville, dedicated to providing quality healthcare services to the community. With a team of experienced doctors and modern equipment, we are committed to the well-being of our patients."
+},
+{
+  "Name": "Mountain View Medical Center",
+  "Address": "456 Summit Road",
+  "City": "Mountain City",
+  "Website": "https://www.mountainviewmedical.com",
+  "Email": "info@mountainmedical.com",
+  "Contact": "+1 (555) 789-1234",
+  "Status": "Public",
+  "Governance Details": "Mountain Health Authority",
+  "Management": "Dr. Michael Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 85,
+    "Nurses": 230,
+    "Administrative": 120,
+    "Support": 165
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "Radiography System",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Jessica Miller",
+      "Specialty": "Internal Medicine",
+      "Experience": "19 years"
+    },
+    {
+      "Name": "Dr. Benjamin Adams",
+      "Specialty": "Gastroenterologist",
+      "Experience": "21 years"
+    },
+    {
+      "Name": "Dr. Olivia Wilson",
+      "Specialty": "Radiologist",
+      "Experience": "17 years"
+    }
+  ],
+  "About Us": "Mountain View Medical Center is a public healthcare institution in Mountain City, dedicated to providing quality healthcare services to the community. Our team of skilled doctors and modern equipment ensures that patients receive the best possible care."
+},
+{
+  "Name": "Central Regional Hospital",
+  "Address": "789 Elm Street",
+  "City": "Centralville",
+  "Website": "https://www.centralregionalhospital.com",
+  "Email": "info@centralhospital.com",
+  "Contact": "+1 (555) 123-7890",
+  "Status": "Private",
+  "Governance Details": "Central Healthcare Group",
+  "Management": "Dr. Elizabeth Davis (CEO)",
+  "Staff Details": {
+    "Total Staff": 550,
+    "Doctors": 80,
+    "Nurses": 220,
+    "Administrative": 100,
+    "Support": 150
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "Ultrasound Machine",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Sophia Turner",
+      "Specialty": "Family Medicine Physician",
+      "Experience": "15 years"
+    },
+    {
+      "Name": "Dr. Alexander Harris",
+      "Specialty": "Orthopedic Surgeon",
+      "Experience": "20 years"
+    },
+    {
+      "Name": "Dr. Emily Miller",
+      "Specialty": "Obstetrician-Gynecologist",
+      "Experience": "18 years"
+    }
+  ],
+  "About Us": "Central Regional Hospital is a private healthcare institution in Centralville, dedicated to providing exceptional medical care in a comfortable environment. Our team of experienced doctors and advanced equipment ensures the highest standard of healthcare services."
+},
+{
+  "Name": "Harborview Medical Center",
+  "Address": "123 Harbor Drive",
+  "City": "Harbor City",
+  "Website": "https://www.harborviewmedical.com",
+  "Email": "info@harbormedical.com",
+  "Contact": "+1 (555) 987-6543",
+  "Status": "Public",
+  "Governance Details": "Harbor Health Authority",
+  "Management": "Dr. Samuel Wilson (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 85,
+    "Nurses": 230,
+    "Administrative": 120,
+    "Support": 165
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "X-ray Machine",
+      "Quantity": 3
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Olivia Adams",
+      "Specialty": "Cardiologist",
+      "Experience": "19 years"
+    },
+    {
+      "Name": "Dr. Michael Turner",
+      "Specialty": "Neurologist",
+      "Experience": "21 years"
+    },
+    {
+      "Name": "Dr. Emily Parker",
+      "Specialty": "Pediatrician",
+      "Experience": "17 years"
+    }
+  ],
+  "About Us": "Harborview Medical Center is a public healthcare institution in Harbor City, dedicated to providing comprehensive medical care to the community. Our team of skilled doctors and modern equipment ensures the highest quality healthcare services."
+},
+{
+  "Name": "Serenity Hospital",
+  "Address": "789 Peaceful Lane",
+  "City": "Tranquilville",
+  "Website": "https://www.serenityhospital.com",
+  "Email": "info@serenitymedical.com",
+  "Contact": "+1 (555) 123-4567",
+  "Status": "Non-Profit",
+  "Governance Details": "Serenity Healthcare Foundation",
+  "Management": "Dr. Laura Smith (CEO)",
+  "Staff Details": {
+    "Total Staff": 550,
+    "Doctors": 80,
+    "Nurses": 220,
+    "Administrative": 100,
+    "Support": 150
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 2
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "Ultrasound Machine",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Samuel Turner",
+      "Specialty": "Psychiatrist",
+      "Experience": "18 years"
+    },
+    {
+      "Name": "Dr. Emma Davis",
+      "Specialty": "Oncologist",
+      "Experience": "20 years"
+    },
+    {
+      "Name": "Dr. Sophia Adams",
+      "Specialty": "Pediatrician",
+      "Experience": "16 years"
+    }
+  ],
+  "About Us": "Serenity Hospital is a non-profit healthcare institution in Tranquilville, dedicated to providing compassionate and affordable medical care to the community. Our experienced medical team and modern equipment ensure the well-being of our patients."
+},
+{
+  "Name": "Pacific Regional Hospital",
+  "Address": "456 Ocean Boulevard",
+  "City": "Seaside City",
+  "Website": "https://www.pacificregionalhospital.com",
+  "Email": "info@pacificmedical.com",
+  "Contact": "+1 (555) 789-1234",
+  "Status": "Private",
+  "Governance Details": "Pacific Healthcare Group",
+  "Management": "Dr. James Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 85,
+    "Nurses": 230,
+    "Administrative": 120,
+    "Support": 165
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "Endoscopy System",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Emily Parker",
+      "Specialty": "Internal Medicine",
+      "Experience": "19 years"
+    },
+    {
+      "Name": "Dr. Benjamin Adams",
+      "Specialty": "Gastroenterologist",
+      "Experience": "21 years"
+    },
+    {
+      "Name": "Dr. Olivia Harris",
+      "Specialty": "Radiologist",
+      "Experience": "17 years"
+    }
+  ],
+  "About Us": "Pacific Regional Hospital is a private healthcare institution in Seaside City, dedicated to providing top-quality medical care in a serene coastal setting. Our team of experienced doctors and advanced equipment ensures the highest standard of healthcare services."
+},
+{
+  "Name": "Maplewood Community Hospital",
+  "Address": "123 Maple Street",
+  "City": "Mapleville",
+  "Website": "https://www.maplewoodhospital.com",
+  "Email": "info@maplewoodmedical.com",
+  "Contact": "+1 (555) 123-4567",
+  "Status": "Non-Profit",
+  "Governance Details": "Maplewood Healthcare Foundation",
+  "Management": "Dr. Sarah Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 550,
+    "Doctors": 80,
+    "Nurses": 220,
+    "Administrative": 100,
+    "Support": 150
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 2
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "Laboratory Analyzer",
+      "Quantity": 5
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. William Martinez",
+      "Specialty": "Cardiologist",
+      "Experience": "18 years"
+    },
+    {
+      "Name": "Dr. Emily Harris",
+      "Specialty": "Pediatrician",
+      "Experience": "12 years"
+    },
+    {
+      "Name": "Dr. Olivia Adams",
+      "Specialty": "Dermatologist",
+      "Experience": "20 years"
+    }
+  ],
+  "About Us": "Maplewood Community Hospital is a non-profit healthcare institution in Mapleville, dedicated to providing quality healthcare services to the community. With a team of experienced doctors and modern equipment, we are committed to the well-being of our patients."
+},
+{
+  "Name": "Sunrise Medical Center",
+  "Address": "789 Sunrise Avenue",
+  "City": "Dawnsville",
+  "Website": "https://www.sunrisemedicalcenter.com",
+  "Email": "info@sunrisemedical.com",
+  "Contact": "+1 (555) 789-1234",
+  "Status": "Private",
+  "Governance Details": "Sunrise Healthcare Group",
+  "Management": "Dr. Jennifer Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 85,
+    "Nurses": 230,
+    "Administrative": 120,
+    "Support": 165
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "Ultrasound Machine",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Olivia Miller",
+      "Specialty": "Internal Medicine",
+      "Experience": "19 years"
+    },
+    {
+      "Name": "Dr. Benjamin Adams",
+      "Specialty": "Gastroenterologist",
+      "Experience": "21 years"
+    },
+    {
+      "Name": "Dr. Emily Harris",
+      "Specialty": "Radiologist",
+      "Experience": "17 years"
+    }
+  ],
+  "About Us": "Sunrise Medical Center is a private healthcare institution in Dawnsville, committed to providing advanced medical care in a serene and welcoming environment. Our team of experienced doctors and state-of-the-art equipment ensures top-quality healthcare services."
+},
+{
+  "Name": "Riverbend Medical Center",
+  "Address": "123 Riverside Drive",
+  "City": "Riverbend City",
+  "Website": "https://www.riverbendmedicalcenter.com",
+  "Email": "info@riverbendmedical.com",
+  "Contact": "+1 (555) 987-6543",
+  "Status": "Public",
+  "Governance Details": "Riverbend Healthcare Authority",
+  "Management": "Dr. Michael Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 85,
+    "Nurses": 230,
+    "Administrative": 120,
+    "Support": 165
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "Endoscopy System",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Jessica Carter",
+      "Specialty": "Internal Medicine",
+      "Experience": "19 years"
+    },
+    {
+      "Name": "Dr. Olivia Adams",
+      "Specialty": "Gastroenterologist",
+      "Experience": "21 years"
+    },
+    {
+      "Name": "Dr. Emily Turner",
+      "Specialty": "Radiologist",
+      "Experience": "17 years"
+    }
+  ],
+  "About Us": "Riverbend Medical Center is a public healthcare institution in Riverbend City, dedicated to providing comprehensive medical care to the community. Our team of skilled doctors and modern equipment ensures the highest standard of healthcare services."
+},
+{
+  "Name": "Westview General Hospital",
+  "Address": "456 West Avenue",
+  "City": "Westville",
+  "Website": "https://www.westviewhospital.com",
+  "Email": "info@westviewmedical.com",
+  "Contact": "+1 (555) 789-1234",
+  "Status": "Public",
+  "Governance Details": "Westview Healthcare Authority",
+  "Management": "Dr. Benjamin Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 85,
+    "Nurses": 230,
+    "Administrative": 120,
+    "Support": 165
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "Endoscopy System",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Jessica Miller",
+      "Specialty": "Internal Medicine",
+      "Experience": "19 years"
+    },
+    {
+      "Name": "Dr. Olivia Adams",
+      "Specialty": "Gastroenterologist",
+      "Experience": "21 years"
+    },
+    {
+      "Name": "Dr. Emily Turner",
+      "Specialty": "Radiologist",
+      "Experience": "17 years"
+    }
+  ],
+  "About Us": "Westview General Hospital is a public healthcare institution in Westville, dedicated to providing comprehensive medical care to the community. Our team of skilled doctors and modern equipment ensures the highest standard of healthcare services."
+},
+{
+  "Name": "Green Valley Medical Center",
+  "Address": "123 Green Avenue",
+  "City": "Greenville",
+  "Website": "https://www.greenvalleymedicalcenter.com",
+  "Email": "info@greenmedical.com",
+  "Contact": "+1 (555) 987-6543",
+  "Status": "Private",
+  "Governance Details": "Green Valley Healthcare Group",
+  "Management": "Dr. Olivia Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 85,
+    "Nurses": 230,
+    "Administrative": 120,
+    "Support": 165
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "X-ray Machine",
+      "Quantity": 3
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Benjamin Carter",
+      "Specialty": "Cardiologist",
+      "Experience": "19 years"
+    },
+    {
+      "Name": "Dr. Emily Turner",
+      "Specialty": "Neurologist",
+      "Experience": "21 years"
+    },
+    {
+      "Name": "Dr. Jessica Miller",
+      "Specialty": "Pediatrician",
+      "Experience": "17 years"
+    }
+  ],
+  "About Us": "Green Valley Medical Center is a private healthcare institution in Greenville, dedicated to providing exceptional medical care in a peaceful and eco-friendly environment. Our team of experienced doctors and advanced equipment ensures top-quality healthcare services."
+},
+{
+  "Name": "Meadowlake Regional Hospital",
+  "Address": "789 Meadow Lane",
+  "City": "Meadowlake City",
+  "Website": "https://www.meadowlakeregionalhospital.com",
+  "Email": "info@meadowlakemedical.com",
+  "Contact": "+1 (555) 123-4567",
+  "Status": "Public",
+  "Governance Details": "Meadowlake Healthcare Authority",
+  "Management": "Dr. Samuel Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 85,
+    "Nurses": 230,
+    "Administrative": 120,
+    "Support": 165
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "Endoscopy System",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Jessica Miller",
+      "Specialty": "Internal Medicine",
+      "Experience": "19 years"
+    },
+    {
+      "Name": "Dr. Olivia Adams",
+      "Specialty": "Gastroenterologist",
+      "Experience": "21 years"
+    },
+    {
+      "Name": "Dr. Emily Turner",
+      "Specialty": "Radiologist",
+      "Experience": "17 years"
+    }
+  ],
+  "About Us": "Meadowlake Regional Hospital is a public healthcare institution in Meadowlake City, dedicated to providing comprehensive medical care to the community. Our team of skilled doctors and modern equipment ensures the highest standard of healthcare services."
+},
+{
+  "Name": "Sunset Community Hospital",
+  "Address": "456 Sunset Avenue",
+  "City": "Sunsetville",
+  "Website": "https://www.sunsetcommunityhospital.com",
+  "Email": "info@sunsetmedical.com",
+  "Contact": "+1 (555) 789-1234",
+  "Status": "Non-Profit",
+  "Governance Details": "Sunset Healthcare Foundation",
+  "Management": "Dr. Olivia Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 550,
+    "Doctors": 80,
+    "Nurses": 220,
+    "Administrative": 100,
+    "Support": 150
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 2
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "Ultrasound Machine",
+      "Quantity": 2
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Samuel Miller",
+      "Specialty": "Psychiatrist",
+      "Experience": "18 years"
+    },
+    {
+      "Name": "Dr. Emma Davis",
+      "Specialty": "Oncologist",
+      "Experience": "20 years"
+    },
+    {
+      "Name": "Dr. Sophia Adams",
+      "Specialty": "Pediatrician",
+      "Experience": "16 years"
+    }
+  ],
+  "About Us": "Sunset Community Hospital is a non-profit healthcare institution in Sunsetville, dedicated to providing compassionate and affordable medical care to the community. Our experienced medical team and modern equipment ensure the well-being of our patients."
+},
+{
+  "Name": "Pinecrest Medical Center",
+  "Address": "123 Pine Street",
+  "City": "Pineville",
+  "Website": "https://www.pinecrestmedicalcenter.com",
+  "Email": "info@pinecrestmedical.com",
+  "Contact": "+1 (555) 987-6543",
+  "Status": "Public",
+  "Governance Details": "Pinecrest Healthcare Authority",
+  "Management": "Dr. Michael Turner (CEO)",
+  "Staff Details": {
+    "Total Staff": 600,
+    "Doctors": 85,
+    "Nurses": 230,
+    "Administrative": 120,
+    "Support": 165
+  },
+  "Equipment Details": [
+    {
+      "Equipment Name": "MRI Machine",
+      "Quantity": 3
+    },
+    {
+      "Equipment Name": "CT Scanner",
+      "Quantity": 4
+    },
+    {
+      "Equipment Name": "X-ray Machine",
+      "Quantity": 3
+    }
+  ],
+  "Doctor Details": [
+    {
+      "Name": "Dr. Olivia Miller",
+      "Specialty": "Internal Medicine",
+      "Experience": "19 years"
+    },
+    {
+      "Name": "Dr. Benjamin Adams",
+      "Specialty": "Gastroenterologist",
+      "Experience": "21 years"
+    },
+    {
+      "Name": "Dr. Emily Turner",
+      "Specialty": "Radiologist",
+      "Experience": "17 years"
+    }
+  ],
+  "About Us": "Pinecrest Medical Center is a public healthcare institution in Pineville, dedicated to providing comprehensive medical care to the community. Our team of skilled doctors and modern equipment ensures the highest standard of healthcare services."
+}
