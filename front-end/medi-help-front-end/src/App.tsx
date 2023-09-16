@@ -10,9 +10,7 @@ function App() {
   return (
     <div>
       <Navbar />
-      {/*<UserProfile/>*/}
-      {/*<HomePage />*/}
-      <HospitalProfile/>
+      <HomePage/>
       <Footer />
     </div>
   );
