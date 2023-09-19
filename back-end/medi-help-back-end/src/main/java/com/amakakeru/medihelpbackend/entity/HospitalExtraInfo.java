@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "hospital_extra_info")
 @Data
-public class HospitalUser {
+public class HospitalExtraInfo {
     @Id
     @Column(name = "hospital_user_id")
     private String hospital_user_id;
