@@ -54,3 +54,33 @@
   pointer-events: none;
   cursor: default;
 }
+
+.card-link-style{
+  color: #006398;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.card-link-style:hover{
+  color: #00a1ff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.card-hover-style:hover{
+  background-color: aliceblue;
+}
+
+.username-mini-viewer{
+  text-decoration: none;
+  color: #00c0c0;
+}
+
+.username-mini-viewer:hover{
+  text-decoration: none;
+  color: #004949;
+}
+
+.date-time-style{
+  font-size: .7em;
+}

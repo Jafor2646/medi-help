@@ -11,31 +11,31 @@ public class Thread {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "thread_id")
-    private Integer thread_id;
+    private Integer threadId;
 
     @Column(name = "uploader_id")
-    private String uploader_id;
+    private String uploaderId;
 
     @Column(name = "thread_title")
-    private String thread_title;
+    private String threadTitle;
 
     @Column(name = "thread_body")
-    private String thread_body;
+    private String threadBody;
 
     @Column(name = "thread_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date thread_date;
+    private Date threadDate;
 
     @Column(name = "thread_view")
-    private Integer thread_view;
+    private Integer threadView;
 
     @Column(name = "thread_trend_view")
-    private Integer thread_trend_view;
+    private Integer threadTrendView;
 
     @Column(name = "thread_upvote")
-    private Integer thread_upvote;
+    private Integer threadUpvote;
 
     @Column(name = "thread_downvote")
-    private Integer thread_downvote;
+    private Integer threadDownvote;
 
 }

@@ -10,10 +10,10 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private String user_id;
+    private String userId;
 
     @Column(name = "user_name")
-    private String user_name;
+    private String userName;
 
     @Column(name = "email")
     private String email;
@@ -28,7 +28,7 @@ public class User {
     private String phone;
 
     @Column(name = "user_type")
-    private String user_type;
+    private String userType;
 
     @Column(name = "picture")
     private String picture;
