@@ -18,6 +18,7 @@ public class ThreadTopic {
     private String uploader_id;
 
     @Column(name = "thread_date_topic")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date thread_date_topic;
 
     @Column(name = "topic_title")

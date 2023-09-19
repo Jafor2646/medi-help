@@ -19,12 +19,14 @@ public class ThreadComment {
     private String replier;
 
     @Column(name = "thread_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date thread_date;
 
     @Column(name = "comment_body")
     private String comment_body;
 
     @Column(name = "comment_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date comment_date;
 
     @Column(name = "comment_upvote")

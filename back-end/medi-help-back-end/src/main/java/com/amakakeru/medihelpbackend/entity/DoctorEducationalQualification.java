@@ -11,7 +11,7 @@ public class DoctorEducationalQualification {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "doctor_id_auto")
-    private int doctor_id_auto;
+    private Integer doctor_id_auto;
 
     @Column(name = "doctor_user_id")
     private String doctor_user_id;
@@ -23,5 +23,5 @@ public class DoctorEducationalQualification {
     private String institution;
 
     @Column(name = "passing_year")
-    private int passing_year;
+    private Integer passing_year;
 }

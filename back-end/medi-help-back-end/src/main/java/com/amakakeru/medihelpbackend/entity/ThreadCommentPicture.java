@@ -19,9 +19,11 @@ public class ThreadCommentPicture {
     private String  replier;
 
     @Column(name = "thread_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date thread_date;
 
     @Column(name = "comment_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date comment_date;
 
     @Column(name = "thread_comment_single_picture")

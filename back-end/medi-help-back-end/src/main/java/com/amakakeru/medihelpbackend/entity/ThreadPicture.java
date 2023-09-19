@@ -17,6 +17,7 @@ public class ThreadPicture {
     private String uploader_id;
 
     @Column(name = "thread_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date thread_date;
 
     @Column(name = "thread_single_picture")
