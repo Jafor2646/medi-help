@@ -7,10 +7,10 @@ export const HomeHero = () => {
     <div>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-5  my-auto p-3">
+          <div className="col-lg-5 p-3">
             <ThreadViewerHomepage />
           </div>
-          <div className="col-lg-5  my-auto p-3">
+          <div className="col-lg-5 p-3">
             <BlogViewerHomepage />
           </div>
           <div className="col-lg p-3">

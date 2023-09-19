@@ -1,19 +1,21 @@
 import { SingleThreadCard } from "./SingleThreadCard";
 import { HomePageThreadPagination } from "./HomePageThreadPagination";
 import {useEffect, useState} from "react";
-import ThreadModel from "../../../../models/ThreadModel";
+import ThreadViewerModel from "../../../../models/ThreadViewerModel/ThreadViewerModel";
+import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 
 
 export const ThreadViewerHomepage = () => {
 
-  const [threads, setThreads] = useState<ThreadModel[]>([]);
+  const [threads, setThreads] = useState<ThreadViewerModel[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
 
   useEffect(() => {
     const fetchThreads = async () => {
       const baseUrl: string = "http://localhost:8080/api/threads";
 
-      const url: string = `${baseUrl}?page=0&size=6`;
+      const url: string = `${baseUrl}?page=0&size=10`;
 
       const response = await fetch(url);
 
@@ -25,28 +27,39 @@ export const ThreadViewerHomepage = () => {
 
       const responseData = responseJson._embedded.threads;
 
-      const loadedThreads: ThreadModel[] = [];
+      const loadedThreads: ThreadViewerModel[] = [];
 
       for (const key in responseData) {
+
+        let user_id: string = responseData[key].uploaderId;
+        const resp = await fetch(`http://localhost:8080/api/users/${user_id}`);
+        const respData = await resp.json();
+
         loadedThreads.push({
-          threadId: responseData[key].threadId,
           uploaderId: responseData[key].uploaderId,
           threadTitle: responseData[key].threadTitle,
           threadBody: responseData[key].threadBody,
           threadDate: responseData[key].threadDate,
-          threadView: responseData[key].threadView,
           threadTrendView: responseData[key].threadTrendView,
-          threadUpvote: responseData[key].threadUpvote,
-          threadDownvote: responseData[key].threadDownvote
+          userName: respData.userName,
+          userType: respData.userType,
+          userPicture: respData.picture
         });
       }
 
       setThreads(loadedThreads);
+      setIsLoading(false);
     };
     fetchThreads().catch((error: any) => {
       setHttpError(error.message);
     })
   }, []);
+
+  if (isLoading) {
+    return (
+        <SpinnerLoading/>
+    )
+  }
 
   return (
       <div className={"home-thread-bg shadow"}>
@@ -77,7 +90,7 @@ export const ThreadViewerHomepage = () => {
 
         <div>
           {threads.map(thread => (
-              <SingleThreadCard thread={thread} />
+              <SingleThreadCard thread={thread}/>
           ))}
         </div>
 
