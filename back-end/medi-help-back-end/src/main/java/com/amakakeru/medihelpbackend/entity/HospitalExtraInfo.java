@@ -10,7 +10,7 @@ public class HospitalExtraInfo {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "hospital_user_id")
-    private String hospital_user_id;
+    private String hospitalUserId;
 
     @Column(name = "website")
     private String website;

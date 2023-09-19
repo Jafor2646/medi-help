@@ -6,27 +6,25 @@ import lombok.Data;
 import java.util.Date;
 
 @Entity
-@Table(name = "thread_comment_picture")
+@Table(name = "blog_comment_picture")
 @Data
-public class ThreadCommentPicture {
-
+public class BlogCommentPicture {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "picture_id")
     private Integer pictureId;
 
     @Column(name = "replier")
-    private String  replier;
+    private String replier;
 
-    @Column(name = "thread_date")
+    @Column(name = "blog_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date threadDate;
+    private Date blogDate;
 
     @Column(name = "comment_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date commentDate;
 
-    @Column(name = "thread_comment_single_picture")
-    private String threadCommentSinglePicture;
-
+    @Column(name = "blog_comment_single_picture")
+    private String blogCommentSinglePicture;
 }

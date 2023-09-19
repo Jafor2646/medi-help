@@ -12,17 +12,17 @@ public class DoctorProfessionalQualification {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "doctor_profession_id")
-    private Integer doctor_profession_id;
+    private Integer doctorProfessionId;
 
     @Column(name = "currently_working_hospital_info_id")
-    private String currently_working_hospital_info_id;
+    private String currentlyWorkingHospitalInfoId;
 
     @Column(name = "doctor_user_id")
-    private String doctor_user_id;
+    private String doctorUserId;
 
     @Column(name = "starting_year")
-    private Integer starting_year;
+    private Integer startingYear;
 
     @Column(name = "ending_year")
-    private Integer ending_year;
+    private Integer endingYear;
 }

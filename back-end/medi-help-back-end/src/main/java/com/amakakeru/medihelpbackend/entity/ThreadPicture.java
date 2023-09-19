@@ -14,12 +14,12 @@ public class ThreadPicture {
     private Integer picture_id;
 
     @Column(name = "uploader_id")
-    private String uploader_id;
+    private String uploaderId;
 
     @Column(name = "thread_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date thread_date;
+    private Date threadDate;
 
     @Column(name = "thread_single_picture")
-    private String thread_single_picture;
+    private String threadSinglePicture;
 }
