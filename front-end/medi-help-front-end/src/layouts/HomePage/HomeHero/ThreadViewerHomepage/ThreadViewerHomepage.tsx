@@ -41,7 +41,8 @@ export const ThreadViewerHomepage = () => {
         const topicRespData =  topicRespJson._embedded.threadTopics;
         let topic_array: string[] = [];
         for (const topic in topicRespData){
-          topic_array.push(topicRespData[topic]);
+          topic_array.push(topicRespData[topic].topicTitle);
+          console.log(topicRespData[topic].topicTitle);
         }
 
         loadedThreads.push({

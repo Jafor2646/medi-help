@@ -28,9 +28,7 @@ export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) =
             </span>
           </Link>
           <span className="m-2 text-end">{date_msg.toDateString().slice(0,3) + ',' + date_msg.toDateString().slice(3)}</span>
-          <div>
-            {/*{props.thread.threadTopics.slice(0,3).map(topc => <TopicBadge topic={topc}/>)}*/}
-          </div>
+          {props.thread.threadTopics.slice(0,2).map(topc => <TopicBadge topic={topc}/>)}
         </div>
       </div>
   );

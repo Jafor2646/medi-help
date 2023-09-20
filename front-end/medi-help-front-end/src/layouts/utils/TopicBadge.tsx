@@ -1,8 +1,9 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 export const TopicBadge: React.FC<{topic: string}> = (props) => {
 
     return (
-        <a href='#'>{props.topic}</a>
+        <Link className="btn btn-primary btn-sm m-1 mb-0 mt-0" to='/search'>{props.topic}</Link>
     );
 };
