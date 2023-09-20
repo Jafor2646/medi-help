@@ -69,7 +69,8 @@
 
 .card-hover-style:hover{
   background-color: aliceblue;
-  border-radius: 2rem;
+  border-radius: 1rem;
+  border-color: black;
 }
 
 .username-mini-viewer{

@@ -3,16 +3,24 @@ import "./App.css";
 import { Navbar } from "./layouts/NavbarAndFooter/Navbar";
 import { HomePage } from "./layouts/HomePage/HomePage";
 import { Footer } from "./layouts/NavbarAndFooter/Footer";
-import { UserProfile } from "./layouts/Profiles/UserProfile/UserProfile";
-import {HospitalProfile} from "./layouts/Profiles/HospitalProfile/HospitalProfile";
-import {SearchPage} from "./layouts/SearchPage/SearchPage";
-import {DoctorProfile} from "./layouts/Profiles/DoctorProfile/DoctorProfile";
+import {Redirect, Route, Switch} from "react-router-dom";
+import {ThreadView} from "./layouts/ThreadView/ThreadView";
 
 function App() {
   return (
     <div>
       <Navbar />
-      <HomePage/>
+        <Switch>
+            <Route path='/' exact>
+                <Redirect to="/home"/>
+            </Route>
+            <Route path='/home'>
+                <HomePage/>
+            </Route>
+            <Route path='/thread'>
+                <ThreadView/>
+            </Route>
+        </Switch>
       <Footer />
     </div>
   );
