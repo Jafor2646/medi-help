@@ -28,6 +28,9 @@ public class Blog {
     @Temporal(TemporalType.TIMESTAMP)
     private Date blogDate;
 
+    @Column(name = "blog_date_txt")
+    private String blogDateTxt;
+
     @Column(name = "blog_view")
     private Integer blogView;
 

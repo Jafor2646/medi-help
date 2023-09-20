@@ -22,6 +22,9 @@ public class BlogTopic {
     @Temporal(TemporalType.TIMESTAMP)
     private Date blogDateTopic;
 
+    @Column(name = "blog_date_topic_txt")
+    private String blogDateTopicTxt;
+
     @Column(name = "topic_title")
     private Integer topicTitle;
 }

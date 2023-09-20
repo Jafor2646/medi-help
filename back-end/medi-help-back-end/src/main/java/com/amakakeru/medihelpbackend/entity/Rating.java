@@ -29,6 +29,9 @@ public class Rating {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ratingTime;
 
+    @Column(name = "rating_time_txt")
+    private String ratingTimeTxt;
+
     @Column(name = "rating_text")
     private String ratingText;
 

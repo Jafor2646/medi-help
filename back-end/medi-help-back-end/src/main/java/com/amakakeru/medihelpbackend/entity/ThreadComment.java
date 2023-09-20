@@ -22,12 +22,18 @@ public class ThreadComment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date threadDate;
 
+    @Column(name = "thread_date_txt")
+    private String threadDateTxt;
+
     @Column(name = "comment_body")
     private String commentBody;
 
     @Column(name = "comment_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date commentDate;
+
+    @Column(name = "comment_date_txt")
+    private String commentDateTxt;
 
     @Column(name = "comment_upvote")
     private Integer commentUpvote;

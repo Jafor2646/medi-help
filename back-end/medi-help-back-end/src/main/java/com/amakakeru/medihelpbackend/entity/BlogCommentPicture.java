@@ -21,9 +21,15 @@ public class BlogCommentPicture {
     @Temporal(TemporalType.TIMESTAMP)
     private Date blogDate;
 
+    @Column(name = "blog_date_txt")
+    private String blogDateTxt;
+
     @Column(name = "comment_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date commentDate;
+
+    @Column(name = "comment_date_txt")
+    private String commentDateTxt;
 
     @Column(name = "blog_comment_single_picture")
     private String blogCommentSinglePicture;

@@ -22,6 +22,9 @@ public class BlogPicture {
     @Temporal(TemporalType.TIMESTAMP)
     private Date blogDate;
 
+    @Column(name = "blog_date_txt")
+    private String blogDateTxt;
+
     @Column(name = "blog_single_picture")
     private Integer blogSinglePicture;
 }

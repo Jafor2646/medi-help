@@ -20,6 +20,9 @@ public class ThreadPicture {
     @Temporal(TemporalType.TIMESTAMP)
     private Date threadDate;
 
+    @Column(name = "thread_date_txt")
+    private String threadDateTxt;
+
     @Column(name = "thread_single_picture")
     private String threadSinglePicture;
 }
