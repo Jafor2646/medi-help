@@ -1,5 +1,6 @@
 import ThreadViewerModel from "../../../../models/ThreadViewerModel/ThreadViewerModel";
 import {Link} from "react-router-dom";
+import {TopicBadge} from "../../../utils/TopicBadge";
 
 export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) => {
   let body_text: String;
@@ -11,7 +12,6 @@ export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) =
   }
 
   let date_msg: Date = new Date(props.thread.threadDate);
-  let s = date_msg.toISOString().slice(0, date_msg.toISOString().length-1) + "+00:00"
   return (
       <div className="card shadow text-dark mt-1 m-2  card-hover-style">
         <div className="card-body">
@@ -27,9 +27,10 @@ export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) =
               {props.thread.userName}
             </span>
           </Link>
-          {/*<span className="m-2 text-end">{"Posted: " + date_msg.toDateString().slice(0,3) + ',' + date_msg.toDateString().slice(3)}</span>*/}
-          <span className="m-2 text-end">{"Posted: " + s}</span>
-          {props.thread.threadTopics.toString()}
+          <span className="m-2 text-end">{date_msg.toDateString().slice(0,3) + ',' + date_msg.toDateString().slice(3)}</span>
+          <div>
+            {/*{props.thread.threadTopics.slice(0,3).map(topc => <TopicBadge topic={topc}/>)}*/}
+          </div>
         </div>
       </div>
   );

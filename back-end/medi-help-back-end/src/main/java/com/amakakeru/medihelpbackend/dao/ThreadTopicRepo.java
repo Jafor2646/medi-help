@@ -13,6 +13,5 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public interface ThreadTopicRepo extends JpaRepository<ThreadTopic, Integer> {
-    @JsonFormat(pattern="dd-MM-yyyy hh:mm:ss")
-    Page<ThreadTopic> findByUploaderIdAndThreadDateTopic(String uploaderId, Date threadDateTopic, Pageable pageable);
+    Page<ThreadTopic> findByUploaderIdAndThreadDateTopicTxt(String uploaderId, String threadDateTopicTxt, Pageable pageable);
 }

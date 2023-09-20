@@ -35,27 +35,23 @@ export const ThreadViewerHomepage = () => {
         const resp = await fetch(`http://localhost:8080/api/users/${user_id}`);
         const respData = await resp.json();
 
-        let current_date: Date = new Date(responseData[key].threadDate);
-        let current_date_str = current_date.toISOString().slice(0, current_date.toISOString().length-1) + "+00:00"
-        const topicResp = await fetch(`http://localhost:8080/api/threadTopics/search/findByUploaderIdAndThreadDateTopic?uploaderId${user_id}&threadDateTopic=${current_date_str}`);
+        let current_date: string = responseData[key].threadDateTxt;
+        const topicResp = await fetch(`http://localhost:8080/api/threadTopics/search/findByUploaderIdAndThreadDateTopicTxt?uploaderId=${user_id}&threadDateTopicTxt=${current_date}`);
         const topicRespJson = await topicResp.json();
-        const topicRespData =  topicRespJson._embedded;
+        const topicRespData =  topicRespJson._embedded.threadTopics;
         let topic_array: string[] = [];
         for (const topic in topicRespData){
-          topic_array.push(topic);
+          topic_array.push(topicRespData[topic]);
         }
-
-        let x = `http://localhost:8080/api/threadTopics/search/findByUploaderIdAndThreadDateTopic?uploaderId${user_id}&threadDateTopic=${current_date_str}`;
 
         loadedThreads.push({
           uploaderId: responseData[key].uploaderId,
           threadTitle: responseData[key].threadTitle,
           threadBody: responseData[key].threadBody,
           threadDate: responseData[key].threadDate,
+          threadDateTxt: responseData[key].threadDateTxt,
           threadTrendView: responseData[key].threadTrendView,
-          // userName: responseData[key].uploaderId,
-          // userName: topic_array.length.toString(),
-          userName: x,
+          userName: responseData[key].uploaderId,
           userType: respData.userType,
           userPicture: respData.picture,
           threadTopics: topic_array

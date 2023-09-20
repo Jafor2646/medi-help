@@ -21,9 +21,11 @@ public class ThreadTopic {
     private String uploaderId;
 
     @Column(name = "thread_date_topic")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date threadDateTopic;
+
+    @Column(name = "thread_date_topic_txt")
+    private String threadDateTopicTxt;
 
     @Column(name = "topic_title")
     private String topicTitle;

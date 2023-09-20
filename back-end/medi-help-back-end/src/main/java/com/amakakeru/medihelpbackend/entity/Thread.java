@@ -27,9 +27,11 @@ public class Thread {
     private String threadBody;
 
     @Column(name = "thread_date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date threadDate;
+
+    @Column(name = "thread_date_txt")
+    private String threadDateTxt;
 
     @Column(name = "thread_view")
     private Integer threadView;
