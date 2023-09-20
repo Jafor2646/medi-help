@@ -3,12 +3,13 @@ class ThreadViewerModel {
     threadTitle: string;
     threadBody: string;
     threadDate: Date;
-    threadTrendView?: number;
     userName: string;
     userType: string;
+    threadTopics: string[];
+    threadTrendView?: number;
     userPicture?: string;
 
-    constructor( uploaderId: string, threadTitle: string, threadBody: string, threadDate: Date, userName: string, userType: string, threadTrendView?: number, userPicture?: string) {
+    constructor( uploaderId: string, threadTitle: string, threadBody: string, threadDate: Date, userName: string, userType: string, threadTopics: string[], threadTrendView?: number, userPicture?: string) {
         this.uploaderId = uploaderId;
         this.threadTitle = threadTitle;
         this.threadBody = threadBody;
@@ -17,7 +18,7 @@ class ThreadViewerModel {
         this.userName = userName;
         this.userType = userType;
         this.userPicture = userPicture;
-
+        this.threadTopics = threadTopics;
     }
 }
 

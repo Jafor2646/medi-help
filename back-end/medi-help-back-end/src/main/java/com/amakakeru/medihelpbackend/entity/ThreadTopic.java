@@ -1,8 +1,11 @@
 package com.amakakeru.medihelpbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -18,7 +21,8 @@ public class ThreadTopic {
     private String uploaderId;
 
     @Column(name = "thread_date_topic")
-    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @Temporal(TemporalType.DATE)
     private Date threadDateTopic;
 
     @Column(name = "topic_title")

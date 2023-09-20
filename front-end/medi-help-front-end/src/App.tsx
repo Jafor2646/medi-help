@@ -5,6 +5,7 @@ import { HomePage } from "./layouts/HomePage/HomePage";
 import { Footer } from "./layouts/NavbarAndFooter/Footer";
 import {Redirect, Route, Switch} from "react-router-dom";
 import {ThreadView} from "./layouts/ThreadView/ThreadView";
+import {UserProfile} from "./layouts/Profiles/UserProfile/UserProfile";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
             </Route>
             <Route path='/thread'>
                 <ThreadView/>
+            </Route>
+            <Route path='/profile'>
+                <UserProfile/>
             </Route>
         </Switch>
       <Footer />

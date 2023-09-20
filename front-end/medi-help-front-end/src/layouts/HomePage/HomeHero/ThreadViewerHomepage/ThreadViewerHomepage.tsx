@@ -35,15 +35,30 @@ export const ThreadViewerHomepage = () => {
         const resp = await fetch(`http://localhost:8080/api/users/${user_id}`);
         const respData = await resp.json();
 
+        let current_date: Date = new Date(responseData[key].threadDate);
+        let current_date_str = current_date.toISOString().slice(0, current_date.toISOString().length-1) + "+00:00"
+        const topicResp = await fetch(`http://localhost:8080/api/threadTopics/search/findByUploaderIdAndThreadDateTopic?uploaderId${user_id}&threadDateTopic=${current_date_str}`);
+        const topicRespJson = await topicResp.json();
+        const topicRespData =  topicRespJson._embedded;
+        let topic_array: string[] = [];
+        for (const topic in topicRespData){
+          topic_array.push(topic);
+        }
+
+        let x = `http://localhost:8080/api/threadTopics/search/findByUploaderIdAndThreadDateTopic?uploaderId${user_id}&threadDateTopic=${current_date_str}`;
+
         loadedThreads.push({
           uploaderId: responseData[key].uploaderId,
           threadTitle: responseData[key].threadTitle,
           threadBody: responseData[key].threadBody,
           threadDate: responseData[key].threadDate,
           threadTrendView: responseData[key].threadTrendView,
-          userName: respData.userName,
+          // userName: responseData[key].uploaderId,
+          // userName: topic_array.length.toString(),
+          userName: x,
           userType: respData.userType,
-          userPicture: respData.picture
+          userPicture: respData.picture,
+          threadTopics: topic_array
         });
       }
 
@@ -58,6 +73,14 @@ export const ThreadViewerHomepage = () => {
   if (isLoading) {
     return (
         <SpinnerLoading/>
+    )
+  }
+
+  if (httpError) {
+    return (
+        <div className='container m-5'>
+          <p>{httpError}</p>
+        </div>
     )
   }
 

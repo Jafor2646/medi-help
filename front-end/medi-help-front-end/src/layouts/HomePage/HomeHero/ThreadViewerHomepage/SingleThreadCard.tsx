@@ -1,4 +1,5 @@
 import ThreadViewerModel from "../../../../models/ThreadViewerModel/ThreadViewerModel";
+import {Link} from "react-router-dom";
 
 export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) => {
   let body_text: String;
@@ -10,13 +11,13 @@ export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) =
   }
 
   let date_msg: Date = new Date(props.thread.threadDate);
-
+  let s = date_msg.toISOString().slice(0, date_msg.toISOString().length-1) + "+00:00"
   return (
       <div className="card shadow text-dark mt-1 m-2  card-hover-style">
         <div className="card-body">
-          <a href="#" className="text-center card-link-style">{props.thread.threadTitle}</a>
+          <Link to="/thread" className="text-center card-link-style">{props.thread.threadTitle}</Link>
           <p className="card-text">{body_text}</p>
-          <a href="#" className="username-mini-viewer">
+          <Link to="/profile" className="username-mini-viewer">
             {props.thread.userPicture?
                 <img src={props.thread.userPicture} width='20' height='20' alt="Profile Picture"/>
                 :
@@ -25,8 +26,10 @@ export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) =
             <span className="m-1">
               {props.thread.userName}
             </span>
-          </a>
-          <span className="m-2 text-end">{"Posted: " + date_msg.toDateString().slice(0,3) + ',' + date_msg.toDateString().slice(3)}</span>
+          </Link>
+          {/*<span className="m-2 text-end">{"Posted: " + date_msg.toDateString().slice(0,3) + ',' + date_msg.toDateString().slice(3)}</span>*/}
+          <span className="m-2 text-end">{"Posted: " + s}</span>
+          {props.thread.threadTopics.toString()}
         </div>
       </div>
   );
