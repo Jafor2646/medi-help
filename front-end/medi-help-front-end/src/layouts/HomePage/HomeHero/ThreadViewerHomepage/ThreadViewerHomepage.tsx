@@ -3,6 +3,7 @@ import { HomePageThreadPagination } from "./HomePageThreadPagination";
 import {useEffect, useState} from "react";
 import ThreadViewerModel from "../../../../models/ThreadViewerModel/ThreadViewerModel";
 import {SpinnerLoading} from "../../../utils/SpinnerLoading";
+import {Pagination} from "../../../utils/Pagination";
 
 
 export const ThreadViewerHomepage = () => {
@@ -10,12 +11,16 @@ export const ThreadViewerHomepage = () => {
   const [threads, setThreads] = useState<ThreadViewerModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ThreadsPerPage] = useState(15);
+  const [totalAmountOfThreads, setTotalAmountOfThreads] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchThreads = async () => {
       const baseUrl: string = "http://localhost:8080/api/threads";
 
-      const url: string = `${baseUrl}?page=0&size=10`;
+      const url: string = `${baseUrl}?page=${currentPage-1}&size=${ThreadsPerPage}`;
 
       const response = await fetch(url);
 
@@ -26,6 +31,9 @@ export const ThreadViewerHomepage = () => {
       const responseJson = await response.json();
 
       const responseData = responseJson._embedded.threads;
+
+      setTotalAmountOfThreads(responseJson.page.totalElements);
+      setTotalPages(responseJson.page.totalPages);
 
       const loadedThreads: ThreadViewerModel[] = [];
 
@@ -65,7 +73,8 @@ export const ThreadViewerHomepage = () => {
     fetchThreads().catch((error: any) => {
       setHttpError(error.message);
     })
-  }, []);
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   if (isLoading) {
     return (
@@ -80,6 +89,13 @@ export const ThreadViewerHomepage = () => {
         </div>
     )
   }
+
+  const indexOfLastBook: number = currentPage * ThreadsPerPage;
+  const indexOfFirstBook: number = indexOfLastBook - ThreadsPerPage;
+  let lastItem = ThreadsPerPage * currentPage <= totalAmountOfThreads ?
+      ThreadsPerPage * currentPage : totalAmountOfThreads;
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
       <div className={"home-thread-bg shadow"}>
@@ -113,8 +129,9 @@ export const ThreadViewerHomepage = () => {
               <SingleThreadCard thread={thread}/>
           ))}
         </div>
-
-        <HomePageThreadPagination />
+        {totalPages>1 &&
+            <Pagination currentPage={currentPage} totalPages={totalPages} paginate={paginate} />
+        }
       </div>
   );
 };

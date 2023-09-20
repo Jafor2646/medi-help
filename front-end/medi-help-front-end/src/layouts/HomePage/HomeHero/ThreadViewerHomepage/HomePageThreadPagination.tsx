@@ -1,4 +1,9 @@
-export const HomePageThreadPagination = () => {
+import React from "react";
+
+export const HomePageThreadPagination: React.FC<{currentPage: number, totalPages: number, paginate: any}> = (props) => {
+
+
+
   return (
     <nav aria-label="Page navigation">
       <ul className="pagination justify-content-center mt-2 pb-2">
