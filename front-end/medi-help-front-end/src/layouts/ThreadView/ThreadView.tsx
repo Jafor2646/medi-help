@@ -1,5 +1,11 @@
-import { Link } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+import ThreadViewerModel from "../../models/ThreadViewerModel/ThreadViewerModel";
 export const ThreadView = () => {
+
+    const location: any = useLocation();
+    const thread: ThreadViewerModel = location.state.props.thread;
+
+    const userId = thread.uploaderId;
 
     return (
         <div>
@@ -7,8 +13,14 @@ export const ThreadView = () => {
                 <div className="card">
                     <div className="card-body">
                         <div className="user-info">
-                            <img src={require('./../../images/ThreadView-image/ThreadDp.jpg')} alt="Profile" className="rounded-circle" width="50" />
-                            <span className="ml-2">John Doe</span>
+                            <Link to={{pathname: "/profile", state: {userId}}}>
+                                {thread.userPicture?
+                                    <img src={thread.userPicture} alt="Profile Picture" className="rounded-circle" width="50" />
+                                    :
+                                    <img src={require('./../../images/Placeholder-images/placeholder-dp.png')} alt="Profile Picture" className="rounded-circle" width="50" />
+                                }
+                                <span className="m-2">John Doe</span>
+                            </Link>
                         </div>
                         <h1 className="mt-3">Sample Thread Title</h1>
                         <p>This is the body of the sample thread. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>

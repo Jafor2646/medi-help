@@ -11,13 +11,15 @@ export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) =
     body_text = props.thread.threadBody
   }
 
+  let userId: String = props.thread.uploaderId;
+
   let date_msg: Date = new Date(props.thread.threadDate);
   return (
       <div className="card shadow text-dark mt-1 m-2  card-hover-style">
         <div className="card-body">
           <Link to={{pathname: "/thread", state: {props}}} className="text-center card-link-style">{props.thread.threadTitle}</Link>
           <p className="card-text">{body_text}</p>
-          <Link to={{pathname: "/profile", state: {props}}} className="username-mini-viewer">
+          <Link to={{pathname: "/profile", state: {userId}}} className="username-mini-viewer">
             {props.thread.userPicture?
                 <img src={props.thread.userPicture} width='20' height='20' alt="Profile Picture"/>
                 :
