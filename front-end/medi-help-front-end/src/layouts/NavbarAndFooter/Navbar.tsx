@@ -16,13 +16,13 @@ export const Navbar = () => {
     <nav className="navbar navbar-expand-md navbar-dark main-color">
       <div className="container-fluid">
         <span className="navbar-brand">
-          <a className="nav-link" href="#">
+          <Link className="nav-link" to="/home">
             <img
               src={require("./../../images/App-logos/medi-help-logo-no-bg.png")}
               height="50"
               alt="Logo"
             />
-          </a>
+          </Link>
         </span>
 
         <form className="d-flex flex-grow-1">
@@ -50,6 +50,13 @@ export const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav ms-auto">
+            {authState.isAuthenticated &&
+                <li className='nav-item'>
+                  <Link type="button" className='btn btn-outline-dark m-1' to='/profile'>
+                    Profile
+                  </Link>
+                </li>
+            }
             {!authState.isAuthenticated?
                 <li className="nav-item m-1">
                   <Link type="button" className="btn btn-outline-dark" to='/login'>
