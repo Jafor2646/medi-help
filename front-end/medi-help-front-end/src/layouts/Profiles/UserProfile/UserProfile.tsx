@@ -1,35 +1,99 @@
 import { ThreadViewerHomepage } from "../../HomePage/HomeHero/ThreadViewerHomepage/ThreadViewerHomepage";
+import UserModel  from "../../../models/UserModel";
+import {Link, useLocation} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { SpinnerLoading } from "../../utils/SpinnerLoading";
 
 export const UserProfile = () => {
+  const [user, setUser] = useState<UserModel>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState(null);
+  const location: any = useLocation();
+  const userId: String = location.state.userId;
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const baseUrl: string = "http://localhost:8080/api";
+      const url: string = `${baseUrl}/users/${userId}`;
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+
+      const responseData = await response.json();
+      let tempUser: UserModel = {
+        userId: responseData.userId,
+        userName: responseData.userName,
+        email: responseData.email,
+        password: responseData.password,
+        address: responseData.address,
+        phone: responseData.phone,
+        userType: responseData.userType,
+        picture: responseData.picture
+      };
+      setUser(tempUser);
+      setIsLoading(false);
+    };
+    fetchProfile().catch((error: any) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    })
+  }, []);
+  if (isLoading) {
+    return (
+        <SpinnerLoading/>
+    )
+  }
+
+  if (httpError) {
+    return (
+        <div className='container m-5'>
+          <p>{httpError}</p>
+        </div>
+    )
+  }
   return (
     <div>
       <div className="container-fluid">
         <div className="shadow d-flex justify-content-between m-2">
           <div>
-            <img
+            {user?.picture?
+              <img
                 className="img-fluid p-1"
-                src={require("./../../../images/DoctorOfTheDay-image/DoctorOfTheDay.jpeg")}
+                src={user?.picture}
+                width='200' 
+                height='200'
                 alt="Profile Images"
                 loading="lazy"
-            />
+              />
+              :
+              <img
+                className="img-fluid p-1"
+                src={require("./../../../images/DoctorOfTheDay-image/DoctorOfTheDay.jpeg")}
+                width='200' 
+                height='200'
+                alt="Profile Images"
+                loading="lazy"
+              />
+            }
           </div>
 
           <div className="pt-3">
             <p>
-              Name: Shariar Islam Shuvo<br/>
-              UserName: Shariarislam1<br/>
-              email: shariarshuvo1@gmail.com
+              <strong style={{color: "darkblue"}}>Name:</strong> {user?.userName}<br/>
+              <strong style={{color: "darkblue"}}>User Name:</strong> {user?.userId}<br/>
+              <strong style={{color: "darkblue"}}>Email:</strong> {user?.email}
             </p>
           </div>
           <div className="pt-5 pe-3">
-            <a type="button" className="btn btn-outline-dark" href="#">
+            <Link type="button" className="btn btn-outline-dark" to="/following">
               Following
-            </a>
+            </Link>
           </div>
         </div>
       </div>
 
-      <ThreadViewerHomepage />
+      <ThreadViewerHomepage/>
     </div>
   );
 };
