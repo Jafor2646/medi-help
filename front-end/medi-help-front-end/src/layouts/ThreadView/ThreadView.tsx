@@ -1,11 +1,57 @@
 import {Link, useLocation} from "react-router-dom";
 import ThreadViewerModel from "../../models/ThreadViewerModel/ThreadViewerModel";
+import {useEffect, useState} from "react";
+import ThreadPictureModel from "../../models/ThreadPictureModel";
+import {SingleThreadCard} from "../HomePage/HomeHero/ThreadViewerHomepage/SingleThreadCard";
 export const ThreadView = () => {
+    const [pictures, setPictures] = useState<ThreadPictureModel[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [httpError, setHttpError] = useState(null);
 
     const location: any = useLocation();
     const thread: ThreadViewerModel = location.state.props.thread;
 
     const userId = thread.uploaderId;
+
+    useEffect(() => {
+        const fetchThreads = async () => {
+            const baseUrl: string = "http://localhost:8080/api";
+
+            const url: string = `${baseUrl}/threadPictures/search/findAllByThreadDateTxtAndUploaderId?uploaderId=${userId}&threadDateTxt=${thread.threadDateTxt}`;
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const responseJson = await response.json();
+
+            const responseData = responseJson._embedded.threadpictures;
+
+            const loadedPictures: ThreadPictureModel[] = [];
+
+            for (const key in responseData) {
+
+                loadedPictures.push({
+                    uploaderId: responseData[key].uploaderId,
+                    pictureId: responseData[key].pictureId,
+                    threadDate: responseData[key].threadDate,
+                    threadDateTxt: responseData[key].threadDateTxt,
+                    threadSinglePicture: responseData[key].threadSinglePicture
+                });
+            }
+
+            setPictures(loadedPictures);
+            setIsLoading(false);
+        };
+        fetchThreads().catch((error: any) => {
+            setHttpError(error.message);
+        })
+    }, []);
+
+    console.log(pictures.length);
+
 
     return (
         <div>
@@ -13,20 +59,25 @@ export const ThreadView = () => {
                 <div className="card">
                     <div className="card-body">
                         <div className="user-info">
-                            <Link to={{pathname: "/profile", state: {userId}}}>
+                            <Link to={{pathname: "/profile", state: {userId}}} className="username-mini-viewer">
                                 {thread.userPicture?
-                                    <img src={thread.userPicture} alt="Profile Picture" className="rounded-circle" width="50" />
+                                    <img src={thread.userPicture} alt="Profile Picture" width='30' height='30' />
                                     :
                                     <img src={require('./../../images/Placeholder-images/placeholder-dp.png')} alt="Profile Picture" className="rounded-circle" width="50" />
                                 }
                                 <span className="m-2">John Doe</span>
                             </Link>
                         </div>
-                        <h1 className="mt-3">Sample Thread Title</h1>
-                        <p>This is the body of the sample thread. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <h3 className="mt-3">{thread.threadTitle}</h3>
+                        <p>{thread.threadBody}</p>
                         <div className="thread-images">
-                            <img src={require('./../../images/ThreadView-image/Body1.jpeg')} alt="Image 1" className="img-fluid" />
-                            <img src={require('./../../images/ThreadView-image/body2.jpeg')} alt="Image 2" className="img-fluid" />
+                            {pictures.length>0?
+                                pictures.map(picture => (
+                                    <img src={picture.threadSinglePicture} alt="Thread Picture" width="100" height="100"/>
+                                    ))
+                                :
+                                <span></span>
+                            }
                         </div>
                         <div className="thread-actions mt-3">
                             <button className="btn btn-sm btn-primary">Upvote</button>
