@@ -1,5 +1,4 @@
 import { Link, NavLink } from "react-router-dom";
-import { SpinnerLoading} from "../utils/SpinnerLoading";
 import {Global} from "../../Auth/UserStatas";
 
 export const Navbar = () => {

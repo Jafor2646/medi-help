@@ -7,6 +7,7 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import {ThreadView} from "./layouts/ThreadView/ThreadView";
 import {UserProfile} from "./layouts/Profiles/UserProfile/UserProfile";
 import {LoginPage} from "./Auth/LoginPage";
+import {SignupPage} from "./Auth/SignupPage";
 
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
             </Route>
             <Route path='/login'>
                 <LoginPage/>
+            </Route>
+            <Route path='/signup'>
+                <SignupPage/>
             </Route>
         </Switch>
       <Footer />
