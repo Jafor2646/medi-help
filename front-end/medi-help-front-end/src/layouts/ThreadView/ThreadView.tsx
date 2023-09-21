@@ -15,6 +15,7 @@ export const ThreadView = () => {
 
     useEffect(() => {
         const fetchThreads = async () => {
+
             const baseUrl: string = "http://localhost:8080/api";
 
             const url: string = `${baseUrl}/threadPictures/search/findAllByThreadDateTxtAndUploaderId?uploaderId=${userId}&threadDateTxt=${thread.threadDateTxt}`;

@@ -1,5 +1,4 @@
 import { SingleThreadCard } from "./SingleThreadCard";
-import { HomePageThreadPagination } from "./HomePageThreadPagination";
 import {useEffect, useState} from "react";
 import ThreadViewerModel from "../../../../models/ThreadViewerModel/ThreadViewerModel";
 import {SpinnerLoading} from "../../../utils/SpinnerLoading";
