@@ -1,4 +1,4 @@
-import {Link, Redirect, useHistory} from "react-router-dom";
+ import {Link, Redirect, useHistory} from "react-router-dom";
 import React, {useContext, useState} from "react";
 import UserModel from "../models/UserModel";
 import {UserContext} from "./UserContext";
@@ -54,7 +54,7 @@ export const LoginPage = () => {
     const LoginClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (hasValidEmail){
             if (currentPassword === currentResponse?.password){
-                setisAuthorised(true);
+                setisAuthorised("true");
                 setcurrent_user_id(currentResponse.userId);
                 setcurrent_user_type(currentResponse.userType);
                 history.push('/home');
