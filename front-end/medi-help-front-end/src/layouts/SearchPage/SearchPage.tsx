@@ -12,7 +12,7 @@ export const SearchPage = () => {
                     <option value="1">Doctors</option>
                     <option value="2">Hospitals</option>
                     <option value="3">Threads</option>
-                    <option value="3">Vlogs</option>
+                    <option value="3">vlogs</option>
                 </select>
             </div>
             <div className="ps-2 pe-2 pt-2">
