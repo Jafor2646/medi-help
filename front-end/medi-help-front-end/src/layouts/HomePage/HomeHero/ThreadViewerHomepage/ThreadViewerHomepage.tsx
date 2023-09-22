@@ -1,11 +1,15 @@
 import { SingleThreadCard } from "./SingleThreadCard";
-import {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import ThreadViewerModel from "../../../../models/ThreadViewerModel/ThreadViewerModel";
 import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 import {Pagination} from "../../../utils/Pagination";
+import {UserContext} from "../../../../Auth/UserContext";
+import {Link} from "react-router-dom";
 
 
 export const ThreadViewerHomepage = () => {
+
+  const {isAuthorised} = useContext(UserContext);
 
   const [threads, setThreads] = useState<ThreadViewerModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -162,9 +166,16 @@ export const ThreadViewerHomepage = () => {
               <h4 className="fw-bold">Threads</h4>
             </div>
             <div className="p-2">
-              <a type="button" className="btn btn-md btn-outline-dark" href="#">
-                Create Thread
-              </a>
+              {isAuthorised=='true'?
+                  <button type="button" className="btn btn-md btn-outline-dark">
+                    Create Thread
+                  </button>
+                  :
+                  <Link type="button" className="btn btn-md btn-outline-dark" to='/login'>
+                    Sign in
+                  </Link>
+              }
+
             </div>
           </div>
         </div>
