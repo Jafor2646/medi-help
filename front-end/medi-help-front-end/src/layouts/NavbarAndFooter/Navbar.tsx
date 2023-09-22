@@ -1,10 +1,8 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link} from "react-router-dom";
 import {Global} from "../../Auth/UserStatas";
 
 export const Navbar = () => {
-  console.log(Global.isAuthorised);
   (Global.isAuthorised as any) = true;
-  console.log(Global.isAuthorised);
 
   return (
     <nav className="navbar navbar-expand-md navbar-dark main-color">
