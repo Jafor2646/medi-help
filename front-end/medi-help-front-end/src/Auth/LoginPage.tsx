@@ -1,10 +1,12 @@
 import {Link, Redirect, useHistory} from "react-router-dom";
-import React, {useState} from "react";
-import ThreadViewerModel from "../models/ThreadViewerModel/ThreadViewerModel";
+import React, {useContext, useState} from "react";
 import UserModel from "../models/UserModel";
-import {Global} from "./UserStatas";
+import {UserContext} from "./UserContext";
 
 export const LoginPage = () => {
+
+    const {setisAuthorised, setcurrent_user_id, setcurrent_user_type} = useContext(UserContext);
+
     const [UserEmailMessage, setUserEmailMessage] = useState('');
     const [UserPasswordMessage, setUserPasswordMessage] = useState('');
     const [currentEmail, setcurrentEmail] = useState('');
@@ -45,17 +47,20 @@ export const LoginPage = () => {
     }
 
     const PasswordChanged = (event: React.MouseEvent<HTMLInputElement>) => {
+        setUserPasswordMessage("");
         setcurrentPassword(event.currentTarget.value);
     }
 
     const LoginClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (hasValidEmail){
             if (currentPassword === currentResponse?.password){
-                (Global.isAuthorised as any) = true;
-                (Global.currentUserId as any) = currentResponse.userId;
-                (Global.currentUserType as any) = currentResponse.userType;
-                console.log(Global.isAuthorised, Global.currentUserId, Global.currentUserType)
+                setisAuthorised(true);
+                setcurrent_user_id(currentResponse.userId);
+                setcurrent_user_type(currentResponse.userType);
                 history.push('/home');
+            }
+            else {
+                setUserPasswordMessage("Wrong Password!");
             }
         }
     }

@@ -1,14 +1,15 @@
 import { Link} from "react-router-dom";
-import {Global} from "../../Auth/UserStatas";
-import React, {useState} from "react";
+import React, {useContext} from "react";
+import {UserContext} from "../../Auth/UserContext";
 
 export const Navbar = () => {
-  const [isAuthorised, setisAuthorised] = useState(Global.isAuthorised);
+
+  const {isAuthorised,setisAuthorised, setcurrent_user_id, setcurrent_user_type } = useContext(UserContext);
+
   const logoutClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    (Global.isAuthorised as any) = false;
-    setisAuthorised(Global.isAuthorised);
-    (Global.currentUserId as any) = "";
-    (Global.currentUserType as any) = "";
+    setisAuthorised(false);
+    setcurrent_user_id("");
+    setcurrent_user_type("");
   }
 
   return (
@@ -49,12 +50,19 @@ export const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav ms-auto">
+            {isAuthorised &&
+                <li className='nav-item'>
+                  <Link type="button" className='btn btn-outline-dark m-1' to='/profile'>
+                    Profile
+                  </Link>
+                </li>
+            }
             {isAuthorised?
                 <li className="nav-item m-1">
-                  <button type="button" className="btn btn-outline-dark" onClick={logoutClicked}>
-                    Logout
-                  </button>
-                </li>
+                    <button type="button" className="btn btn-outline-dark" onClick={logoutClicked}>
+                      Logout
+                    </button>
+                  </li>
                 :
                 <li className="nav-item m-1">
                   <Link type="button" className="btn btn-outline-dark" to='/login'>

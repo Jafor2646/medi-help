@@ -5,7 +5,7 @@ class UserModel {
     password: string;
     address: string;
     phone?: string;
-    userType?: string;
+    userType: string;
     picture?: string;
 
     constructor(userId: string, userName: string, email: string, password: string, address: string, phone: string, userType: string, picture: string) {
