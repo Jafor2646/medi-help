@@ -1,8 +1,15 @@
 import { Link} from "react-router-dom";
 import {Global} from "../../Auth/UserStatas";
+import React, {useState} from "react";
 
 export const Navbar = () => {
-  (Global.isAuthorised as any) = true;
+  const [isAuthorised, setisAuthorised] = useState(Global.isAuthorised);
+  const logoutClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    (Global.isAuthorised as any) = false;
+    setisAuthorised(Global.isAuthorised);
+    (Global.currentUserId as any) = "";
+    (Global.currentUserType as any) = "";
+  }
 
   return (
     <nav className="navbar navbar-expand-md navbar-dark main-color">
@@ -42,11 +49,19 @@ export const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item m-1">
-              <Link type="button" className="btn btn-outline-dark" to='/login'>
+            {isAuthorised?
+                <li className="nav-item m-1">
+                  <button type="button" className="btn btn-outline-dark" onClick={logoutClicked}>
+                    Logout
+                  </button>
+                </li>
+                :
+                <li className="nav-item m-1">
+                  <Link type="button" className="btn btn-outline-dark" to='/login'>
                     Sign in
-              </Link>
-            </li>
+                  </Link>
+                </li>
+            }
           </ul>
         </div>
       </div>

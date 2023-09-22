@@ -14,7 +14,7 @@ CREATE TABLE `user` (
   `email` varchar(45) NOT NULL,
   `password` varchar(128) NOT NULL,
   `address` varchar(128) DEFAULT NULL,
-  `phone` varchar(20) NOT NULL,
+  `phone` varchar(20) DEFAULT NULL,
    `user_type` varchar(15) NOT NULL,
   `picture` LONGBLOB DEFAULT NULL,
   
@@ -140,7 +140,8 @@ DROP TABLE IF EXISTS `doctor_extra_info`;
 CREATE TABLE `doctor_extra_info` (
   `doctor_user_id` varchar(20) NOT NULL,
   `medical_registration_number`varchar(50) NOT NULL,
-  `city` varchar(45) NOT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `verified` boolean DEFAULT null,
   `current_rating` decimal(5,1) default null,
   PRIMARY KEY (`doctor_user_id`),
   FOREIGN KEY (`doctor_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -295,10 +296,10 @@ CREATE TABLE `rating` (
 DROP TABLE IF EXISTS `hospital_extra_info`;
 CREATE TABLE `hospital_extra_info` (
   `hospital_user_id` varchar(20) not null,
-  `website` varchar(50) NOT NULL,
-  `bio`varchar(256) NOT NULL,
-  `status` varchar(15) NOT NULL,
-  `governance_details` varchar(512) not null,
+  `website` varchar(50) default NULL,
+  `bio`varchar(256) default NULL,
+  `status` varchar(15) default NULL,
+  `governance_details` varchar(512) default null,
   PRIMARY KEY (`hospital_user_id`),
   FOREIGN KEY (`hospital_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

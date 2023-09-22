@@ -52,7 +52,7 @@ export const SignupPage = () => {
     }
 
     const userEmailChanged = (event: React.MouseEvent<HTMLInputElement>) => {
-        setUsernameMessage("");
+        setUserEmailMessage("");
         sethasValidEmail(true);
         const baseUrl: string = "http://localhost:8080/api";
         const current_email: string = event.currentTarget.value;
@@ -119,7 +119,7 @@ export const SignupPage = () => {
 
                         <label htmlFor="InputEmail" className="form-label">Email</label>
 
-                        <input required type="email" className="form-control shadow" id="InputEmail" placeholder="iub.an.naser@email.com" onInput={userEmailChanged}/>
+                        <input required type="email" className="form-control shadow" id="InputEmail" placeholder="iub.an.naser@example.com" onInput={userEmailChanged}/>
                         <div id="UserEmailHelp" className="form-text">{UserEmailMessage}</div>
 
                     </div>
