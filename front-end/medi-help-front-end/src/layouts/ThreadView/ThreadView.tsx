@@ -5,6 +5,7 @@ import ThreadPictureModel from "../../models/ThreadPictureModel";
 import {SingleThreadCard} from "../HomePage/HomeHero/ThreadViewerHomepage/SingleThreadCard";
 import {GlobalContext} from "../../Auth/GlobalContext";
 import ThreadModel from "../../models/ThreadModel";
+import {TopicBadge} from "../utils/TopicBadge";
 export const ThreadView = () => {
     const history = useHistory();
 
@@ -15,6 +16,8 @@ export const ThreadView = () => {
     const [httpError, setHttpError] = useState(null);
     const [thread, setthread] = useState<ThreadModel>();
     const [uploaderPicture, setuploaderPicture] = useState<string>('');
+    const [threadTopics, setthreadTopics] = useState<string[]>([]);
+
 
     useEffect(() => {
         const fetchThreads = async () => {
@@ -78,6 +81,15 @@ export const ThreadView = () => {
             const respData = respJson._embedded.users[0];
             setuploaderPicture(respData.picture);
 
+            const topicResp = await fetch(`${baseUrl}/threadTopics/search/findByUploaderIdAndThreadDateTopicTxt?uploaderId=${globalThreadId}&threadDateTopicTxt=${responseData.threadDateTxt}`);
+            const topicRespJson = await topicResp.json();
+            const topicRespData =  topicRespJson._embedded.threadTopics;
+            let topic_array: string[] = [];
+            for (const topic in topicRespData){
+                topic_array.push(topicRespData[topic].topicTitle);
+            }
+            setthreadTopics(topic_array);
+
             setIsLoading(false);
         };
         fetchThreads().catch((error: any) => {
@@ -116,17 +128,13 @@ export const ThreadView = () => {
                                 <span></span>
                             }
                         </div>
-                        <div className="thread-actions mt-3">
-                            <button className="btn btn-sm btn-primary">Upvote</button>
-                            <button className="btn btn-sm btn-danger">Downvote</button>
-                        </div>
-                        <div className="post-info mt-3">
-                            <span className="post-date">September 21, 2023</span>
-                            <div className="mt-2">
-                                <Link to="/React" className="btn btn-sm">React</Link>
-                                <Link to="/Thread" className="btn btn-sm">Thread</Link>
-                                <Link to="/StaticPage" className="btn btn-sm">Static Page</Link>
-                            </div>
+                        <div className="thread-actions">
+                            <button className="btn"><img src={require("./../../images/ThreadView-image/upvote.png")} height="40" className="vote-button"/><span className='m-1'>{thread?.threadUpvote}</span></button>
+                            <button className="btn"><img src={require("./../../images/ThreadView-image/downvote.png")} height="40" className="vote-button"/><span className='m-1'>{thread?.threadDownvote}</span></button>
+                            <span className="post-date m-3">Posted On: {thread?.threadDateTxt}</span>
+                            <span className="mt-2">
+                                {threadTopics.slice(0,2).map(topc => <TopicBadge topic={topc}/>)}
+                            </span>
                         </div>
                     </div>
                 </div>

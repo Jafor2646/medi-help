@@ -86,3 +86,7 @@
 .date-time-style{
   font-size: .7em;
 }
+
+.vote-button:hover{
+  background-color: black;
+}
