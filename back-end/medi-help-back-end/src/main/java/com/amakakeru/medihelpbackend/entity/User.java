@@ -7,8 +7,12 @@ import jakarta.persistence.*;
 @Table(name = "user")
 @Data
 public class User {
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
     @Column(name = "user_id")
     private String userId;
 

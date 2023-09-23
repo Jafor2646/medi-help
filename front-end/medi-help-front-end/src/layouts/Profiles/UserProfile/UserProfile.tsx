@@ -1,26 +1,40 @@
 import { ThreadViewerHomepage } from "../../HomePage/HomeHero/ThreadViewerHomepage/ThreadViewerHomepage";
 import UserModel  from "../../../models/UserModel";
 import {Link, useLocation} from "react-router-dom";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { SpinnerLoading } from "../../utils/SpinnerLoading";
+import {UserContext} from "../../../Auth/UserContext";
+import {GlobalContext} from "../../../Auth/GlobalContext";
 
 export const UserProfile = () => {
+
+  const {globalUserId} = useContext(GlobalContext);
+
+  const {current_user_id, current_user_type} = useContext(UserContext);
+
   const [user, setUser] = useState<UserModel>();
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
+  const [isOwner, setisOwner] = useState(false);
   const location: any = useLocation();
-  const userId: String = location.state.userId;
+
+  useEffect(() => {
+    if (current_user_id == globalUserId){
+      setisOwner(true);
+    }
+  }, []);
+
   useEffect(() => {
     const fetchProfile = async () => {
       const baseUrl: string = "http://localhost:8080/api";
-      const url: string = `${baseUrl}/users/${userId}`;
+      const url: string = `${baseUrl}/users/search/findUserByUserId?userId=${globalUserId}`;
       const response = await fetch(url);
 
       if (!response.ok) {
         throw new Error('Something went wrong!');
       }
-
-      const responseData = await response.json();
+      const responseJson = await response.json();
+      const responseData = responseJson._embedded.users[0];
       let tempUser: UserModel = {
         userId: responseData.userId,
         userName: responseData.userName,
@@ -39,6 +53,8 @@ export const UserProfile = () => {
       setHttpError(error.message);
     })
   }, []);
+
+
   if (isLoading) {
     return (
         <SpinnerLoading/>
@@ -69,7 +85,7 @@ export const UserProfile = () => {
               :
               <img
                 className="img-fluid p-1"
-                src={require("./../../../images/DoctorOfTheDay-image/DoctorOfTheDay.jpeg")}
+                src={require("./../../../images/Placeholder-images/placeholder-dp.png")}
                 width='200' 
                 height='200'
                 alt="Profile Images"

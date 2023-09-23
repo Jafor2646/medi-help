@@ -1,24 +1,27 @@
-import {Link, useLocation} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import ThreadViewerModel from "../../models/ThreadViewerModel/ThreadViewerModel";
-import {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import ThreadPictureModel from "../../models/ThreadPictureModel";
 import {SingleThreadCard} from "../HomePage/HomeHero/ThreadViewerHomepage/SingleThreadCard";
+import {GlobalContext} from "../../Auth/GlobalContext";
+import ThreadModel from "../../models/ThreadModel";
 export const ThreadView = () => {
+    const history = useHistory();
+
+    const {globalThreadId, globalThreadDate, setglobalUserId} = useContext(GlobalContext);
+
     const [pictures, setPictures] = useState<ThreadPictureModel[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
-
-    const location: any = useLocation();
-    const thread: ThreadViewerModel = location.state.props.thread;
-
-    const userId = thread.uploaderId;
+    const [thread, setthread] = useState<ThreadModel>();
+    const [uploaderPicture, setuploaderPicture] = useState<string>('');
 
     useEffect(() => {
         const fetchThreads = async () => {
 
             const baseUrl: string = "http://localhost:8080/api";
 
-            const url: string = `${baseUrl}/threadPictures/search/findAllByThreadDateTxtAndUploaderId?uploaderId=${userId}&threadDateTxt=${thread.threadDateTxt}`;
+            const url: string = `${baseUrl}/threadPictures/search/findAllByThreadDateTxtAndUploaderId?uploaderId=${globalThreadId}&threadDateTxt=${globalThreadDate}`;
 
             const response = await fetch(url);
 
@@ -51,8 +54,41 @@ export const ThreadView = () => {
         })
     }, []);
 
-    console.log(pictures.length);
+    useEffect(() => {
+        const fetchThreads = async () => {
 
+            const baseUrl: string = "http://localhost:8080/api";
+
+            const url: string = `${baseUrl}/threads/search/findByUploaderIdAndThreadDateTxt?uploaderId=${globalThreadId}&threadDateTxt=${globalThreadDate}`;
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const responseJson = await response.json();
+
+            const responseData = responseJson._embedded.threads[0];
+
+            setthread(new ThreadModel(responseData.uploaderId,responseData.threadTitle,responseData.threadBody,responseData.threadDate,responseData.threadDateTxt,responseData.threadView,responseData.threadTrendView,responseData.threadUpvote,responseData.threadDownvote));
+
+            const resp = await fetch(`${baseUrl}/users/search/findUserByUserId?userId=${globalThreadId}`);
+            const respJson = await resp.json();
+            const respData = respJson._embedded.users[0];
+            setuploaderPicture(respData.picture);
+
+            setIsLoading(false);
+        };
+        fetchThreads().catch((error: any) => {
+            setHttpError(error.message);
+        })
+    }, []);
+
+    const UploaderProfileClicked = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        setglobalUserId(globalThreadId);
+        history.push('/profile');
+    }
 
     return (
         <div>
@@ -60,17 +96,17 @@ export const ThreadView = () => {
                 <div className="card">
                     <div className="card-body">
                         <div className="user-info">
-                            <Link to={{pathname: "/profile", state: {userId}}} className="username-mini-viewer">
-                                {thread.userPicture?
-                                    <img src={thread.userPicture} alt="Profile Picture" width='30' height='30' />
+                            <a href='#' className="username-mini-viewer" onClick={UploaderProfileClicked}>
+                                {uploaderPicture?
+                                    <img src={uploaderPicture} alt="Profile Picture" width='30' height='30' />
                                     :
                                     <img src={require('./../../images/Placeholder-images/placeholder-dp.png')} alt="Profile Picture" className="rounded-circle" width="50" />
                                 }
-                                <span className="m-2">John Doe</span>
-                            </Link>
+                                <span className="m-2">{globalThreadId}</span>
+                            </a>
                         </div>
-                        <h3 className="mt-3">{thread.threadTitle}</h3>
-                        <p>{thread.threadBody}</p>
+                        <h3 className="mt-3">{thread?.threadTitle}</h3>
+                        <p>{thread?.threadBody}</p>
                         <div className="thread-images">
                             {pictures.length>0?
                                 pictures.map(picture => (

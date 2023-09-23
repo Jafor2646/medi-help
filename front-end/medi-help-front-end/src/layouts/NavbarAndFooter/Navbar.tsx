@@ -1,15 +1,24 @@
-import { Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import React, {useContext} from "react";
 import {UserContext} from "../../Auth/UserContext";
+import {GlobalContext} from "../../Auth/GlobalContext";
 
 export const Navbar = () => {
+  const history = useHistory();
 
-  const {isAuthorised,setisAuthorised, setcurrent_user_id, setcurrent_user_type } = useContext(UserContext);
+  const {setglobalThreadId, setglobalThreadDate, setglobalUserId} = useContext(GlobalContext);
+
+  const {isAuthorised,setisAuthorised, setcurrent_user_id, current_user_id, setcurrent_user_type } = useContext(UserContext);
 
   const logoutClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setisAuthorised('false');
     setcurrent_user_id("");
     setcurrent_user_type("");
+  }
+
+  const ProfileClicked = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    setglobalUserId(current_user_id);
+    history.push('/profile');
   }
 
   return (
@@ -52,9 +61,9 @@ export const Navbar = () => {
           <ul className="navbar-nav ms-auto">
             {isAuthorised == 'true' &&
                 <li className='nav-item'>
-                  <Link type="button" className='btn btn-outline-dark m-1' to='/profile'>
+                  <a type="button" className='btn btn-outline-dark m-1' href="#" onClick={ProfileClicked}>
                     Profile
-                  </Link>
+                  </a>
                 </li>
             }
             {isAuthorised == 'true'?

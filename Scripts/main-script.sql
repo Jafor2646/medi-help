@@ -9,17 +9,20 @@ USE `medihelp`;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `user_id` varchar(20) NOT NULL,
-  `user_name`varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(128) NOT NULL,
+	`id` int not null auto_increment,
+  `user_id` varchar(20) default NULL,
+  `user_name`varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `password` varchar(128) DEFAULT NULL,
   `address` varchar(128) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
-   `user_type` varchar(15) NOT NULL,
+   `user_type` varchar(15) DEFAULT NULL,
   `picture` LONGBLOB DEFAULT NULL,
   
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB auto_increment=1 DEFAULT CHARSET=latin1;
+
+CREATE INDEX idx_user ON user(`user_id`);
 
 
 
@@ -49,7 +52,7 @@ CREATE TABLE `search_history` (
 
 DROP TABLE IF EXISTS `thread_history`;
 CREATE TABLE `thread_history` (
-  `thread_id` int AUTO_INCREMENT NOT NULL,
+  `thread_id` int not null auto_increment,
   `uploader_id` varchar(20) NOT NULL,
   `thread_title` varchar(256) NOT NULL,
   `thread_body` varchar(60000) NOT NULL,
@@ -62,7 +65,7 @@ CREATE TABLE `thread_history` (
   
    PRIMARY KEY (`thread_id`),
    FOREIGN KEY (`uploader_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB auto_increment=1 DEFAULT CHARSET=latin1;
 
 CREATE INDEX idx_thread_history ON thread_history(`thread_date`);
 

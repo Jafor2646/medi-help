@@ -26,6 +26,7 @@ export const ThreadViewerHomepage = () => {
       const baseUrl: string = "http://localhost:8080/api";
 
       const url: string = `${baseUrl}/threads?page=${currentPage-1}&size=${ThreadsPerPage}${searchUrl}`;
+      console.log(url);
 
       const response = await fetch(url);
 
