@@ -45,8 +45,9 @@ export const ThreadViewerHomepage = () => {
       for (const key in responseData) {
 
         let user_id: string = responseData[key].uploaderId;
-        const resp = await fetch(`${baseUrl}/users/${user_id}`);
-        const respData = await resp.json();
+        const resp = await fetch(`${baseUrl}/users/search/findUserByUserId?userId=${user_id}`);
+        const respJson = await resp.json();
+        const respData = respJson._embedded.users[0];
 
         let current_date: string = responseData[key].threadDateTxt;
         const topicResp = await fetch(`${baseUrl}/threadTopics/search/findByUploaderIdAndThreadDateTopicTxt?uploaderId=${user_id}&threadDateTopicTxt=${current_date}`);

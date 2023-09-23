@@ -1,7 +1,12 @@
-import {Link} from "react-router-dom";
-import React, {useState} from "react";
+import {Link, Redirect, useHistory} from "react-router-dom";
+import React, {useContext, useState} from "react";
+import UserService from "../Service/UserService";
+import {UserContext} from "./UserContext";
 
 export const SignupPage = () => {
+
+    const {setisAuthorised, setcurrent_user_id, setcurrent_user_type} = useContext(UserContext);
+
     const [UsernameMessage, setUsernameMessage] = useState('');
     const [UserEmailMessage, setUserEmailMessage] = useState('');
     const [currentEmail, setcurrentEmail] = useState('');
@@ -12,6 +17,8 @@ export const SignupPage = () => {
     const [user_type, setuser_type] = useState("General_User");
     const [hasValidUsername, sethasValidUsername] = useState(false);
     const [hasValidEmail, sethasValidEmail] = useState(false);
+
+    const history = useHistory();
 
 
     const userNameChanged = (event: React.MouseEvent<HTMLInputElement>) => {
@@ -37,8 +44,10 @@ export const SignupPage = () => {
         }
         const baseUrl: string = "http://localhost:8080/api";
         const fetchUsernames = async () => {
-            const resp = await fetch(`${baseUrl}/users/${current_username}`);
-            if (resp.ok) {
+            const resp = await fetch(`${baseUrl}/users/search/findUserByUserId?userId=${current_username}`);
+            const respJson = await resp.json();
+            const respData = respJson._embedded.users[0];
+            if (respData != undefined) {
                 setUsernameMessage("User-Name already exist!");
                 sethasValidUsername(false);
                 return;
@@ -98,13 +107,30 @@ export const SignupPage = () => {
     const submitClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (currentEmail!=undefined && currentPassword!= undefined && currentName!=undefined && currentUsername!=undefined && hasValidEmail && hasValidUsername){
             if (user_type == "Doctor" && currentMedicalId!= undefined){
-                // First update DB as normal user
-                //  then Update DB for Doctor user who has extra parameter of medical Id
+                let user = {
+                    "userId": currentUsername,
+                    "userName": currentName,
+                    "email": currentEmail,
+                    "password": currentPassword,
+                    "userType": user_type
+                }
 
             }
             else if (user_type == 'General_User' || user_type == "Hospital"){
+                console.log(currentUsername, currentName)
 
-                // for normal user as genral user and hospital has same must have data
+                let user = {
+                    "userId": currentUsername,
+                    "userName": currentName,
+                    "email": currentEmail,
+                    "password": currentPassword,
+                    "userType": user_type
+                }
+                UserService.createUser(user).then();
+                setisAuthorised("true");
+                setcurrent_user_id(currentUsername);
+                setcurrent_user_type(user_type);
+                history.push('/home');
 
 
             }

@@ -3,12 +3,12 @@ class UserModel {
     userName: string;
     email: string;
     password: string;
-    address: string;
+    address?: string;
     phone?: string;
     userType: string;
     picture?: string;
 
-    constructor(userId: string, userName: string, email: string, password: string, address: string, phone: string, userType: string, picture: string) {
+    constructor(userId: string, userName: string, email: string, password: string, userType: string, address?: string, phone?: string, picture?: string) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;

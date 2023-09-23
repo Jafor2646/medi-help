@@ -1,4 +1,4 @@
- import {Link, Redirect, useHistory} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
 import React, {useContext, useState} from "react";
 import UserModel from "../models/UserModel";
 import {UserContext} from "./UserContext";
