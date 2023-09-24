@@ -90,3 +90,28 @@
 .vote-button:hover{
   background-color: black;
 }
+
+.add-image{
+  cursor:pointer;
+  height: 60px;
+  width: 60px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  background-image: url("images/ThreadView-image/add-image-icon.png");
+}
+
+.add-image:hover{
+  cursor:pointer;
+  height: 60px;
+  width: 60px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  background-image: url("images/ThreadView-image/add-image-icon-hover.png");
+}
+
+.modal-dialog {
+  width: auto;
+  max-width: 1280px;
+}

@@ -6,7 +6,6 @@ import {Pagination} from "../../../utils/Pagination";
 import {UserContext} from "../../../../Auth/UserContext";
 import {Link} from "react-router-dom";
 
-
 export const ThreadViewerHomepage = () => {
 
   const {isAuthorised} = useContext(UserContext);
@@ -20,6 +19,12 @@ export const ThreadViewerHomepage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [categorySelection, setCategorySelection] = useState('Trending');
   const [searchUrl, setSearchUrl] = useState(`&sort=threadTrendView,desc`);
+  const [postOpen, setpostOpen] = useState('false')
+
+  const [textTitle, settextTitle] = useState("");
+  const [textBody, settextBody] = useState("");
+  const [imgArray, setimgArray] = useState<string[]>([])
+
 
   useEffect(() => {
     const fetchThreads = async () => {
@@ -103,6 +108,8 @@ export const ThreadViewerHomepage = () => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+
+
   const categoryField = (value: string) => {
     if (value === 'Newest First') {
       setCategorySelection(value);
@@ -124,6 +131,21 @@ export const ThreadViewerHomepage = () => {
       setCategorySelection('Trending');
       setSearchUrl(`&sort=threadTrendView,desc`);
     }
+  }
+
+  const CreateThreadClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setpostOpen('true');
+  }
+  const DiscardClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setpostOpen('false');
+  }
+
+  const TitleChanged = (event: React.MouseEvent<HTMLInputElement>) => {
+    settextTitle(event.currentTarget.value);
+  }
+
+  const BodyChanged = (event: React.MouseEvent<HTMLTextAreaElement>) => {
+    settextBody(event.currentTarget.value);
   }
 
   return (
@@ -168,19 +190,100 @@ export const ThreadViewerHomepage = () => {
               <h4 className="fw-bold">Threads</h4>
             </div>
             <div className="p-2">
-              {isAuthorised=='true'?
-                  <button type="button" className="btn btn-md btn-outline-dark">
-                    Create Thread
-                  </button>
-                  :
+              {isAuthorised=='false'?
                   <Link type="button" className="btn btn-md btn-outline-dark" to='/login'>
                     Sign in
                   </Link>
+                  :
+                  postOpen === 'true'?
+                      <div>
+                        <button type="button" className="btn btn-md btn-outline-danger me-3" onClick={DiscardClicked}>
+                          Discard
+                        </button>
+                        <button type="button" className="btn btn-md btn-outline-success">
+                          Post
+                        </button>
+                      </div>
+                      :
+                      <button type="button" className="btn btn-md btn-outline-dark" onClick={CreateThreadClicked}>
+                        Create Thread
+                      </button>
               }
 
             </div>
           </div>
         </div>
+
+        {postOpen === 'true'&&
+            <div className="card m-2 shadow">
+              <div className="mb-3 ms-1 mt-1 me-1">
+                <input className="form-control shadow fw-bold" id="textTitle" maxLength={250} placeholder="Title" onInput={TitleChanged}/>
+              </div>
+              <div className="mb-1 ms-1 me-1">
+                <textarea className="form-control shadow" id="textBody" maxLength={60000} rows={7} placeholder="Your Question" onInput={BodyChanged}></textarea>
+              </div>
+
+              <div className="d-flex">
+
+                {imgArray.length>0 &&
+                    imgArray.map(ig => (
+                        <div>
+                          {/*<button data-bs-toggle="modal" data-bs-target="#imageModal">*/}
+                            <img className='m-1' src={ig} alt="Thread Image" height={60} width={60}/>
+                          {/*</button>*/}
+                          {/*<div className="modal fade" id="imageModal" aria-labelledby="exampleModalLabel" aria-hidden="true">*/}
+                          {/*  <div className="modal-dialog modal-xl  modal-dialog-scrollable modal-dialog-centered">*/}
+                          {/*    <div className="modal-content">*/}
+                          {/*      <div className="modal-body">*/}
+                          {/*        <img src={ig} alt="Thread Image"  height={400}/>*/}
+                          {/*      </div>*/}
+                          {/*      <div className="modal-footer">*/}
+                          {/*        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>*/}
+                          {/*        <button type="button" className="btn btn-danger">Remove</button>*/}
+                          {/*      </div>*/}
+                          {/*    </div>*/}
+                          {/*  </div>*/}
+                          {/*</div>*/}
+                        </div>
+                      ))
+                }
+
+
+                {imgArray.length<=2&&
+                  <div>
+                  <label className="form-label text-white m-1" htmlFor="customFile1">
+                    <div className="add-image"></div>
+                  </label>
+                  <input type="file" accept="image/png, image/jpg, image/jpeg" className="form-control d-none"
+                         id="customFile1"  onChange={(event) => {
+                           let tempImg: string[] = [];
+                           for(let i in imgArray) {
+                             tempImg.push(imgArray[i]);
+                           }
+                           if (event.target.files != null){
+                             tempImg.push(URL.createObjectURL(event.target.files[0]));
+                           }
+                           setimgArray(tempImg);
+                  }}/>
+                </div>}
+
+              </div>
+
+              <div className="d-flex card-body p-0">
+                <div className='mb-1 ms-1'>
+                  <select className="form-select shadow" id="typeSelect">
+                    <option selected value='General_User'>Topics</option>
+                    <option value="Doctor">one</option>
+                    <option value="Hospital">two</option>
+                    <option value="Hospital">two</option>
+                    <option value="Hospital">two</option>
+                  </select>
+                </div>
+                <button className="btn btn-sm btn-outline-success ms-1 mb-2 mt-1">Add</button>
+              </div>
+            </div>
+        }
+
 
         <div>
           {threads.map(thread => (
