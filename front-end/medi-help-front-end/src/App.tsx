@@ -11,6 +11,7 @@ import {SignupPage} from "./Auth/SignupPage";
 import {UserContext} from "./Auth/UserContext";
 import Cookies from "js-cookie";
 import {GlobalContext} from "./Auth/GlobalContext";
+import {SearchPage} from "./layouts/SearchPage/SearchPage";
 
 
 function App() {
@@ -56,6 +57,9 @@ function App() {
                 </Route>
                 <Route path='/login'>
                     <LoginPage/>
+                </Route>
+                <Route path='/search'>
+                    <SearchPage/>
                 </Route>
                 <Route path='/signup'>
                     <SignupPage/>

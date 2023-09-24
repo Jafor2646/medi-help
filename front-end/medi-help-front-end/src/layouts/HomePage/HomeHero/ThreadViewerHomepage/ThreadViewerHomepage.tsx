@@ -5,10 +5,16 @@ import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 import {Pagination} from "../../../utils/Pagination";
 import {UserContext} from "../../../../Auth/UserContext";
 import {Link} from "react-router-dom";
+import TopicTable from "../../../../models/TopicTable";
+import {TopicBadge} from "../../../utils/TopicBadge";
+import UserService from "../../../../Service/UserService";
+import ThreadServices from "../../../../Service/ThreadServices";
+import ThreadPictureService from "../../../../Service/ThreadPictureService";
+import ThreadTopicService from "../../../../Service/ThreadTopicService";
 
 export const ThreadViewerHomepage = () => {
 
-  const {isAuthorised} = useContext(UserContext);
+  const {isAuthorised, current_user_id} = useContext(UserContext);
 
   const [threads, setThreads] = useState<ThreadViewerModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,15 +29,18 @@ export const ThreadViewerHomepage = () => {
 
   const [textTitle, settextTitle] = useState("");
   const [textBody, settextBody] = useState("");
-  const [imgArray, setimgArray] = useState<string[]>([])
+  const [imgArray, setimgArray] = useState<string[]>([]);
+  const [topicTable, settopicTable] = useState<TopicTable[]>([]);
+  const [selectedTopic, setselectedTopic] = useState<string[]>([]);
+
+
 
 
   useEffect(() => {
-    const fetchThreads = async () => {
+    const fetchTopic = async () => {
       const baseUrl: string = "http://localhost:8080/api";
 
-      const url: string = `${baseUrl}/threads?page=${currentPage-1}&size=${ThreadsPerPage}${searchUrl}`;
-      console.log(url);
+      const url: string = `${baseUrl}/topicTables`;
 
       const response = await fetch(url);
 
@@ -41,10 +50,43 @@ export const ThreadViewerHomepage = () => {
 
       const responseJson = await response.json();
 
-      const responseData = responseJson._embedded.threads;
+      const responseData = responseJson._embedded.topicTables;
 
-      setTotalAmountOfThreads(responseJson.page.totalElements);
-      setTotalPages(responseJson.page.totalPages);
+      const loadedTopics: TopicTable[] = [];
+
+      for (const key in responseData) {
+
+        loadedTopics.push({
+          topicName: responseData[key].topicName
+        });
+      }
+      settopicTable(loadedTopics);
+
+    };
+    fetchTopic().catch((error: any) => {
+      setHttpError(error.message);
+    })
+  }, []);
+
+
+  useEffect(() => {
+    const fetchThreads = async () => {
+      const baseUrl: string = "http://localhost:8080/api";
+
+      const url: string = `${baseUrl}/threads?page=${currentPage-1}&size=${ThreadsPerPage}${searchUrl}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+
+      const responseJson = await response.json();
+
+      const responseData = responseJson.content;
+
+      setTotalAmountOfThreads(responseJson.totalElements);
+      setTotalPages(responseJson.totalPages);
 
       const loadedThreads: ThreadViewerModel[] = [];
 
@@ -84,7 +126,7 @@ export const ThreadViewerHomepage = () => {
     fetchThreads().catch((error: any) => {
       setHttpError(error.message);
     })
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, [currentPage, searchUrl]);
 
   if (isLoading) {
@@ -148,6 +190,65 @@ export const ThreadViewerHomepage = () => {
     settextBody(event.currentTarget.value);
   }
 
+  const topicSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if(event.target.value != "default"){
+      if (!(event.target.value in selectedTopic) && selectedTopic.length<3){
+        let tempArray: string[] = [];
+        for (const val in selectedTopic){
+          tempArray.push(selectedTopic[val]);
+        }
+        tempArray.push(event.target.value);
+        setselectedTopic(tempArray);
+      }
+    }
+  }
+
+  const postClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    let date = new Date().toJSON()
+    if (textTitle.length>4 && textBody.length>5 && topicSelected.length>0) {
+      let thread = {
+        "uploaderId": current_user_id,
+        "threadTitle": textTitle,
+        "threadBody": textBody,
+        "threadDate": date,
+        "threadDateTxt": date,
+        "threadView": 0,
+        "threadTrendView": 0,
+        "threadUpvote": 0,
+        "threadDownvote": 0
+      }
+      ThreadServices.createThread(thread).then();
+      for(const key in imgArray){
+        let threadPicture = {
+          "uploaderId": current_user_id,
+          "threadDate": date,
+          "threadDateTxt": date,
+          "threadSinglePicture": imgArray[key]
+        }
+        ThreadPictureService.createThreadPicture(threadPicture).then();
+      }
+      for(const key in selectedTopic){
+        let topicList = {
+          "uploaderId" : current_user_id,
+          "threadDateTopic" : date,
+          "threadDateTopicTxt": date,
+          "topicTitle": selectedTopic[key]
+        }
+        ThreadTopicService.createThreadTopic(topicList).then();
+      }
+      // setimgArray([]);
+      // settextTitle("");
+      // settextBody("");
+      // setselectedTopic([]);
+      // setpostOpen('false');
+
+    }
+  }
+
+
+
+
+
   return (
       <div className={"home-thread-bg shadow"}>
         <div className="container-fluid">
@@ -200,7 +301,7 @@ export const ThreadViewerHomepage = () => {
                         <button type="button" className="btn btn-md btn-outline-danger me-3" onClick={DiscardClicked}>
                           Discard
                         </button>
-                        <button type="button" className="btn btn-md btn-outline-success">
+                        <button type="button" className="btn btn-md btn-outline-success" onClick={postClicked}>
                           Post
                         </button>
                       </div>
@@ -270,16 +371,23 @@ export const ThreadViewerHomepage = () => {
               </div>
 
               <div className="d-flex card-body p-0">
+                {selectedTopic.length<3&&
                 <div className='mb-1 ms-1'>
-                  <select className="form-select shadow" id="typeSelect">
-                    <option selected value='General_User'>Topics</option>
-                    <option value="Doctor">one</option>
-                    <option value="Hospital">two</option>
-                    <option value="Hospital">two</option>
-                    <option value="Hospital">two</option>
-                  </select>
+                      <select className="form-select shadow" id="typeSelect" onChange={topicSelected}>
+                        <option selected value='default'> Select at least one Topic</option>
+                        {topicTable.map(topic => (
+                            <option value={topic.topicName}>{topic.topicName}</option>
+                        ))}
+                      </select>
                 </div>
-                <button className="btn btn-sm btn-outline-success ms-1 mb-2 mt-1">Add</button>
+                }
+                {selectedTopic.length>0&&
+                    selectedTopic.map(topic => (
+                        <span className="m-1">
+                            <TopicBadge topic={topic}/>
+                        </span>
+                    ))
+                }
               </div>
             </div>
         }

@@ -117,7 +117,6 @@ export const SignupPage = () => {
 
             }
             else if (user_type == 'General_User' || user_type == "Hospital"){
-                console.log(currentUsername, currentName)
 
                 let user = {
                     "userId": currentUsername,

@@ -11,7 +11,7 @@ public class ThreadPicture {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "picture_id")
-    private Integer picture_id;
+    private Integer pictureId;
 
     @Column(name = "uploader_id")
     private String uploaderId;
