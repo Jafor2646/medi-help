@@ -89,7 +89,9 @@
 
 .vote-button:hover{
   background-color: black;
+  color: white;
 }
+
 
 .add-image{
   cursor:pointer;

@@ -7,7 +7,6 @@ import {UserContext} from "../../../../Auth/UserContext";
 import {Link} from "react-router-dom";
 import TopicTable from "../../../../models/TopicTable";
 import {TopicBadge} from "../../../utils/TopicBadge";
-import UserService from "../../../../Service/UserService";
 import ThreadServices from "../../../../Service/ThreadServices";
 import ThreadPictureService from "../../../../Service/ThreadPictureService";
 import ThreadTopicService from "../../../../Service/ThreadTopicService";

@@ -6,6 +6,7 @@ import {SingleThreadCard} from "../HomePage/HomeHero/ThreadViewerHomepage/Single
 import {GlobalContext} from "../../Auth/GlobalContext";
 import ThreadModel from "../../models/ThreadModel";
 import {TopicBadge} from "../utils/TopicBadge";
+import ThreadServices from "../../Service/ThreadServices";
 export const ThreadView = () => {
     const history = useHistory();
 
@@ -17,6 +18,9 @@ export const ThreadView = () => {
     const [thread, setthread] = useState<ThreadModel>();
     const [uploaderPicture, setuploaderPicture] = useState<string>('');
     const [threadTopics, setthreadTopics] = useState<string[]>([]);
+    const [threadId, setthreadId] = useState<number>();
+    const [totalUpvote, settotalUpvote] = useState<number>();
+    const [totalDownvote, settotalDownvote] = useState<number>();
 
 
     useEffect(() => {
@@ -78,8 +82,21 @@ export const ThreadView = () => {
             let time_name = new Date(responseData.threadDate);
             let time_msg = time_name.toDateString().slice(0,3) + ',' + time_name.toDateString().slice(3)
 
+            settotalUpvote(responseData.threadUpvote);
+            settotalDownvote(responseData.threadDownvote);
 
-            setthread(new ThreadModel(responseData.uploaderId,responseData.threadTitle,responseData.threadBody,responseData.threadDate,time_msg,responseData.threadView,responseData.threadTrendView,responseData.threadUpvote,responseData.threadDownvote));
+            let threadLink = responseData._links.self.href.split('/');
+            threadLink = threadLink[threadLink.length-1];
+            let currentThreadId = Number(threadLink);
+            viewAdded(currentThreadId);
+
+
+
+            setthread(new ThreadModel(currentThreadId,responseData.uploaderId,responseData.threadTitle,responseData.threadBody,responseData.threadDate,time_msg,responseData.threadView,responseData.threadTrendView,responseData.threadUpvote,responseData.threadDownvote));
+
+            let myLink = responseData._links.self.href.split("/");
+            myLink = myLink[myLink.length-1];
+            setthreadId(Number(myLink));
 
             const resp = await fetch(`${baseUrl}/users/search/findUserByUserId?userId=${globalThreadId}`);
             const respJson = await resp.json();
@@ -107,6 +124,33 @@ export const ThreadView = () => {
         history.push('/profile');
     }
 
+    const upvoteClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        ThreadServices.upvoteAdded(threadId).then();
+        let temp = totalUpvote;
+        if (temp){
+            temp+=1;
+            settotalUpvote(temp);
+        }
+        else{
+            settotalUpvote(1);
+        }
+
+    }
+    const downvoteClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        ThreadServices.downvoteAdded(threadId).then();
+        let temp = totalDownvote;
+        if (temp){
+            temp-=1;
+            settotalDownvote(temp);
+        }
+        else{
+            settotalDownvote(-1);
+        }
+    }
+    function viewAdded(currentThreadId: number) {
+        ThreadServices.viewAdded(currentThreadId).then();
+    }
+
     return (
         <div>
             <div className="container mt-4">
@@ -121,6 +165,7 @@ export const ThreadView = () => {
                                 }
                                 <span className="m-2">{globalThreadId}</span>
                             </a>
+                            <span className="post-date m-3">{thread?.threadDateTxt}</span>
                         </div>
                         <h3 className="mt-3">{thread?.threadTitle}</h3>
                         <p>{thread?.threadBody}</p>
@@ -133,10 +178,10 @@ export const ThreadView = () => {
                                 <span></span>
                             }
                         </div>
+                        <hr/>
                         <div className="thread-actions">
-                            <button className="btn"><img src={require("./../../images/ThreadView-image/upvote.png")} height="40" className="vote-button"/><span className='m-1'>{thread?.threadUpvote}</span></button>
-                            <button className="btn"><img src={require("./../../images/ThreadView-image/downvote.png")} height="40" className="vote-button"/><span className='m-1'>{thread?.threadDownvote}</span></button>
-                            <span className="post-date m-3">Posted On: {thread?.threadDateTxt}</span>
+                            <button className="btn btn-sm vote-button"  onClick={upvoteClicked}><img src={require("./../../images/ThreadView-image/upvote.png")} height="30"/><span className='m-1'>{totalUpvote}</span></button>
+                            <button className="btn btn-sm vote-button"  onClick={downvoteClicked}><img src={require("./../../images/ThreadView-image/downvote.png")} height="30"/><span className='m-1'>{totalDownvote}</span></button>
                             <span className="mt-2">
                                 {threadTopics.slice(0,3).map(topc => <TopicBadge topic={topc}/>)}
                             </span>
