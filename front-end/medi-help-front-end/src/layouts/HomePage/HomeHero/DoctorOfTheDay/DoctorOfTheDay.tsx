@@ -17,7 +17,7 @@ export const DoctorOfTheDay = () => {
           />
         </div>
         <div className="lc-block mb-3">
-          <h5 className="pt-3">Doctor Pushpita Amin</h5>
+          <h5 className="pt-3">Doctor Li Li</h5>
           <p>
             She is a specialist in Psychology. People from all over the country
             come to popular diagnosis center, Dhanmondi, to visit her.
