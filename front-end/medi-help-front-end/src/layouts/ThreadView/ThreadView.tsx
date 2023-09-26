@@ -1,16 +1,20 @@
 import {Link, useHistory, useLocation} from "react-router-dom";
-import ThreadViewerModel from "../../models/ThreadViewerModel/ThreadViewerModel";
 import React, {useContext, useEffect, useState} from "react";
 import ThreadPictureModel from "../../models/ThreadPictureModel";
-import {SingleThreadCard} from "../HomePage/HomeHero/ThreadViewerHomepage/SingleThreadCard";
 import {GlobalContext} from "../../Auth/GlobalContext";
 import ThreadModel from "../../models/ThreadModel";
 import {TopicBadge} from "../utils/TopicBadge";
 import ThreadServices from "../../Service/ThreadServices";
+import ThreadPictureService from "../../Service/ThreadPictureService";
+import ThreadTopicService from "../../Service/ThreadTopicService";
+import {UserContext} from "../../Auth/UserContext";
+import ThreadCommentService from "../../Service/ThreadCommentService";
+import ThreadCommentPicturesService from "../../Service/ThreadCommentPicturesService";
 export const ThreadView = () => {
     const history = useHistory();
 
     const {globalThreadId, globalThreadDate, setglobalUserId} = useContext(GlobalContext);
+    const {current_user_id, isAuthorised}  = useContext(UserContext)
 
     const [pictures, setpictures] = useState<ThreadPictureModel[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -21,6 +25,9 @@ export const ThreadView = () => {
     const [threadId, setthreadId] = useState<number>();
     const [totalUpvote, settotalUpvote] = useState<number>();
     const [totalDownvote, settotalDownvote] = useState<number>();
+    const [imgArray, setimgArray] = useState<any[]>([]);
+    const [textBody, settextBody] = useState("");
+
 
 
     useEffect(() => {
@@ -151,6 +158,59 @@ export const ThreadView = () => {
         ThreadServices.viewAdded(currentThreadId).then();
     }
 
+    function getBase64(file: any) {
+        let tempImg: any = [];
+        for(let i in imgArray) {
+            tempImg.push(imgArray[i]);
+        }
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            tempImg.push(reader.result);
+            setimgArray(tempImg);
+        };
+        reader.onerror = function (error) {
+            console.log('Error', error);
+        }
+    }
+
+    const BodyChanged = (event: React.MouseEvent<HTMLTextAreaElement>) => {
+        settextBody(event.currentTarget.value);
+    }
+
+    const commentClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        let date = new Date().toJSON()
+        if (textBody.length>5) {
+            let threadComment = {
+                "replier": current_user_id,
+                "commentBody": textBody,
+                "threadDate": thread?.threadDate,
+                "threadDateTxt": thread?.threadDateTxt,
+                "commentDate": date,
+                "commentDateTxt": date,
+                "comment_upvote": 0,
+                "comment_downvote": 0
+            }
+            ThreadCommentService.postThreadComment(threadComment).then();
+            if (imgArray.length>0) {
+                for (const key in imgArray) {
+                    let threadPicture = {
+                        "replier": current_user_id,
+                        "threadDate": thread?.threadDate,
+                        "threadDateTxt": thread?.threadDateTxt,
+                        "commentDate": date,
+                        "commentDateTxt": date,
+                        "threadCommentSinglePicture": imgArray[key]
+                    }
+                    ThreadCommentPicturesService.postThreadCommentPicture(threadPicture).then();
+                }
+            }
+            setimgArray([]);
+            settextBody("");
+
+        }
+    }
+
     return (
         <div>
             <div className="container mt-4">
@@ -188,6 +248,67 @@ export const ThreadView = () => {
                         </div>
                     </div>
                 </div>
+
+
+
+                {isAuthorised=='true'&&
+                    <div className="card mt-3 shadow bg-black-50">
+                        <div className="mb-1 ms-1 me-1 mt-1">
+                            <textarea className="form-control shadow" id="textBody" maxLength={60000} rows={7} placeholder="Write something..." onInput={BodyChanged}></textarea>
+                        </div>
+
+
+                        <div className="d-flex">
+
+                            {imgArray.length>0 &&
+                                imgArray.map(ig => (
+                                    <div>
+                                        <img className='m-1' src={ig} alt="Thread Image" height={60} width={60}/>
+                                    </div>
+                                ))
+                            }
+
+
+                            {imgArray.length<=2&&
+                                <div>
+                                    <label className="form-label text-white m-1" htmlFor="customFile1">
+                                        <div className="add-image"></div>
+                                    </label>
+                                    <input type="file" accept="image/png, image/jpg, image/jpeg" className="form-control d-none"
+                                           id="customFile1"  onChange={(event) => {
+
+                                        if (event.target.files){
+                                            getBase64(event.target.files[0])
+                                        }
+                                    }}/>
+                                </div>
+                            }
+                            <button type="button" className="btn btn-sm btn-outline-success ms-auto mb-3 mt-2 me-1 ps-3 pe-3 pt-0 pb-0" onClick={commentClicked}>
+                                Comment
+                            </button>
+                        </div>
+                </div>
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 <div className="card mt-4">
                     <div className="card-body">
