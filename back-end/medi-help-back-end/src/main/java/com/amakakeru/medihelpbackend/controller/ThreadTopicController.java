@@ -21,7 +21,7 @@ public class ThreadTopicController {
     private ThreadTopicRepo threadTopicRepo;
 
     @GetMapping("/threadTopics")
-    public Page<ThreadTopic> getAllThreadPTopic(Pageable pageable){
+    public Page<ThreadTopic> getAllThreadTopic(Pageable pageable){
 
         return threadTopicRepo.findAll(pageable);
     }

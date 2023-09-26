@@ -32,9 +32,7 @@ CREATE TABLE `following_table` (
   `follower_id` varchar(20) NOT NULL,
   `following_id`varchar(20) NOT NULL,
   
-   PRIMARY KEY (`follow_id`),
-   FOREIGN KEY (`follower_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`following_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+   PRIMARY KEY (`follow_id`)
   
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -45,8 +43,7 @@ CREATE TABLE `search_history` (
   `searcher_id` varchar(20) NOT NULL,
   `search_text`varchar(128) NOT NULL,
   
-   PRIMARY KEY (`search_id`),
-   FOREIGN KEY (`searcher_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+   PRIMARY KEY (`search_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
@@ -63,8 +60,7 @@ CREATE TABLE `thread_history` (
   `thread_upvote`  int default NULL,
   `thread_downvote`  int default NULL,
   
-   PRIMARY KEY (`thread_id`),
-   FOREIGN KEY (`uploader_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+   PRIMARY KEY (`thread_id`)
 ) ENGINE=InnoDB auto_increment=1 DEFAULT CHARSET=latin1;
 
 CREATE INDEX idx_thread_history ON thread_history(`thread_date`);
@@ -77,9 +73,7 @@ CREATE TABLE `thread_topic` (
   `thread_date_topic_txt`  varchar(50) NOT NULL,
   `topic_title` varchar(1000) NOT NULL,
   
-   PRIMARY KEY (`topic_id`),
-   FOREIGN KEY (`uploader_id`) REFERENCES `thread_history` (`uploader_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`thread_date_topic`) REFERENCES `thread_history` (`thread_date`) ON DELETE RESTRICT ON UPDATE CASCADE
+   PRIMARY KEY (`topic_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
@@ -91,9 +85,7 @@ CREATE TABLE `thread_picture` (
   `thread_date_txt`  varchar(50) NOT NULL,
   `thread_single_picture` LONGBLOB default NULL,
   
-   primary key (`picture_id`),
-   FOREIGN KEY (`uploader_id`) REFERENCES `thread_history` (`uploader_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`thread_date`) REFERENCES `thread_history` (`thread_date`) ON DELETE RESTRICT ON UPDATE CASCADE
+   primary key (`picture_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 default CHARSET=latin1;
 
 
@@ -109,9 +101,7 @@ CREATE TABLE `thread_comment` (
   `comment_upvote`  int default NULL,
   `comment_downvote`  int default NULL,
   
-   PRIMARY KEY (`comment_id`),
-   FOREIGN KEY(`thread_date`) REFERENCES `thread_history` (`thread_date`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`replier`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+   PRIMARY KEY (`comment_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 default CHARSET=latin1;
 
 CREATE INDEX idx_thread_comment ON thread_comment(`comment_date`);
@@ -125,10 +115,7 @@ CREATE TABLE `thread_comment_picture` (
   `comment_date`  datetime NOT NULL,
   `comment_date_txt`  varchar(50) NOT NULL,
   `thread_comment_single_picture` LONGBLOB default NULL,
-  primary key (`picture_id`),
-   FOREIGN KEY (`replier`) REFERENCES `thread_comment` (`replier`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY(`thread_date`) REFERENCES `thread_history` (`thread_date`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`comment_date`) REFERENCES `thread_comment` (`comment_date`) ON DELETE RESTRICT ON UPDATE CASCADE
+  primary key (`picture_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 default CHARSET=latin1;
 
 --
@@ -146,8 +133,7 @@ CREATE TABLE `doctor_extra_info` (
   `city` varchar(45) DEFAULT NULL,
   `verified` boolean DEFAULT null,
   `current_rating` decimal(5,1) default null,
-  PRIMARY KEY (`doctor_user_id`),
-  FOREIGN KEY (`doctor_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  PRIMARY KEY (`doctor_user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -157,8 +143,7 @@ CREATE TABLE `doctor_specialities` (
   `doctor_id` varchar(20) NOT NULL,
   `speciality` varchar(1000) NOT NULL,
   
-   PRIMARY KEY (`speciality_id`),
-   FOREIGN KEY (`doctor_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+   PRIMARY KEY (`speciality_id`)
    
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -181,9 +166,7 @@ CREATE TABLE `doctor_professional_qualification` (
   `starting_year` int NOT NULL,
   `ending_year` int default NULL,
   
-  PRIMARY KEY (`doctor_profession_id`),
-  FOREIGN KEY (`doctor_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  FOREIGN KEY (`currently_working_hospital_info_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  PRIMARY KEY (`doctor_profession_id`)
   
 ) ENGINE=InnoDB auto_increment=1 DEFAULT CHARSET=latin1;
 
@@ -205,8 +188,7 @@ CREATE TABLE `blog_history` (
   `blog_upvote`  int default NULL,
   `blog_downvote`  int default NULL,
   
-   PRIMARY KEY (`blog_id`),
-   FOREIGN KEY (`uploader_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+   PRIMARY KEY (`blog_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE INDEX idx_blog_history ON blog_history(`blog_date`);
@@ -219,9 +201,7 @@ CREATE TABLE `blog_topic` (
   `blog_date_topic_txt`  varchar(50) NOT NULL,
   `topic_title` varchar(1000) NOT NULL,
   
-   PRIMARY KEY (`topic_id`),
-   FOREIGN KEY (`uploader_id`) REFERENCES `blog_history` (`uploader_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`blog_date_topic`) REFERENCES `blog_history` (`blog_date`) ON DELETE RESTRICT ON UPDATE CASCADE
+   PRIMARY KEY (`topic_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
@@ -233,9 +213,7 @@ CREATE TABLE `blog_picture` (
   `blog_date_txt`  varchar(50) NOT NULL,
   `blog_single_picture` LONGBLOB default NULL,
   
-   primary key (`picture_id`),
-   FOREIGN KEY (`uploader_id`) REFERENCES `blog_history` (`uploader_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`blog_date`) REFERENCES `blog_history` (`blog_date`) ON DELETE RESTRICT ON UPDATE CASCADE
+   primary key (`picture_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 default CHARSET=latin1;
 
 
@@ -251,9 +229,7 @@ CREATE TABLE `blog_comment` (
   `comment_upvote`  int default NULL,
   `comment_downvote`  int default NULL,
   
-   PRIMARY KEY (`blog_comment_id`),
-   FOREIGN KEY (`blog_date`) REFERENCES `blog_history` (`blog_date`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`replier`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+   PRIMARY KEY (`blog_comment_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 default CHARSET=latin1;
 
 CREATE INDEX idx_blog_comment ON blog_comment(`comment_date`);
@@ -267,10 +243,7 @@ CREATE TABLE `blog_comment_picture` (
   `comment_date`  datetime NOT NULL,
   `comment_date_txt`  varchar(50) NOT NULL,
   `blog_comment_single_picture` LONGBLOB default NULL,
-  primary key (`picture_id`),
-   FOREIGN KEY (`replier`) REFERENCES `blog_comment` (`replier`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`blog_date`) REFERENCES `blog_history` (`blog_date`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`comment_date`) REFERENCES `blog_comment` (`comment_date`) ON DELETE RESTRICT ON UPDATE CASCADE
+  primary key (`picture_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 default CHARSET=latin1;
 
 DROP TABLE IF EXISTS `rating`;
@@ -283,9 +256,7 @@ CREATE TABLE `rating` (
   `rating_time_txt` varchar(50) NOT NULL,
   `rating_text` varchar(512) default NULL,
   `rating_picture` LONGBLOB default NULL,
-  primary key (`rating_id`),
-   FOREIGN KEY (`rating_uploader`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-   FOREIGN KEY (`rating_getter`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  primary key (`rating_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 default CHARSET=latin1;
 
 --
@@ -303,8 +274,7 @@ CREATE TABLE `hospital_extra_info` (
   `bio`varchar(256) default NULL,
   `status` varchar(15) default NULL,
   `governance_details` varchar(512) default null,
-  PRIMARY KEY (`hospital_user_id`),
-  FOREIGN KEY (`hospital_user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  PRIMARY KEY (`hospital_user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `hospital_equipment_list`;
@@ -313,6 +283,5 @@ CREATE TABLE `hospital_equipment_list` (
   `hospital_user_id` varchar(20) not null,
   `equipment_name` varchar(256) not null,
   `quantity` int NOT NULL,
-  PRIMARY KEY (`hospital_equipment_id`),
-  FOREIGN KEY (`hospital_user_id`) REFERENCES `hospital_extra_info` (`hospital_user_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  PRIMARY KEY (`hospital_equipment_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;

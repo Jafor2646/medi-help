@@ -42,8 +42,6 @@ export const ThreadView = () => {
 
             for (const key in responseData) {
 
-                console.log(responseData[key])
-
                 loadedPictures.push({
                     uploaderId: responseData[key].uploaderId,
                     pictureId: responseData[key].pictureId,
@@ -77,8 +75,11 @@ export const ThreadView = () => {
             const responseJson = await response.json();
 
             const responseData = responseJson._embedded.threads[0];
+            let time_name = new Date(responseData.threadDate);
+            let time_msg = time_name.toDateString().slice(0,3) + ',' + time_name.toDateString().slice(3)
 
-            setthread(new ThreadModel(responseData.uploaderId,responseData.threadTitle,responseData.threadBody,responseData.threadDate,responseData.threadDateTxt,responseData.threadView,responseData.threadTrendView,responseData.threadUpvote,responseData.threadDownvote));
+
+            setthread(new ThreadModel(responseData.uploaderId,responseData.threadTitle,responseData.threadBody,responseData.threadDate,time_msg,responseData.threadView,responseData.threadTrendView,responseData.threadUpvote,responseData.threadDownvote));
 
             const resp = await fetch(`${baseUrl}/users/search/findUserByUserId?userId=${globalThreadId}`);
             const respJson = await resp.json();
