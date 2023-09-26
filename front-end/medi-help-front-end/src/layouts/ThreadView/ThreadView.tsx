@@ -11,7 +11,7 @@ export const ThreadView = () => {
 
     const {globalThreadId, globalThreadDate, setglobalUserId} = useContext(GlobalContext);
 
-    const [pictures, setPictures] = useState<ThreadPictureModel[]>([]);
+    const [pictures, setpictures] = useState<ThreadPictureModel[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [httpError, setHttpError] = useState(null);
     const [thread, setthread] = useState<ThreadModel>();
@@ -26,6 +26,7 @@ export const ThreadView = () => {
 
             const url: string = `${baseUrl}/threadPictures/search/findAllByThreadDateTxtAndUploaderId?uploaderId=${globalThreadId}&threadDateTxt=${globalThreadDate}`;
 
+
             const response = await fetch(url);
 
             if (!response.ok) {
@@ -34,11 +35,14 @@ export const ThreadView = () => {
 
             const responseJson = await response.json();
 
-            const responseData = responseJson._embedded.threadpictures;
+            const responseData = responseJson._embedded.threadPictures;
 
             const loadedPictures: ThreadPictureModel[] = [];
 
+
             for (const key in responseData) {
+
+                console.log(responseData[key])
 
                 loadedPictures.push({
                     uploaderId: responseData[key].uploaderId,
@@ -49,7 +53,7 @@ export const ThreadView = () => {
                 });
             }
 
-            setPictures(loadedPictures);
+            setpictures(loadedPictures);
             setIsLoading(false);
         };
         fetchThreads().catch((error: any) => {
@@ -122,7 +126,7 @@ export const ThreadView = () => {
                         <div className="thread-images">
                             {pictures.length>0?
                                 pictures.map(picture => (
-                                    <img src={picture.threadSinglePicture} alt="Thread Picture" width="100" height="100"/>
+                                    <img className="ms-2 mt-2" src={picture.threadSinglePicture} alt="Thread Picture" height="200"/>
                                     ))
                                 :
                                 <span></span>
@@ -133,7 +137,7 @@ export const ThreadView = () => {
                             <button className="btn"><img src={require("./../../images/ThreadView-image/downvote.png")} height="40" className="vote-button"/><span className='m-1'>{thread?.threadDownvote}</span></button>
                             <span className="post-date m-3">Posted On: {thread?.threadDateTxt}</span>
                             <span className="mt-2">
-                                {threadTopics.slice(0,2).map(topc => <TopicBadge topic={topc}/>)}
+                                {threadTopics.slice(0,3).map(topc => <TopicBadge topic={topc}/>)}
                             </span>
                         </div>
                     </div>

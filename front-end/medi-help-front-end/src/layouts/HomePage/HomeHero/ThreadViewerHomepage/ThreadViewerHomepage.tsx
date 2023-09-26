@@ -29,7 +29,7 @@ export const ThreadViewerHomepage = () => {
 
   const [textTitle, settextTitle] = useState("");
   const [textBody, settextBody] = useState("");
-  const [imgArray, setimgArray] = useState<string[]>([]);
+  const [imgArray, setimgArray] = useState<any[]>([]);
   const [topicTable, settopicTable] = useState<TopicTable[]>([]);
   const [selectedTopic, setselectedTopic] = useState<string[]>([]);
 
@@ -155,11 +155,11 @@ export const ThreadViewerHomepage = () => {
   const categoryField = (value: string) => {
     if (value === 'Newest First') {
       setCategorySelection(value);
-      setSearchUrl(`&sort=threadDate`);
+      setSearchUrl(`&sort=threadDate,desc`);
     }
     else if (value === 'Oldest First') {
       setCategorySelection(value);
-      setSearchUrl(`&sort=threadDate,desc`);
+      setSearchUrl(`&sort=threadDate`);
     }
     else if (value === 'Most Voted') {
       setCategorySelection(value);
@@ -180,6 +180,10 @@ export const ThreadViewerHomepage = () => {
   }
   const DiscardClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setpostOpen('false');
+    setimgArray([]);
+    settextTitle("");
+    settextBody("");
+    setselectedTopic([]);
   }
 
   const TitleChanged = (event: React.MouseEvent<HTMLInputElement>) => {
@@ -217,31 +221,49 @@ export const ThreadViewerHomepage = () => {
         "threadUpvote": 0,
         "threadDownvote": 0
       }
-      ThreadServices.createThread(thread).then();
-      for(const key in imgArray){
-        let threadPicture = {
-          "uploaderId": current_user_id,
-          "threadDate": date,
-          "threadDateTxt": date,
-          "threadSinglePicture": imgArray[key]
+      ThreadServices.postThread(thread).then();
+      if (imgArray.length>0) {
+        for (const key in imgArray) {
+          let threadPicture = {
+            "uploaderId": current_user_id,
+            "threadDate": date,
+            "threadDateTxt": date,
+            "threadSinglePicture": imgArray[key]
+          }
+          ThreadPictureService.createThreadPicture(threadPicture).then();
         }
-        ThreadPictureService.createThreadPicture(threadPicture).then();
       }
       for(const key in selectedTopic){
-        let topicList = {
+        let threadTopic = {
           "uploaderId" : current_user_id,
           "threadDateTopic" : date,
           "threadDateTopicTxt": date,
           "topicTitle": selectedTopic[key]
         }
-        ThreadTopicService.createThreadTopic(topicList).then();
+        ThreadTopicService.createThreadTopic(threadTopic).then();
       }
-      // setimgArray([]);
-      // settextTitle("");
-      // settextBody("");
-      // setselectedTopic([]);
-      // setpostOpen('false');
+      setimgArray([]);
+      settextTitle("");
+      settextBody("");
+      setselectedTopic([]);
+      setpostOpen('false');
 
+    }
+  }
+
+  function getBase64(file: any) {
+    let tempImg: any = [];
+    for(let i in imgArray) {
+      tempImg.push(imgArray[i]);
+    }
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      tempImg.push(reader.result);
+      setimgArray(tempImg);
+    };
+    reader.onerror = function (error) {
+      console.log('Error', error);
     }
   }
 
@@ -329,22 +351,7 @@ export const ThreadViewerHomepage = () => {
                 {imgArray.length>0 &&
                     imgArray.map(ig => (
                         <div>
-                          {/*<button data-bs-toggle="modal" data-bs-target="#imageModal">*/}
                             <img className='m-1' src={ig} alt="Thread Image" height={60} width={60}/>
-                          {/*</button>*/}
-                          {/*<div className="modal fade" id="imageModal" aria-labelledby="exampleModalLabel" aria-hidden="true">*/}
-                          {/*  <div className="modal-dialog modal-xl  modal-dialog-scrollable modal-dialog-centered">*/}
-                          {/*    <div className="modal-content">*/}
-                          {/*      <div className="modal-body">*/}
-                          {/*        <img src={ig} alt="Thread Image"  height={400}/>*/}
-                          {/*      </div>*/}
-                          {/*      <div className="modal-footer">*/}
-                          {/*        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>*/}
-                          {/*        <button type="button" className="btn btn-danger">Remove</button>*/}
-                          {/*      </div>*/}
-                          {/*    </div>*/}
-                          {/*  </div>*/}
-                          {/*</div>*/}
                         </div>
                       ))
                 }
@@ -357,14 +364,10 @@ export const ThreadViewerHomepage = () => {
                   </label>
                   <input type="file" accept="image/png, image/jpg, image/jpeg" className="form-control d-none"
                          id="customFile1"  onChange={(event) => {
-                           let tempImg: string[] = [];
-                           for(let i in imgArray) {
-                             tempImg.push(imgArray[i]);
+
+                           if (event.target.files){
+                             getBase64(event.target.files[0])
                            }
-                           if (event.target.files != null){
-                             tempImg.push(URL.createObjectURL(event.target.files[0]));
-                           }
-                           setimgArray(tempImg);
                   }}/>
                 </div>}
 

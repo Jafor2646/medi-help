@@ -1,11 +1,12 @@
 import ThreadViewerModel from "../../../../models/ThreadViewerModel/ThreadViewerModel";
 import {useHistory} from "react-router-dom";
 import {TopicBadge} from "../../../utils/TopicBadge";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {GlobalContext} from "../../../../Auth/GlobalContext";
 
 export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) => {
   const {setglobalThreadId, setglobalThreadDate, setglobalUserId} = useContext(GlobalContext);
+
   const history = useHistory();
   let body_text: String;
   if (props.thread.threadBody.length >182){
@@ -16,6 +17,7 @@ export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) =
   }
 
   let userId: string = props.thread.uploaderId;
+  let userDate: string = props.thread.threadDateTxt;
 
   let date_msg: Date = new Date(props.thread.threadDate);
 
@@ -25,8 +27,8 @@ export const SingleThreadCard: React.FC<{thread: ThreadViewerModel}> = (props) =
   }
 
   const threadClicked = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    setglobalThreadId(props.thread.uploaderId);
-    setglobalThreadDate(props.thread.threadDateTxt);
+    setglobalThreadId(userId);
+    setglobalThreadDate(userDate);
     history.push('/thread');
   }
 
