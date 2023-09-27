@@ -18,12 +18,8 @@ public class BlogComment {
     @Column(name = "replier")
     private String replier;
 
-    @Column(name = "blog_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date blogDate;
-
-    @Column(name = "blog_date_txt")
-    private String blogDateTxt;
+    @Column(name = "blog_id")
+    private Integer blogId;
 
     @Column(name = "comment_body")
     private String commentBody;

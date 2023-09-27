@@ -93,8 +93,7 @@ DROP TABLE IF EXISTS `thread_comment`;
 CREATE TABLE `thread_comment` (
   `comment_id` int AUTO_INCREMENT NOT NULL,
   `replier` varchar(20) NOT NULL,
-  `thread_date` datetime NOT NULL,
-  `thread_date_txt` varchar(50) NOT NULL,
+  `thread_id` int NOT NULL,
   `comment_body` varchar(60000) NOT NULL,
   `comment_date` datetime NOT NULL,
   `comment_date_txt` varchar(50) NOT NULL,
@@ -109,11 +108,7 @@ CREATE INDEX idx_thread_comment ON thread_comment(`comment_date`);
 DROP TABLE IF EXISTS `thread_comment_picture`;
 CREATE TABLE `thread_comment_picture` (
   `picture_id` int not null auto_increment,
-  `replier` varchar(20) NOT NULL,
-  `thread_date` datetime NOT NULL,
-  `thread_date_txt` varchar(50) NOT NULL,
-  `comment_date`  datetime NOT NULL,
-  `comment_date_txt`  varchar(50) NOT NULL,
+  `comment_id` varchar(20) NOT NULL,
   `thread_comment_single_picture` LONGBLOB default NULL,
   primary key (`picture_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 default CHARSET=latin1;
@@ -221,8 +216,7 @@ DROP TABLE IF EXISTS `blog_comment`;
 CREATE TABLE `blog_comment` (
   `blog_comment_id` int AUTO_INCREMENT NOT NULL,
   `replier` varchar(20) NOT NULL,
-  `blog_date` datetime NOT NULL,
-  `blog_date_txt` varchar(50) NULL,
+  `blog_id` int NOT NULL,
   `comment_body` varchar(60000) NOT NULL,
   `comment_date` datetime NOT NULL,
   `comment_date_txt` varchar(50) NOT NULL,
@@ -237,11 +231,7 @@ CREATE INDEX idx_blog_comment ON blog_comment(`comment_date`);
 DROP TABLE IF EXISTS `blog_comment_picture`;
 CREATE TABLE `blog_comment_picture` (
   `picture_id` int not null auto_increment,
-  `replier` varchar(20) NOT NULL,
-  `blog_date` datetime NOT NULL,
-  `blog_date_txt` varchar(50) NOT NULL,
-  `comment_date`  datetime NOT NULL,
-  `comment_date_txt`  varchar(50) NOT NULL,
+  `blog_comment_id` int NOT NULL,
   `blog_comment_single_picture` LONGBLOB default NULL,
   primary key (`picture_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 default CHARSET=latin1;

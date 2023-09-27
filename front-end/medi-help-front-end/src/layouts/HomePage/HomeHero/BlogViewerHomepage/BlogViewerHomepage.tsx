@@ -318,6 +318,7 @@ export const BlogViewerHomepage = () => {
 
 
   return (
+
       <div className={"home-thread-bg shadow"}>
         <div className="container-fluid">
           <div className="d-flex justify-content-between">

@@ -1,20 +1,12 @@
 class BlogCommentPictureModel {
   pictureId: number;
-  replier: string;
-  blogDate: Date;
-  blogDateTxt: String;
-  commentDate: Date;
-  commentDateTxt: String;
+  commentID: number;
   blogCommentSinglePicture?: string;
   
 
-  constructor(pictureId: number, replier: string, blogDate: Date, blogDateTxt: String,commentDate: Date, commentDateTxt: String,blogCommentSinglePicture: string) {
+  constructor(pictureId: number, commentId: number, blogCommentSinglePicture: string) {
       this.pictureId = pictureId;
-      this.replier = replier;
-      this.blogDate = blogDate;
-      this.blogDateTxt = blogDateTxt;
-      this.commentDate = commentDate;
-      this.commentDateTxt = commentDateTxt;
+      this.commentID = commentId;
       this.blogCommentSinglePicture = blogCommentSinglePicture;
   }
 }

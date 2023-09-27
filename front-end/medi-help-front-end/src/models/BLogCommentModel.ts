@@ -1,19 +1,17 @@
 class BlogCommentModel {
   blogCommentId: number;
   replier: string;
-  blogDate: Date;
-  blogDateTxt: String;
+  blogId: number;
   commentBody: string;
   commentDate: Date;
   commentDateTxt: String;
   commentUpvote?: number;
   commentDownvote?: number;
 
-  constructor(blogCommentId: number, replier: string, blogDate: Date, blogDateTxt: String,commentBody: string, commentDate: Date, commentDateTxt: String,commentUpvote: number, commentDownvote: number) {
+  constructor(blogCommentId: number, replier: string, blogId: number,commentBody: string, commentDate: Date, commentDateTxt: String,commentUpvote: number, commentDownvote: number) {
       this.blogCommentId = blogCommentId;
       this.replier = replier;
-      this.blogDate = blogDate;
-      this.blogDateTxt = blogDateTxt;
+      this.blogId = blogId;
       this.commentBody = commentBody;
       this.commentDate = commentDate;
       this.commentDateTxt = commentDateTxt;

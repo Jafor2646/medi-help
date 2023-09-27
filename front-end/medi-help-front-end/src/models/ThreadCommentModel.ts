@@ -1,19 +1,17 @@
 class ThreadCommentModel {
   commentId: number;
   replier: string;
-  threadDate: Date;
-  threadDateTxt: String;
+  threadId: number;
   commentBody: string;
   commentDate: Date;
-  commentDateTxt: String;
+  commentDateTxt: string;
   commentUpvote?: number;
   commentDownvote?: number;
 
-  constructor(commentId: number, replier: string, threadDate: Date, threadDateTxt: String,commentBody: string, commentDate: Date, commentDateTxt: String,commentUpvote: number, commentDownvote: number) {
+  constructor(commentId: number, replier: string, threadId: number,commentBody: string, commentDate: Date, commentDateTxt: string,commentUpvote: number, commentDownvote: number) {
       this.commentId = commentId;
       this.replier = replier;
-      this.threadDate = threadDate;
-      this.threadDateTxt = threadDateTxt;
+      this.threadId = threadId;
       this.commentBody = commentBody;
       this.commentDate = commentDate;
       this.commentDateTxt = commentDateTxt;

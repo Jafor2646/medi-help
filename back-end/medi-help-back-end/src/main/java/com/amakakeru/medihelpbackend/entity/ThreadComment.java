@@ -18,12 +18,8 @@ public class ThreadComment {
     @Column(name = "replier")
     private String replier;
 
-    @Column(name = "thread_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date threadDate;
-
-    @Column(name = "thread_date_txt")
-    private String threadDateTxt;
+    @Column(name = "thread_id")
+    private Integer threadId;
 
     @Column(name = "comment_body")
     private String commentBody;
