@@ -26,5 +26,5 @@ public class BlogTopic {
     private String blogDateTopicTxt;
 
     @Column(name = "topic_title")
-    private Integer topicTitle;
+    private String topicTitle;
 }
