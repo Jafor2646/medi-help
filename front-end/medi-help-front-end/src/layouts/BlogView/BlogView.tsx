@@ -10,6 +10,8 @@ import BlogTopicService from "../../Service/BlogTopicService";
 import {UserContext} from "../../Auth/UserContext";
 import BlogCommentService from "../../Service/BlogCommentService";
 import BlogCommentPicturesService from "../../Service/BlogCommentPicturesService";
+import {SingleBlogComment} from "./SingleBlogComment";
+import {BlogComment} from "./BlogComment";
 export const BlogView = () => {
     const history = useHistory();
 
@@ -32,9 +34,10 @@ export const BlogView = () => {
 
     useEffect(() => {
         const fetchBlogs = async () => {
+
             const baseUrl: string = "http://localhost:8080/api";
 
-            const url: string = `${baseUrl}/blogPictures/search/findAllByBlogDateTxtAndUploaderId?uploaderId=${globalBlogId}&blogDateTxt=${globalBlogDate}`;
+            const url: string = `${baseUrl}/blogPictures/search/findAllByblogDateTxtAndUploaderId?uploaderId=${globalBlogId}&blogDateTxt=${globalBlogDate}`;
 
 
             const response = await fetch(url);
@@ -95,18 +98,16 @@ export const BlogView = () => {
             blogLink = blogLink[blogLink.length-1];
             let currentBlogId = Number(blogLink);
             viewAdded(currentBlogId);
+            setblogId(currentBlogId);
 
 
 
             setblog(new BlogModel(currentBlogId,responseData.uploaderId,responseData.blogTitle,responseData.blogBody,responseData.blogDate,time_msg,responseData.blogView,responseData.blogTrendView,responseData.blogUpvote,responseData.blogDownvote));
 
-            let myLink = responseData._links.self.href.split("/");
-            myLink = myLink[myLink.length-1];
-            setblogId(Number(myLink));
 
             const resp = await fetch(`${baseUrl}/users/search/findUserByUserId?userId=${globalBlogId}`);
             const respJson = await resp.json();
-            const respData = respJson._embedded.users[0];
+            const respData = respJson.embedded.users[0];
             setuploaderPicture(respData.picture);
 
             const topicResp = await fetch(`${baseUrl}/blogTopics/search/findByUploaderIdAndBlogDateTopicTxt?uploaderId=${globalBlogId}&blogDateTopicTxt=${responseData.blogDateTxt}`);
@@ -123,7 +124,7 @@ export const BlogView = () => {
         fetchBlogs().catch((error: any) => {
             setHttpError(error.message);
         })
-    }, []);
+    }, [blogId]);
 
     const UploaderProfileClicked = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
         setglobalUserId(globalBlogId);
@@ -157,58 +158,58 @@ export const BlogView = () => {
         BlogServices.viewAdded(currentBlogId).then();
     }
 
-    function getBase64(file: any) {
-        let tempImg: any = [];
-        for(let i in imgArray) {
-            tempImg.push(imgArray[i]);
-        }
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = function () {
-            tempImg.push(reader.result);
-            setimgArray(tempImg);
-        };
-        reader.onerror = function (error) {
-            console.log('Error', error);
-        }
-    }
-
-    const BodyChanged = (event: React.MouseEvent<HTMLTextAreaElement>) => {
-        settextBody(event.currentTarget.value);
-    }
-
-    const commentClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        let date = new Date().toJSON()
-        if (textBody.length>5) {
-            let blogComment = {
-                "replier": current_user_id,
-                "commentBody": textBody,
-                "blogDate": blog?.blogDate,
-                "blogDateTxt": blog?.blogDateTxt,
-                "commentDate": date,
-                "commentDateTxt": date,
-                "comment_upvote": 0,
-                "comment_downvote": 0
-            }
-            BlogCommentService.postBlogComment(blogComment).then();
-            if (imgArray.length>0) {
-                for (const key in imgArray) {
-                    let blogPicture = {
-                        "replier": current_user_id,
-                        "blogDate": blog?.blogDate,
-                        "blogDateTxt": blog?.blogDateTxt,
-                        "commentDate": date,
-                        "commentDateTxt": date,
-                        "blogCommentSinglePicture": imgArray[key]
-                    }
-                    BlogCommentPicturesService.postBlogCommentPicture(blogPicture).then();
-                }
-            }
-            setimgArray([]);
-            settextBody("");
-
-        }
-    }
+    // function getBase64(file: any) {
+    //     let tempImg: any = [];
+    //     for(let i in imgArray) {
+    //         tempImg.push(imgArray[i]);
+    //     }
+    //     let reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = function () {
+    //         tempImg.push(reader.result);
+    //         setimgArray(tempImg);
+    //     };
+    //     reader.onerror = function (error) {
+    //         console.log('Error', error);
+    //     }
+    // }
+    //
+    // const BodyChanged = (event: React.MouseEvent<HTMLTextAreaElement>) => {
+    //     settextBody(event.currentTarget.value);
+    // }
+    //
+    // const commentClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    //     let date = new Date().toJSON()
+    //     if (textBody.length>5) {
+    //         let threadComment = {
+    //             "replier": current_user_id,
+    //             "commentBody": textBody,
+    //             "threadDate": thread?.threadDate,
+    //             "threadDateTxt": thread?.threadDateTxt,
+    //             "commentDate": date,
+    //             "commentDateTxt": date,
+    //             "comment_upvote": 0,
+    //             "comment_downvote": 0
+    //         }
+    //         ThreadCommentService.postThreadComment(threadComment).then();
+    //         if (imgArray.length>0) {
+    //             for (const key in imgArray) {
+    //                 let threadPicture = {
+    //                     "replier": current_user_id,
+    //                     "threadDate": thread?.threadDate,
+    //                     "threadDateTxt": thread?.threadDateTxt,
+    //                     "commentDate": date,
+    //                     "commentDateTxt": date,
+    //                     "threadCommentSinglePicture": imgArray[key]
+    //                 }
+    //                 ThreadCommentPicturesService.postThreadCommentPicture(threadPicture).then();
+    //             }
+    //         }
+    //         setimgArray([]);
+    //         settextBody("");
+    //
+    //     }
+    // }
 
     return (
         <div>
@@ -250,103 +251,66 @@ export const BlogView = () => {
 
 
 
-                {isAuthorised=='true'&&
-                    <div className="card mt-3 shadow bg-black-50">
-                        <div className="mb-1 ms-1 me-1 mt-1">
-                            <textarea className="form-control shadow" id="textBody" maxLength={60000} rows={7} placeholder="Write something..." onInput={BodyChanged}></textarea>
-                        </div>
+                {/*{isAuthorised=='true'&&*/}
+                {/*    <div className="card mt-3 shadow bg-black-50">*/}
+                {/*        <div className="mb-1 ms-1 me-1 mt-1">*/}
+                {/*            <textarea className="form-control shadow" id="textBody" maxLength={60000} rows={7} placeholder="Write something..." onInput={BodyChanged}></textarea>*/}
+                {/*        </div>*/}
 
 
-                        <div className="d-flex">
+                {/*        <div className="d-flex">*/}
 
-                            {imgArray.length>0 &&
-                                imgArray.map(ig => (
-                                    <div>
-                                        <img className='m-1' src={ig} alt="Blog Image" height={60} width={60}/>
-                                    </div>
-                                ))
-                            }
+                {/*            {imgArray.length>0 &&*/}
+                {/*                imgArray.map(ig => (*/}
+                {/*                    <div>*/}
+                {/*                        <img className='m-1' src={ig} alt="Thread Image" height={60} width={60}/>*/}
+                {/*                    </div>*/}
+                {/*                ))*/}
+                {/*            }*/}
 
 
-                            {imgArray.length<=2&&
-                                <div>
-                                    <label className="form-label text-white m-1" htmlFor="customFile1">
-                                        <div className="add-image"></div>
-                                    </label>
-                                    <input type="file" accept="image/png, image/jpg, image/jpeg" className="form-control d-none"
-                                           id="customFile1"  onChange={(event) => {
+                {/*            {imgArray.length<=2&&*/}
+                {/*                <div>*/}
+                {/*                    <label className="form-label text-white m-1" htmlFor="customFile1">*/}
+                {/*                        <div className="add-image"></div>*/}
+                {/*                    </label>*/}
+                {/*                    <input type="file" accept="image/png, image/jpg, image/jpeg" className="form-control d-none"*/}
+                {/*                           id="customFile1"  onChange={(event) => {*/}
 
-                                        if (event.target.files){
-                                            getBase64(event.target.files[0])
-                                        }
-                                    }}/>
-                                </div>
-                            }
-                            <button type="button" className="btn btn-sm btn-outline-success ms-auto mb-3 mt-2 me-1 ps-3 pe-3 pt-0 pb-0" onClick={commentClicked}>
-                                Comment
-                            </button>
-                        </div>
-                </div>
+                {/*                        if (event.target.files){*/}
+                {/*                            getBase64(event.target.files[0])*/}
+                {/*                        }*/}
+                {/*                    }}/>*/}
+                {/*                </div>*/}
+                {/*            }*/}
+                {/*            <button type="button" className="btn btn-sm btn-outline-success ms-auto mb-3 mt-2 me-1 ps-3 pe-3 pt-0 pb-0" onClick={commentClicked}>*/}
+                {/*                Comment*/}
+                {/*            </button>*/}
+                {/*        </div>*/}
+                {/*</div>*/}
+                {/*}*/}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {blogId != undefined &&
+                    <BlogComment blogId={blogId}/>
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div className="card mt-4">
-                    <div className="card-body">
-                        <div className="comment">
-                            <div className="comment-user">
-                                <img src={require('./../../images/ThreadView-image/CommentDp.jpg')} alt="Profile" className="rounded-circle" width="40" />
-                                <span className="ml-2">Alice Smith</span>
-                                <span className="comment-date ml-2">September 22, 2023</span>
-                            </div>
-                            <p>Nice thread!</p>
-                            <div className="comment-images">
-                            </div>
-                            <div className="comment-actions mt-2">
-                                <button className="btn btn-sm btn-primary">Upvote</button>
-                                <button className="btn btn-sm btn-danger">Downvote</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="card mt-3">
-                    <div className="card-body">
-                        <div className="comment">
-                            <div className="comment-user">
-                                <img src={require('./../../images/ThreadView-image/ThreadDp.jpg')} alt="Profile" className="rounded-circle" width="40" />
-                                <span className="ml-2">Bob Johnson</span>
-                                <span className="comment-date ml-2">September 23, 2023</span>
-                            </div>
-                            <p>I have a comment...</p>
-                            <div className="comment-images">
-                                <img src={require('./../../images/ThreadView-image/body3.jpeg')} alt="Comment Image" className="img-fluid" />
-                            </div>
-                            <div className="comment-actions mt-2">
-                                <button className="btn btn-sm btn-primary">Upvote</button>
-                                <button className="btn btn-sm btn-danger">Downvote</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     );

@@ -14,6 +14,7 @@ import {GlobalContext} from "./Auth/GlobalContext";
 import {SearchPage} from "./layouts/SearchPage/SearchPage";
 import {Profile} from "./layouts/Profiles/Profile";
 import {FollowingList} from "./layouts/Profiles/UserProfile/FollowingList";
+import { BlogView } from "./layouts/BlogView/BlogView";
 
 
 function App() {
@@ -53,6 +54,9 @@ function App() {
                 </Route>
                 <Route path='/thread'>
                     <ThreadView/>
+                </Route>
+                <Route path='/blog'>
+                    <BlogView/>
                 </Route>
                 <Route path='/profile'>
                     <Profile/>

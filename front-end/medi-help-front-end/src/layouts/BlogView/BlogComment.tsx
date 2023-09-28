@@ -45,7 +45,7 @@ export const BlogComment: React.FC<{blogId: number}> = (props) => {
 
       const responseJson = await response.json();
 
-      const responseData = responseJson._embedded.threadComments;
+      const responseData = responseJson._embedded.blogComments;
 
       setTotalAmountOfComments(responseJson.page.totalElements);
       setTotalPages(responseJson.page.totalPage);
@@ -60,7 +60,7 @@ export const BlogComment: React.FC<{blogId: number}> = (props) => {
         loadedComments.push({
           blogCommentId: myid,
           replier: responseData[key].replier,
-          blogId: responseData[key].threadId,
+          blogId: responseData[key].blogId,
           commentBody: responseData[key].commentBody,
           commentDate: responseData[key].commentDate,
           commentDateTxt: responseData[key].commentDateTxt,
@@ -149,7 +149,7 @@ export const BlogComment: React.FC<{blogId: number}> = (props) => {
       let blogComment = {
         "replier": current_user_id,
         "commentBody": textBody,
-        "threadId": props.blogId,
+        "blogId": props.blogId,
         "commentDate": date,
         "commentDateTxt": date,
         "comment_upvote": 0,
@@ -161,7 +161,7 @@ export const BlogComment: React.FC<{blogId: number}> = (props) => {
             for (const key in imgArray) {
               let blogPicture = {
                 "replier": current_user_id,
-                "commentId": resp.data.commentId,
+                "blogCommentId": resp.data.blogCommentId,
                 "blogCommentSinglePicture": imgArray[key]
               }
               BlogCommentPicturesService.postBlogCommentPicture(blogPicture).then();
@@ -248,7 +248,7 @@ export const BlogComment: React.FC<{blogId: number}> = (props) => {
                 {imgArray.length>0 &&
                     imgArray.map(ig => (
                         <div>
-                          <img className='m-1' src={ig} alt="Thread Image" height={60} width={60}/>
+                          <img className='m-1' src={ig} alt="Blog Image" height={60} width={60}/>
                         </div>
                     ))
                 }

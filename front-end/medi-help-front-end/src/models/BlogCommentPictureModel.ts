@@ -1,12 +1,12 @@
 class BlogCommentPictureModel {
   pictureId: number;
-  commentID: number;
+  blogCommentID: string;
   blogCommentSinglePicture?: string;
   
 
-  constructor(pictureId: number, commentId: number, blogCommentSinglePicture: string) {
+  constructor(pictureId: number, blogCommentID: string, blogCommentSinglePicture: string) {
       this.pictureId = pictureId;
-      this.commentID = commentId;
+      this.blogCommentID = blogCommentID;
       this.blogCommentSinglePicture = blogCommentSinglePicture;
   }
 }
