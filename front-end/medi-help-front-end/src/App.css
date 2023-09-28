@@ -123,3 +123,13 @@
   border-bottom-left-radius: 0.7rem;
   border-bottom-right-radius: 0.7rem;
 }
+
+.single-doctor-card{
+  border-top-left-radius: 0.4rem;
+  border-bottom-left-radius: 0.4rem;
+}
+
+.single-doctor-card:hover{
+  border-top-left-radius: 0.9rem;
+  border-bottom-left-radius: 0.9rem;
+}

@@ -1,11 +1,11 @@
-import { ThreadViewerHomepage } from "../../HomePage/HomeHero/ThreadViewerHomepage/ThreadViewerHomepage";
 import UserModel  from "../../../models/UserModel";
-import {Link, useLocation} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { SpinnerLoading } from "../../utils/SpinnerLoading";
 import {UserContext} from "../../../Auth/UserContext";
 import {GlobalContext} from "../../../Auth/GlobalContext";
 import {ThreadViewerUserProfile} from "./ThreadViewerUserProfile";
+import {useHistory} from "react-router-dom";
+import {FollowingList} from "./FollowingList";
 
 export const UserProfile = () => {
 
@@ -18,6 +18,9 @@ export const UserProfile = () => {
   const [httpError, setHttpError] = useState(null);
   const [isOwner, setisOwner] = useState(false);
   const [totalFollowing, settotalFollowing] = useState(0);
+  const [currentState, setcurrentState] = useState<string>('Timeline');
+
+  const history = useHistory();
 
   useEffect(() => {
     if (current_user_id == globalUserId){
@@ -61,7 +64,6 @@ export const UserProfile = () => {
     const fetchProfile = async () => {
       const baseUrl: string = "http://localhost:8080/api";
       const url: string = `${baseUrl}/followingTables/search/findAllByFollowerId?followerId=${globalUserId}`;
-      console.log(url);
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -91,6 +93,16 @@ export const UserProfile = () => {
         </div>
     )
   }
+
+  let toggleTimeline  = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    if (currentState == 'Timeline'){
+    setcurrentState("Following")
+    }
+    else {
+    setcurrentState("Timeline")
+    }
+  }
+
   return (
     <div className="d-flex container-fluid">
       <div className="row">
@@ -119,15 +131,33 @@ export const UserProfile = () => {
             <p className="fw-bold fs-4 m-0">{user?.userName}</p>
             <p>@{user?.userId}</p>
           </div>
-          <div className="pt-1 pe-3">
-            <Link type="button" to="/following">
-              Following {totalFollowing} Doctors
-            </Link>
-          </div>
+          {currentState=='Following'&&
+              <div>
+                <a href="#" className="btn btn-outline-dark mb-1" onClick={toggleTimeline}>
+                  Timeline
+                </a>
+              </div>
+          }
+
+          {currentState=='Timeline'&&
+              <div>
+                <a href="#" className="btn btn-outline-dark" onClick={toggleTimeline}>
+                  Following {totalFollowing} Doctors
+                </a>
+              </div>
+          }
         </div>
-      <div className="col-lg-9 mt-1">
-        <ThreadViewerUserProfile userId={globalUserId}/>
-      </div>
+        {currentState == 'Timeline'&&
+            <div className="col-lg-9 mt-1">
+              <ThreadViewerUserProfile userId={globalUserId}/>
+            </div>
+        }
+        {currentState == 'Following'&&
+            <div className="col-lg-9 mt-1">
+              <FollowingList/>
+            </div>
+        }
+
       </div>
     </div>
   );
