@@ -1,17 +1,85 @@
 import {useHistory} from "react-router-dom";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {GlobalContext} from "../../Auth/GlobalContext";
 import ThreadCommentModel from "../../models/ThreadCommentModel";
 
 export const SingleThreadComment: React.FC<{comments: ThreadCommentModel}> = (props) => {
   const {setglobalThreadId, setglobalThreadDate, setglobalUserId} = useContext(GlobalContext);
+  const [commenterDp, setcommenterDp] = useState<string>();
+  const [commenterType, setcommenterType] = useState<string>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState(null);
+  const [imgArray, setimgArray] = useState<string[]>([]);
 
   const history = useHistory();
-
-  let userId: string = props.comments.replier;
-  let userDate: string = props.comments.commentDateTxt;
+  let userId = props.comments.replier;
 
   let date_msg: Date = new Date(props.comments.commentDate);
+
+  useEffect(() => {
+    const fetchThreads = async () => {
+      const baseUrl: string = "http://localhost:8080/api";
+
+
+      const url: string = `${baseUrl}/users/search/findUserByUserId?userId=${props.comments.replier}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+
+      const responseJson = await response.json();
+
+      const responseData = responseJson._embedded.users[0];
+
+      setcommenterDp(responseData.picture);
+      setcommenterType(responseData.userType);
+
+      setIsLoading(false);
+    };
+    fetchThreads().catch((error: any) => {
+      setHttpError(error.message);
+    })
+    // window.scrollTo(0, 0);
+  }, []);
+
+
+  // img download
+  useEffect(() => {
+    const fetchThreads = async () => {
+      const baseUrl: string = "http://localhost:8080/api";
+
+
+      const url: string = `${baseUrl}/threadCommentPictures/search/findAllByCommentId?commentId=${props.comments.commentId}`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+
+      const responseJson = await response.json();
+
+      const responseData = responseJson._embedded.threadCommentPictures;
+
+      let tempImgArray: string[] = [];
+
+      for (const key in responseData){
+        tempImgArray.push(
+            responseData[key].threadCommentSinglePicture
+        )
+      }
+      setimgArray(tempImgArray);
+
+      setIsLoading(false);
+    };
+    fetchThreads().catch((error: any) => {
+      setHttpError(error.message);
+    })
+    // window.scrollTo(0, 0);
+  }, []);
+
 
   const profileCLicked = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     setglobalUserId(userId);
@@ -22,24 +90,32 @@ export const SingleThreadComment: React.FC<{comments: ThreadCommentModel}> = (pr
   return (
       <div className="card shadow text-dark mt-1 m-2  card-hover-style">
         <div className="card-body">
-          <p className="card-text">{props.comments.commentBody}</p>
           <a href="#" className="username-mini-viewer" onClick={profileCLicked}>
-            {/*{props.comments.userPicture?*/}
-            {/*    <img src={props.thread.userPicture} width='20' height='20' alt="Profile Picture"/>*/}
-            {/*    :*/}
-            {/*    <img src={require('./../../../../images/Placeholder-images/placeholder-dp.png')} width='20' height='20' alt="Profile Picture"/>*/}
-            {/*}*/}
+            {commenterDp?
+                <img src={commenterDp} width='20' height='20' alt="Profile Picture"/>
+                :
+                <img src={require('./../../images/Placeholder-images/placeholder-dp.png')} width='20' height='20' alt="Profile Picture"/>
+            }
             <span className="m-1">
               {userId}
             </span>
-            {/*{props.thread.userType==="Doctor"?*/}
-            {/*    <img src={require('./../../../../images/Placeholder-images/doctor-icon.png')} width='20' height='20' alt="Verified Doctor"/>*/}
-            {/*    :*/}
-            {/*    <span></span>*/}
-            {/*}*/}
+            {commenterType==="Doctor"?
+                <img src={require('./../../images/Placeholder-images/doctor-icon.png')} width='20' height='20' alt="Verified Doctor"/>
+                :
+                <span></span>
+            }
 
           </a>
           <span className="m-2 text-end">{date_msg.toDateString().slice(0,3) + ',' + date_msg.toDateString().slice(3)}</span>
+
+          <p className="card-text">{props.comments.commentBody}</p>
+          <div className="thread-images">
+            {imgArray.length>0&&
+                imgArray.map(picture => (
+                    <img className="ms-2 mt-2" src={picture} alt="Thread Comment Picture" height="100"/>
+                ))
+            }
+          </div>
         </div>
       </div>
   );

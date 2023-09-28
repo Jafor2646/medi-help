@@ -54,8 +54,11 @@ export const ThreadComment: React.FC<{threadId: number}> = (props) => {
 
       for (const key in responseData) {
 
+        let myLink = responseData[key]._links.self.href;
+        let myarr = myLink.split('/');
+        let myid = myarr[myarr.length-1];
         loadedComments.push({
-          commentId: responseData[key].commentId,
+          commentId: myid,
           replier: responseData[key].replier,
           threadId: responseData[key].threadId,
           commentBody: responseData[key].commentBody,
@@ -158,7 +161,7 @@ export const ThreadComment: React.FC<{threadId: number}> = (props) => {
             for (const key in imgArray) {
               let threadPicture = {
                 "replier": current_user_id,
-                "commentId": resp.data.threadId,
+                "commentId": resp.data.commentId,
                 "threadCommentSinglePicture": imgArray[key]
               }
               ThreadCommentPicturesService.postThreadCommentPicture(threadPicture).then();
