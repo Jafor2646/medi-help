@@ -12,6 +12,7 @@ import {UserContext} from "./Auth/UserContext";
 import Cookies from "js-cookie";
 import {GlobalContext} from "./Auth/GlobalContext";
 import {SearchPage} from "./layouts/SearchPage/SearchPage";
+import {Profile} from "./layouts/Profiles/Profile";
 
 
 function App() {
@@ -53,7 +54,7 @@ function App() {
                     <ThreadView/>
                 </Route>
                 <Route path='/profile'>
-                    <UserProfile/>
+                    <Profile/>
                 </Route>
                 <Route path='/login'>
                     <LoginPage/>

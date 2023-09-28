@@ -268,9 +268,6 @@ export const ThreadComment: React.FC<{threadId: number}> = (props) => {
                       }}/>
                     </div>
                 }
-                <button type="button" className="btn btn-sm btn-outline-success ms-auto mb-3 mt-2 me-1 ps-3 pe-3 pt-0 pb-0" onClick={commentClicked}>
-                  Comment
-                </button>
               </div>
             </div>
         }
