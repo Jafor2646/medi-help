@@ -276,6 +276,7 @@ export const BlogViewerHomepage = () => {
             "blogDateTxt": date,
             "blogSinglePicture": imgArray[key]
           }
+          console.log(blogPicture);
           BlogPictureService.createBlogPicture(blogPicture).then();
         }
       }
