@@ -2,9 +2,7 @@ package com.amakakeru.medihelpbackend.controller;
 
 
 import com.amakakeru.medihelpbackend.dao.BlogCommentPictureRepo;
-import com.amakakeru.medihelpbackend.dao.ThreadCommentPictureRepo;
 import com.amakakeru.medihelpbackend.entity.BlogCommentPicture;
-import com.amakakeru.medihelpbackend.entity.ThreadCommentPicture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
