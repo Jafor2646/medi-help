@@ -5,6 +5,7 @@ import {useContext, useEffect, useState} from "react";
 import { SpinnerLoading } from "../../utils/SpinnerLoading";
 import {UserContext} from "../../../Auth/UserContext";
 import {GlobalContext} from "../../../Auth/GlobalContext";
+import {ThreadViewerUserProfile} from "./ThreadViewerUserProfile";
 
 export const UserProfile = () => {
 
@@ -92,14 +93,13 @@ export const UserProfile = () => {
   }
   return (
     <div className="d-flex container-fluid">
-      <div className="row ">
+      <div className="row">
         <div className="col-lg-2 m-2 ms-0 mt-0 p-1 user-profile-bg">
           <div>
             {user?.picture?
               <img
                 className="img-fluid p-1 shadow"
                 src={user?.picture}
-                width='250'
                 height='250'
                 alt="Profile Image"
                 loading="eager"
@@ -108,7 +108,6 @@ export const UserProfile = () => {
               <img
                 className="img-fluid p-1 shadow"
                 src={require("./../../../images/Placeholder-images/placeholder-dp.png")}
-                width='250'
                 height='250'
                 alt="Profile Image"
                 loading="eager"
@@ -127,7 +126,7 @@ export const UserProfile = () => {
           </div>
         </div>
       <div className="col-lg-9 mt-1">
-        <ThreadViewerHomepage/>
+        <ThreadViewerUserProfile userId={globalUserId}/>
       </div>
       </div>
     </div>

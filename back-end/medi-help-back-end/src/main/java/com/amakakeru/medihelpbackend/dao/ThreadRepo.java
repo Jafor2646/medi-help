@@ -10,4 +10,5 @@ import java.util.List;
 public interface ThreadRepo extends JpaRepository<Thread, Long> {
     Page<Thread> findByUploaderIdAndThreadDateTxt(String uploaderId, String threadDateTxt, Pageable pageable);
     List<Thread> findThreadByThreadId(Long threadId);
+    Page<Thread> findAllByUploaderId(String uploaderId, Pageable pageable);
 }
