@@ -16,7 +16,7 @@ public class ThreadCommentPicture {
     private Integer pictureId;
 
     @Column(name = "comment_id")
-    private String  commentId;
+    private Integer  commentId;
 
     @Column(name = "thread_comment_single_picture")
     private String threadCommentSinglePicture;
