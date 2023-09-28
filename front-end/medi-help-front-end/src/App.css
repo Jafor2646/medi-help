@@ -117,3 +117,9 @@
   width: auto;
   max-width: 1280px;
 }
+
+.user-profile-bg{
+  background-color: #e6fcea;
+  border-bottom-left-radius: 0.7rem;
+  border-bottom-right-radius: 0.7rem;
+}

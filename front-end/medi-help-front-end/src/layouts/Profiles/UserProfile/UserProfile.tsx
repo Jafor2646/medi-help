@@ -16,7 +16,7 @@ export const UserProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
   const [isOwner, setisOwner] = useState(false);
-  const location: any = useLocation();
+  const [totalFollowing, settotalFollowing] = useState(0);
 
   useEffect(() => {
     if (current_user_id == globalUserId){
@@ -55,6 +55,28 @@ export const UserProfile = () => {
   }, []);
 
 
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const baseUrl: string = "http://localhost:8080/api";
+      const url: string = `${baseUrl}/followingTables/search/findAllByFollowerId?followerId=${globalUserId}`;
+      console.log(url);
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      const responseJson = await response.json();
+      const responseData = responseJson.page.totalElements;
+      settotalFollowing(responseData);
+    };
+    fetchProfile().catch((error: any) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    })
+  }, []);
+
+
   if (isLoading) {
     return (
         <SpinnerLoading/>
@@ -69,47 +91,45 @@ export const UserProfile = () => {
     )
   }
   return (
-    <div>
-      <div className="container-fluid">
-        <div className="shadow d-flex justify-content-between m-2">
+    <div className="d-flex container-fluid">
+      <div className="row ">
+        <div className="col-lg-2 m-2 ms-0 mt-0 p-1 user-profile-bg">
           <div>
             {user?.picture?
               <img
-                className="img-fluid p-1"
+                className="img-fluid p-1 shadow"
                 src={user?.picture}
-                width='200' 
-                height='200'
-                alt="Profile Images"
-                loading="lazy"
+                width='250'
+                height='250'
+                alt="Profile Image"
+                loading="eager"
               />
               :
               <img
-                className="img-fluid p-1"
+                className="img-fluid p-1 shadow"
                 src={require("./../../../images/Placeholder-images/placeholder-dp.png")}
-                width='200' 
-                height='200'
-                alt="Profile Images"
-                loading="lazy"
+                width='250'
+                height='250'
+                alt="Profile Image"
+                loading="eager"
               />
             }
           </div>
 
           <div className="pt-3">
-            <p>
-              <strong style={{color: "darkblue"}}>Name:</strong> {user?.userName}<br/>
-              <strong style={{color: "darkblue"}}>User Name:</strong> {user?.userId}<br/>
-              <strong style={{color: "darkblue"}}>Email:</strong> {user?.email}
-            </p>
+            <p className="fw-bold fs-4 m-0">{user?.userName}</p>
+            <p>@{user?.userId}</p>
           </div>
-          <div className="pt-5 pe-3">
-            <Link type="button" className="btn btn-outline-dark" to="/following">
-              Following
+          <div className="pt-1 pe-3">
+            <Link type="button" to="/following">
+              Following {totalFollowing} Doctors
             </Link>
           </div>
         </div>
+      <div className="col-lg-9 mt-1">
+        <ThreadViewerHomepage/>
       </div>
-
-      <ThreadViewerHomepage/>
+      </div>
     </div>
   );
 };
