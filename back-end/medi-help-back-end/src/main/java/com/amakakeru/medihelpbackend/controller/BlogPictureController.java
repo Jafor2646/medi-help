@@ -3,7 +3,6 @@ package com.amakakeru.medihelpbackend.controller;
 
 import com.amakakeru.medihelpbackend.dao.BlogPictureRepo;
 import com.amakakeru.medihelpbackend.entity.BlogPicture;
-import com.amakakeru.medihelpbackend.entity.ThreadPicture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
