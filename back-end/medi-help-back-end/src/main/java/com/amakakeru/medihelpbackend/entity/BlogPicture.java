@@ -26,5 +26,5 @@ public class BlogPicture {
     private String blogDateTxt;
 
     @Column(name = "blog_single_picture")
-    private Integer blogSinglePicture;
+    private String blogSinglePicture;
 }
