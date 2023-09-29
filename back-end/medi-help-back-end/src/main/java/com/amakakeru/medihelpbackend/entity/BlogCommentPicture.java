@@ -15,7 +15,7 @@ public class BlogCommentPicture {
     private Integer pictureId;
 
     @Column(name = "blog_comment_id")
-    private String blogCommentId;
+    private Integer blogCommentId;
 
     @Column(name = "blog_comment_single_picture")
     private String blogCommentSinglePicture;

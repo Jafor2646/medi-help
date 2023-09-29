@@ -37,7 +37,7 @@ export const BlogView = () => {
 
             const baseUrl: string = "http://localhost:8080/api";
 
-            const url: string = `${baseUrl}/blogPictures/search/findAllByblogDateTxtAndUploaderId?uploaderId=${globalBlogId}&blogDateTxt=${globalBlogDate}`;
+            const url: string = `${baseUrl}/blogPictures/search/findAllByBlogDateTxtAndUploaderId?uploaderId=${globalBlogId}&blogDateTxt=${globalBlogDate}`;
 
 
             const response = await fetch(url);

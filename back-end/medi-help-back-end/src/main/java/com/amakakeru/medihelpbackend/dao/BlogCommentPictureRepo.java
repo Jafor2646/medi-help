@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BlogCommentPictureRepo extends JpaRepository<BlogCommentPicture, Integer> {
-    Page<BlogCommentPicture> findAllByBlogCommentId(String blogCommentId, Pageable pageable);
+    Page<BlogCommentPicture> findAllByBlogCommentId(Integer blogCommentId, Pageable pageable);
 }

@@ -1,8 +1,6 @@
 package com.amakakeru.medihelpbackend.controller;
 
 import com.amakakeru.medihelpbackend.dao.ThreadCommentPictureRepo;
-import com.amakakeru.medihelpbackend.dao.ThreadRepo;
-import com.amakakeru.medihelpbackend.entity.Thread;
 import com.amakakeru.medihelpbackend.entity.ThreadCommentPicture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

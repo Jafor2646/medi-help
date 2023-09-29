@@ -13,7 +13,7 @@ public class BlogComment {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "blog_comment_id")
-    private Integer blog_comment_id;
+    private Integer blogCommentId;
 
     @Column(name = "replier")
     private String replier;
