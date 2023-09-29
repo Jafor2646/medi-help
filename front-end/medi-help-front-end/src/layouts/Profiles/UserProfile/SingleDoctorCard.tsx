@@ -1,9 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import UserModel from "../../../models/UserModel";
+import {GlobalContext} from "../../../Auth/GlobalContext";
+import {useHistory} from "react-router-dom";
 
 export const SingleDoctorCard: React.FC<{doctorId: string}>= (props) => {
 
     const [user, setUser] = useState<UserModel>();
+    const {setglobalUserId} = useContext(GlobalContext);
+
+    const history = useHistory();
 
 
     useEffect(() => {
@@ -32,14 +37,27 @@ export const SingleDoctorCard: React.FC<{doctorId: string}>= (props) => {
         fetchProfile()
     }, []);
 
+    const DoctorNameClicked = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        setglobalUserId(props.doctorId);
+        history.push('/profile');
+    }
+
 
     return (
-        <div className='card shadow text-dark mt-1 m-2  card-hover-style'>
+        <div className='card shadow text-dark m-2  card-hover-style'>
             {user!=undefined&&
-                user.picture?
-                <img className="single-doctor-card" src={user.picture} alt="User Picture" height='100' width='100'/>
-                :
-                <img className="single-doctor-card" src={require('./../../../images/Placeholder-images/placeholder-dp.png')} alt="User Picture" height='100' width='100'/>
+                <div>
+                    {user.picture ?
+                        <img className="single-doctor-card" src={user.picture} alt="User Picture" height='60'
+                             width='60'/>
+                        :
+                        <img className="single-doctor-card"
+                             src={require('./../../../images/Placeholder-images/placeholder-dp.png')} alt="User Picture"
+                             height='60' width='60'/>}
+                    <a href="#" className='m-1 fs-3 username-mini-viewer fw-bold' onClick={DoctorNameClicked}>
+                        {user.userName}
+                    </a>
+                </div>
             }
 
         </div>

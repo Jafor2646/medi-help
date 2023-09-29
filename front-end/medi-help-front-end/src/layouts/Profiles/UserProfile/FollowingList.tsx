@@ -21,7 +21,6 @@ export const FollowingList= () => {
         const fetchProfile = async () => {
             const baseUrl: string = "http://localhost:8080/api";
             const url: string = `${baseUrl}/followingTables/search/findAllByFollowerId?followerId=${globalUserId}`;
-            console.log(url);
             const response = await fetch(url);
 
             if (!response.ok) {
