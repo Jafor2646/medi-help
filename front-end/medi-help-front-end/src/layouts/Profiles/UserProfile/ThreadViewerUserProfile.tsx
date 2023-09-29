@@ -124,7 +124,7 @@ export const ThreadViewerUserProfile: React.FC<{userId: string}> = (props) => {
     fetchThreads().catch((error: any) => {
       setHttpError(error.message);
     })
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, [currentPage, searchUrl, threads]);
 
   if (isLoading) {

@@ -78,7 +78,7 @@ export const SingleBlogComment: React.FC<{comments: BLogCommentModel}> = (props)
       setHttpError(error.message);
     })
     // window.scrollTo(0, 0);
-  }, []);
+  }, [imgArray]);
 
 
   const profileCLicked = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {

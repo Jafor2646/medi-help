@@ -78,7 +78,7 @@ export const SingleThreadComment: React.FC<{comments: ThreadCommentModel}> = (pr
       setHttpError(error.message);
     })
     // window.scrollTo(0, 0);
-  }, []);
+  }, [imgArray]);
 
 
   const profileCLicked = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {

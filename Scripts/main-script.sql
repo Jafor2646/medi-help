@@ -108,7 +108,7 @@ CREATE INDEX idx_thread_comment ON thread_comment(`comment_date`);
 DROP TABLE IF EXISTS `thread_comment_picture`;
 CREATE TABLE `thread_comment_picture` (
   `picture_id` int not null auto_increment,
-  `comment_id` varchar(20) NOT NULL,
+  `comment_id` int NOT NULL,
   `thread_comment_single_picture` LONGBLOB default NULL,
   primary key (`picture_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 default CHARSET=latin1;
