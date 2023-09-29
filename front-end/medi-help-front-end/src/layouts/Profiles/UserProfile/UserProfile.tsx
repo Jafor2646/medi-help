@@ -20,6 +20,8 @@ export const UserProfile = () => {
   const [totalFollowing, settotalFollowing] = useState(0);
   const [currentState, setcurrentState] = useState<string>('Timeline');
 
+  const [newDp, setnewDp] = useState<any>("");
+
   const history = useHistory();
 
   useEffect(() => {
@@ -103,29 +105,88 @@ export const UserProfile = () => {
     }
   }
 
+  function getBase64(file: any) {
+
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      setnewDp(reader.result);
+    };
+    reader.onerror = function (error) {
+      console.log('Error', error);
+    }
+  }
+
+  let uploadProfilePicture  = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (currentState == 'Timeline'){
+      setcurrentState("Following")
+    }
+    else {
+      setcurrentState("Timeline")
+    }
+  }
+
   return (
     <div className="d-flex container-fluid">
       <div className="row">
         <div className="col-lg-2 m-2 ms-0 mt-0 p-1 user-profile-bg">
           <div>
-            {user?.picture?
-              <img
-                className="img-fluid p-1 shadow"
-                src={user?.picture}
-                height='250'
-                alt="Profile Image"
-                loading="eager"
-              />
-              :
-              <img
-                className="img-fluid p-1 shadow"
-                src={require("./../../../images/Placeholder-images/placeholder-dp.png")}
-                height='250'
-                alt="Profile Image"
-                loading="eager"
-              />
+            {newDp!=""?
+                <img
+                    className="img-fluid p-1 shadow"
+                    src={newDp}
+                    height='250'
+                    alt="Profile Image"
+                    loading="eager"
+                />
+                :
+                user?.picture?
+                    <img
+                        className="img-fluid p-1 shadow"
+                        src={user?.picture}
+                        height='250'
+                        alt="Profile Image"
+                        loading="eager"
+                    />
+                    :
+                    <img
+                        className="img-fluid p-1 shadow"
+                        src={require("./../../../images/Placeholder-images/placeholder-dp.png")}
+                        height='250'
+                        alt="Profile Image"
+                        loading="eager"
+                    />
+
             }
+
           </div>
+
+          {globalUserId == current_user_id&&
+              <div className="d-flex">
+
+
+
+                    <div>
+                      <label className="form-label text-white m-1" htmlFor="customFile1">
+                        <div className="btn btn-dark">Change Your Profile Picture</div>
+                      </label>
+                      <input type="file" accept="image/png, image/jpg, image/jpeg" className="form-control d-none"
+                             id="customFile1"  onChange={(event) => {
+
+                        if (event.target.files){
+                          getBase64(event.target.files[0])
+                        }
+                      }}/>
+                      {newDp!=""&&
+                          <div className='btn btn-info' onClick={uploadProfilePicture}>
+                            Submit
+                          </div>
+                      }
+                    </div>
+
+
+              </div>
+          }
 
           <div className="pt-3">
             <p className="fw-bold fs-4 m-0">{user?.userName}</p>
