@@ -17,4 +17,10 @@ public class HospitalExtraInfo {
 
     @Column(name = "bio")
     private String bio;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "governance_details")
+    private String governanceDetails;
 }

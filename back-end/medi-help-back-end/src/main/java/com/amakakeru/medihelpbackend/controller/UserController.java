@@ -39,4 +39,26 @@ public class UserController {
         User updatedUser = userRepo.save(user);
         return ResponseEntity.ok(updatedUser);
     }
+
+    @PutMapping("/users/changeAddress/{userId}")
+    public ResponseEntity<User> addressChanged(@PathVariable String userId, @RequestBody Map<String, String> addressMap){
+
+        User user = userRepo.findByUserId(userId).get(0);
+
+        user.setAddress(addressMap.get("address"));
+
+        User updatedUser = userRepo.save(user);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    @PutMapping("/users/changePhone/{userId}")
+    public ResponseEntity<User> phoneChanged(@PathVariable String userId, @RequestBody Map<String, String> phoneMap){
+
+        User user = userRepo.findByUserId(userId).get(0);
+
+        user.setPhone(phoneMap.get("phone"));
+
+        User updatedUser = userRepo.save(user);
+        return ResponseEntity.ok(updatedUser);
+    }
 }
