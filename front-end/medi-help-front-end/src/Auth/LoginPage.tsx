@@ -30,7 +30,7 @@ export const LoginPage = () => {
                 return;
             }
             setcurrentResponse(new UserModel(
-                response[0].userId, response[0].userName, response[0].email, response[0].password, response[0].address, response[0].phone, response[0].userType, response[0].picture
+                response[0].userId, response[0].userName, response[0].email, response[0].password, response[0].userType, response[0].address, response[0].phone, response[0].picture
             ));
         };
         fetchEmail();

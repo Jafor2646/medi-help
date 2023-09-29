@@ -4,6 +4,7 @@ import BlogViewerModel from "../../../../models/BlogViewerModel/BlogViewerModel"
 import {SpinnerLoading} from "../../../utils/SpinnerLoading";
 import {Pagination} from "../../../utils/Pagination";
 import {UserContext} from "../../../../Auth/UserContext";
+import { GlobalContext } from "../../../../Auth/GlobalContext";
 import {Link} from "react-router-dom";
 import TopicTable from "../../../../models/TopicTable";
 import {TopicBadge} from "../../../utils/TopicBadge";
@@ -13,8 +14,8 @@ import BlogTopicService from "../../../../Service/BlogTopicService";
 
 export const BlogViewerHomepage = () => {
 
-  const {isAuthorised, current_user_id, current_user_type} = useContext(UserContext);
-
+  const {isAuthorised, current_user_id} = useContext(UserContext);
+  const{globalUserId} = useContext(GlobalContext);
   const [blogs, setBlogs] = useState<BlogViewerModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
@@ -25,7 +26,7 @@ export const BlogViewerHomepage = () => {
   const [categorySelection, setCategorySelection] = useState('Trending');
   const [searchUrl, setSearchUrl] = useState(`&sort=blogTrendView,desc`);
   const [postOpen, setpostOpen] = useState('false')
-
+  const[userType, setUserType] = useState('');
   const [textTitle, settextTitle] = useState("");
   const [textBody, settextBody] = useState("");
   const [imgArray, setimgArray] = useState<any[]>([]);
@@ -33,7 +34,24 @@ export const BlogViewerHomepage = () => {
   const [selectedTopic, setselectedTopic] = useState<string[]>([]);
 
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const baseUrl: string = "http://localhost:8080/api";
+      const url: string = `${baseUrl}/users/search/findUserByUserId?userId=${globalUserId}`;
+      const response = await fetch(url);
 
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      const responseJson = await response.json();
+      const responseData = responseJson._embedded.users[0];
+      setUserType(responseData.userType);
+    };
+    fetchProfile().catch((error: any) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    })
+  }, []);
 
   useEffect(() => {
     const fetchTopic = async () => {
@@ -86,7 +104,6 @@ export const BlogViewerHomepage = () => {
 
       setTotalAmountOfBlogs(responseJson.totalElements);
       setTotalPages(responseJson.totalPages);
-
       const loadedBlogs: BlogViewerModel[] = [];
 
       for (const key in responseData) {
@@ -95,7 +112,6 @@ export const BlogViewerHomepage = () => {
         const resp = await fetch(`${baseUrl}/users/search/findUserByUserId?userId=${user_id}`);
         const respJson = await resp.json();
         const respData = respJson._embedded.users[0];
-
         let current_date: string = responseData[key].blogDateTxt;
         const topicResp = await fetch(`${baseUrl}/blogTopics/search/findByUploaderIdAndBlogDateTopicTxt?uploaderId=${user_id}&blogDateTopicTxt=${current_date}`);
         const topicRespJson = await topicResp.json();
@@ -125,7 +141,6 @@ export const BlogViewerHomepage = () => {
     fetchBlogs().catch((error: any) => {
       setHttpError(error.message);
     })
-    console.log(current_user_type);
     window.scrollTo(0, 0);
   }, [currentPage, searchUrl]);
 
@@ -230,7 +245,6 @@ export const BlogViewerHomepage = () => {
             "blogDateTxt": date,
             "blogSinglePicture": imgArray[key]
           }
-          console.log(blogPicture);
           BlogPictureService.createBlogPicture(blogPicture).then();
         }
       }
@@ -320,8 +334,8 @@ export const BlogViewerHomepage = () => {
                     Sign in
                   </Link>
                   :
-                  current_user_type === "Doctor"?
-                    postOpen === 'true'?
+                  userType === "Doctor"?
+                      postOpen === 'true'?
                         <div>
                           <button type="button" className="btn btn-md btn-outline-danger me-3" onClick={DiscardClicked}>
                             Discard
