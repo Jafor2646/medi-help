@@ -6,6 +6,7 @@ import {GlobalContext} from "../../../Auth/GlobalContext";
 import {ThreadViewerUserProfile} from "./ThreadViewerUserProfile";
 import {useHistory} from "react-router-dom";
 import {FollowingList} from "./FollowingList";
+import UserService from "../../../Service/UserService";
 
 export const UserProfile = () => {
 
@@ -58,7 +59,7 @@ export const UserProfile = () => {
       setIsLoading(false);
       setHttpError(error.message);
     })
-  }, []);
+  }, [user]);
 
 
 
@@ -118,12 +119,8 @@ export const UserProfile = () => {
   }
 
   let uploadProfilePicture  = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (currentState == 'Timeline'){
-      setcurrentState("Following")
-    }
-    else {
-      setcurrentState("Timeline")
-    }
+    UserService.dpChanged(current_user_id, newDp).then();
+    setnewDp("");
   }
 
   return (
@@ -165,21 +162,28 @@ export const UserProfile = () => {
               <div className="d-flex">
 
 
-
                     <div>
-                      <label className="form-label text-white m-1" htmlFor="customFile1">
-                        <div className="btn btn-dark">Change Your Profile Picture</div>
-                      </label>
-                      <input type="file" accept="image/png, image/jpg, image/jpeg" className="form-control d-none"
-                             id="customFile1"  onChange={(event) => {
+                      {newDp==""?
+                          <div>
+                          <label className="form-label text-white m-1" htmlFor="dpfileinput">
+                            <div className="btn btn-dark">Change Your Profile Picture</div>
+                          </label>
+                          <input type="file" accept="image/png, image/jpg, image/jpeg" className="form-control d-none"
+                                 id="dpfileinput"  onChange={(event) => {
 
-                        if (event.target.files){
-                          getBase64(event.target.files[0])
-                        }
-                      }}/>
-                      {newDp!=""&&
-                          <div className='btn btn-info' onClick={uploadProfilePicture}>
-                            Submit
+                            if (event.target.files){
+                              getBase64(event.target.files[0])
+                            }
+                          }}/>
+                          </div>
+                          :
+                          <div className='mt-1'>
+                            <div className="btn btn-danger" onClick={(event) =>{
+                              setnewDp("");}}>Discard
+                            </div>
+                            <div className='btn btn-info ms-2' onClick={uploadProfilePicture}>
+                              Submit
+                            </div>
                           </div>
                       }
                     </div>
@@ -192,6 +196,10 @@ export const UserProfile = () => {
             <p className="fw-bold fs-4 m-0">{user?.userName}</p>
             <p>@{user?.userId}</p>
           </div>
+
+          
+
+
           {currentState=='Following'&&
               <div>
                 <a href="#" className="btn btn-outline-dark mb-1" onClick={toggleTimeline}>
