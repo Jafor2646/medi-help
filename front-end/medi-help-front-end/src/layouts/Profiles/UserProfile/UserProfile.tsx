@@ -12,7 +12,7 @@ export const UserProfile = () => {
 
   const {globalUserId} = useContext(GlobalContext);
 
-  const {current_user_id, current_user_type} = useContext(UserContext);
+  const {current_user_id, current_user_type, isAuthorised} = useContext(UserContext);
 
   const [user, setUser] = useState<UserModel>();
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +22,10 @@ export const UserProfile = () => {
   const [currentState, setcurrentState] = useState<string>('Timeline');
 
   const [newDp, setnewDp] = useState<any>("");
+  const [newAddress, setnewAddress] = useState<any>("");
+  const [addressClicked, setaddressClicked] = useState<any>("false");
+  const [newPhone, setnewPhone] = useState<any>("");
+  const [phoneClicked, setphoneClicked] = useState<any>("false");
 
   const history = useHistory();
 
@@ -122,6 +126,13 @@ export const UserProfile = () => {
     UserService.dpChanged(current_user_id, newDp).then();
     setnewDp("");
   }
+  let newAddressChanged  = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    setnewAddress(event.currentTarget.value);
+  }
+  let newPhoneChanged  = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    setnewPhone(event.currentTarget.value);
+  }
+
 
   return (
     <div className="d-flex container-fluid">
@@ -166,7 +177,7 @@ export const UserProfile = () => {
                       {newDp==""?
                           <div>
                           <label className="form-label text-white m-1" htmlFor="dpfileinput">
-                            <div className="btn btn-dark">Change Your Profile Picture</div>
+                            <div className="btn btn-dark btn-sm">Change Your Profile Picture</div>
                           </label>
                           <input type="file" accept="image/png, image/jpg, image/jpeg" className="form-control d-none"
                                  id="dpfileinput"  onChange={(event) => {
@@ -178,10 +189,10 @@ export const UserProfile = () => {
                           </div>
                           :
                           <div className='mt-1'>
-                            <div className="btn btn-danger" onClick={(event) =>{
+                            <div className="btn btn-danger btn-sm" onClick={(event) =>{
                               setnewDp("");}}>Discard
                             </div>
-                            <div className='btn btn-info ms-2' onClick={uploadProfilePicture}>
+                            <div className='btn btn-info ms-2 btn-sm' onClick={uploadProfilePicture}>
                               Submit
                             </div>
                           </div>
@@ -197,7 +208,84 @@ export const UserProfile = () => {
             <p>@{user?.userId}</p>
           </div>
 
-          
+          {user?.address&&
+              <div>
+                Address: <a href={`http://maps.google.com/?q=${user.address}`}>{user.address}</a>
+              </div>
+          }
+          {(isAuthorised === 'true' && current_user_id == globalUserId)?
+            addressClicked=='false'?
+                <div className="btn btn-dark btn-sm mb-1" onClick={(event) => {
+                  setaddressClicked('true');
+                }}>
+                  {user?.address?
+                      <div>
+                        Change Address
+                      </div>
+                      :
+                      <div>
+                        Add Address
+                      </div>
+                  }
+                </div>
+                :
+                <div className="mb-1">
+                  <input type="text" className="form-control shadow mb-1" id="InputAddress" placeholder="Mohakhali, Dhaka, Bangladesh" onInput={newAddressChanged}/>
+                  <button className="btn btn-danger me-1 btn-sm" onClick={(event) =>{
+                    setaddressClicked('false');
+                    setnewAddress("");
+                  }}>Discard</button>
+                  <button className="btn btn-info btn-sm" onClick={(event) =>{
+                    UserService.addressChanged(current_user_id, newAddress).then();
+                    setnewAddress("");
+                    setaddressClicked('false');
+                  }}>Submit</button>
+                </div>
+              :
+              <span></span>
+
+
+          }
+
+
+          <br/>
+          {user?.phone&&
+              <div>
+                Phone: <a href={`tel: ${user.phone}`}>{user.phone}</a>
+              </div>
+          }
+          {(current_user_id == globalUserId && isAuthorised === 'true')?
+              phoneClicked=='false'?
+              <div className="btn btn-dark btn-sm mb-1" onClick={(event) => {
+                setphoneClicked('true');
+              }}>
+                {user?.phone?
+                    <div>
+                      Change Phone Number
+                    </div>
+                    :
+                    <div>
+                      Add Phone Number
+                    </div>
+                }
+              </div>
+              :
+              <div className="mb-1">
+              <input type="tel" className="form-control shadow mb-1" id="InputPhone" placeholder="01100000000" onInput={newPhoneChanged}/>
+                <button className="btn btn-danger me-1 btn-sm" onClick={(event) =>{
+                  setphoneClicked('false');
+                  setnewPhone("");
+                }}>Discard</button>
+                <button className="btn btn-info btn-sm" onClick={(event) =>{
+                  UserService.phoneChanged(current_user_id, newPhone).then();
+                  setnewPhone("");
+                  setphoneClicked('false');
+                }}>Submit</button>
+              </div>
+              :
+              <span></span>
+
+          }
 
 
           {currentState=='Following'&&
