@@ -235,9 +235,9 @@ export const DoctorProfile = () => {
           <div className="pt-3">
             <div className="fw-bold fs-4 m-0">{user?.userName}
               {!doctorExtraInfoes?.verified?
-                <span className="btn btn-sm btn-outline-warning ms-2">Unverified</span>
+                <span className="btn btn-sm btn-warning ms-2">Unverified</span>
                 :
-                <span className="btn btn-sm btn-outline-primary ms-2">Verified</span>
+                <span className="btn btn-sm btn-primary ms-2">Verified</span>
               
               }
             </div>
