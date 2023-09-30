@@ -1,21 +1,20 @@
-import { SingleBlogCard } from "./SingleBlogCard";
+import { SingleBlogCardDoctorProfile } from "./SingleBlogCardDoctorProfile";
 import React, {useContext, useEffect, useState} from "react";
-import BlogViewerModel from "../../../../models/BlogViewerModel/BlogViewerModel";
-import {SpinnerLoading} from "../../../utils/SpinnerLoading";
-import {Pagination} from "../../../utils/Pagination";
-import {UserContext} from "../../../../Auth/UserContext";
-import { GlobalContext } from "../../../../Auth/GlobalContext";
+import BlogViewerModel from "../../../models/BlogViewerModel/BlogViewerModel";
+import {SpinnerLoading} from "../../utils/SpinnerLoading";
+import {Pagination} from "../../utils/Pagination";
+import {UserContext} from "../../../Auth/UserContext";
 import {Link} from "react-router-dom";
-import TopicTable from "../../../../models/TopicTable";
-import {TopicBadge} from "../../../utils/TopicBadge";
-import BlogServices from "../../../../Service/BlogServices";
-import BlogPictureService from "../../../../Service/BlogPictureService";
-import BlogTopicService from "../../../../Service/BlogTopicService";
+import TopicTable from "../../../models/TopicTable";
+import {TopicBadge} from "../../utils/TopicBadge";
+import BlogServices from "../../../Service/BlogServices";
+import BlogPictureService from "../../../Service/BlogPictureService";
+import BlogTopicService from "../../../Service/BlogTopicService";
 
-export const BlogViewerHomepage = () => {
+export const BlogViewerDoctorProfile: React.FC<{userId: string}> = (props) => {
 
-  const {isAuthorised, current_user_id, current_user_type} = useContext(UserContext);
-  const{globalUserId} = useContext(GlobalContext);
+  const {isAuthorised, current_user_id} = useContext(UserContext);
+
   const [blogs, setBlogs] = useState<BlogViewerModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState(null);
@@ -26,11 +25,13 @@ export const BlogViewerHomepage = () => {
   const [categorySelection, setCategorySelection] = useState('Trending');
   const [searchUrl, setSearchUrl] = useState(`&sort=blogTrendView,desc`);
   const [postOpen, setpostOpen] = useState('false')
+
   const [textTitle, settextTitle] = useState("");
   const [textBody, settextBody] = useState("");
   const [imgArray, setimgArray] = useState<any[]>([]);
   const [topicTable, settopicTable] = useState<TopicTable[]>([]);
   const [selectedTopic, setselectedTopic] = useState<string[]>([]);
+
 
 
   useEffect(() => {
@@ -70,7 +71,7 @@ export const BlogViewerHomepage = () => {
     const fetchBlogs = async () => {
       const baseUrl: string = "http://localhost:8080/api";
 
-      const url: string = `${baseUrl}/blogs?page=${currentPage-1}&size=${BlogsPerPage}${searchUrl}`;
+      const url: string = `${baseUrl}/blogs/search/findAllByUploaderId?uploaderId=${props.userId}&page=${currentPage-1}&size=${BlogsPerPage}${searchUrl}`;
 
       const response = await fetch(url);
 
@@ -80,10 +81,11 @@ export const BlogViewerHomepage = () => {
 
       const responseJson = await response.json();
 
-      const responseData = responseJson.content;
+      const responseData = responseJson._embedded.blogs;
 
       setTotalAmountOfBlogs(responseJson.totalElements);
       setTotalPages(responseJson.totalPages);
+
       const loadedBlogs: BlogViewerModel[] = [];
 
       for (const key in responseData) {
@@ -92,6 +94,7 @@ export const BlogViewerHomepage = () => {
         const resp = await fetch(`${baseUrl}/users/search/findUserByUserId?userId=${user_id}`);
         const respJson = await resp.json();
         const respData = respJson._embedded.users[0];
+
         let current_date: string = responseData[key].blogDateTxt;
         const topicResp = await fetch(`${baseUrl}/blogTopics/search/findByUploaderIdAndBlogDateTopicTxt?uploaderId=${user_id}&blogDateTopicTxt=${current_date}`);
         const topicRespJson = await topicResp.json();
@@ -100,6 +103,7 @@ export const BlogViewerHomepage = () => {
         for (const topic in topicRespData){
           topic_array.push(topicRespData[topic].topicTitle);
         }
+
         loadedBlogs.push({
           uploaderId: responseData[key].uploaderId,
           blogTitle: responseData[key].blogTitle,
@@ -120,8 +124,8 @@ export const BlogViewerHomepage = () => {
     fetchBlogs().catch((error: any) => {
       setHttpError(error.message);
     })
-    window.scrollTo(0, 0);
-  }, [currentPage, searchUrl]);
+    // window.scrollTo(0, 0);
+  }, [currentPage, searchUrl, blogs]);
 
   if (isLoading) {
     return (
@@ -266,7 +270,6 @@ export const BlogViewerHomepage = () => {
 
 
   return (
-
       <div className={"home-thread-bg shadow"}>
         <div className="container-fluid">
           <div className="d-flex justify-content-between">
@@ -313,8 +316,8 @@ export const BlogViewerHomepage = () => {
                     Sign in
                   </Link>
                   :
-                  current_user_type === "Doctor"?
-                      postOpen === 'true'?
+                  props.userId === current_user_id ?
+                    postOpen === 'true'?
                         <div>
                           <button type="button" className="btn btn-md btn-outline-danger me-3" onClick={DiscardClicked}>
                             Discard
@@ -324,11 +327,12 @@ export const BlogViewerHomepage = () => {
                           </button>
                         </div>
                         :
+
                         <button type="button" className="btn btn-md btn-outline-dark" onClick={CreateBlogClicked}>
                           Create Blog
                         </button>
-                    :
-                    <span></span>
+                      :
+                      <span></span>
               }
 
             </div>
@@ -349,7 +353,7 @@ export const BlogViewerHomepage = () => {
                 {imgArray.length>0 &&
                     imgArray.map(ig => (
                         <div>
-                            <img className='m-1' src={ig} alt="Blog Image" height={60} width={60}/>
+                            <img className='m-1' src={ig} alt="Thread Image" height={60} width={60}/>
                         </div>
                       ))
                 }
@@ -396,7 +400,7 @@ export const BlogViewerHomepage = () => {
 
         <div>
           {blogs.map(blog => (
-              <SingleBlogCard blog={blog}/>
+              <SingleBlogCardDoctorProfile blog={blog}/>
           ))}
         </div>
         {totalPages>1 &&

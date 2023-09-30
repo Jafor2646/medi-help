@@ -10,6 +10,9 @@ public class DoctorExtraInfo {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "doctor_extra_info_id")
+    private Long doctorExtraInfoId;
+
     @Column(name = "doctor_user_id")
     private String doctorUserId;
 
@@ -19,7 +22,9 @@ public class DoctorExtraInfo {
     @Column(name = "city")
     private String city;
 
+    @Column(name = "verified")
+    private  Boolean verified;
+
     @Column(name = "current_rating")
     private Double currentRating;
-
 }

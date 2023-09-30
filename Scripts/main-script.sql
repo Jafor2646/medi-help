@@ -123,13 +123,14 @@ CREATE TABLE `thread_comment_picture` (
 --
 DROP TABLE IF EXISTS `doctor_extra_info`;
 CREATE TABLE `doctor_extra_info` (
+  `doctor_extra_info_id` int auto_increment not null,
   `doctor_user_id` varchar(20) NOT NULL,
   `medical_registration_number`varchar(50) NOT NULL,
   `city` varchar(45) DEFAULT NULL,
   `verified` boolean DEFAULT null,
   `current_rating` decimal(5,1) default null,
-  PRIMARY KEY (`doctor_user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`doctor_extra_info_id`)
+) ENGINE=InnoDB auto_increment = 1 DEFAULT CHARSET=latin1;
 
 
 DROP TABLE IF EXISTS `doctor_specialities`;
