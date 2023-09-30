@@ -15,6 +15,8 @@ import {SearchPage} from "./layouts/SearchPage/SearchPage";
 import {Profile} from "./layouts/Profiles/Profile";
 import {FollowingList} from "./layouts/Profiles/UserProfile/FollowingList";
 import { BlogView } from "./layouts/BlogView/BlogView";
+import {DoctorProfile} from "./layouts/Profiles/DoctorProfile/DoctorProfile";
+import {HospitalProfile} from "./layouts/Profiles/HospitalProfile/HospitalProfile";
 
 
 function App() {
@@ -60,6 +62,18 @@ function App() {
                 </Route>
                 <Route path='/profile'>
                     <Profile/>
+                </Route>
+                <Route path='/General-Profile'>
+                    <UserProfile/>
+                </Route>
+                <Route path='/Doctor-Profile'>
+                    <DoctorProfile/>
+                </Route>
+                <Route path='/Hospital-Profile'>
+                    <HospitalProfile/>
+                </Route>
+                <Route path='/admin-Profile'>
+                    <UserProfile/>
                 </Route>
                 <Route path='/login'>
                     <LoginPage/>
