@@ -2,6 +2,10 @@ import {Link, Redirect, useHistory} from "react-router-dom";
 import React, {useContext, useState} from "react";
 import UserService from "../Service/UserService";
 import {UserContext} from "./UserContext";
+import DoctorExtraInfoService from "../Service/DoctorExtraInfoService";
+import DoctorExtraInfoModel from "../models/DoctorExtraInfoModel";
+import HospitalExtraInfoModel from "../models/HospitalExtraInfoModel";
+import HospitalExtraInfoService from "../Service/HospitalExtraInfoService";
 
 export const SignupPage = () => {
 
@@ -17,6 +21,7 @@ export const SignupPage = () => {
     const [user_type, setuser_type] = useState("General_User");
     const [hasValidUsername, sethasValidUsername] = useState(false);
     const [hasValidEmail, sethasValidEmail] = useState(false);
+    const [hospitalType, sethospitalType] = useState("Private");
 
     const history = useHistory();
 
@@ -92,6 +97,9 @@ export const SignupPage = () => {
     const userTypeSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setuser_type(event.target.value);
     }
+    const hospitalTypeSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        sethospitalType(event.target.value);
+    }
 
 
     const PasswordChanged = (event: React.MouseEvent<HTMLInputElement>) => {
@@ -114,9 +122,16 @@ export const SignupPage = () => {
                     "password": currentPassword,
                     "userType": user_type
                 }
+                UserService.createUser(user).then();
+                let doctorExtraInfo = new DoctorExtraInfoModel(currentUsername, currentMedicalId);
+                DoctorExtraInfoService.createDoctorExtraInfo(doctorExtraInfo).then();
+                setisAuthorised("true");
+                setcurrent_user_id(currentUsername);
+                setcurrent_user_type(user_type);
+                history.push('/home');
 
             }
-            else if (user_type == 'General_User' || user_type == "Hospital"){
+            else if (user_type == 'General_User'){
 
                 let user = {
                     "userId": currentUsername,
@@ -126,6 +141,25 @@ export const SignupPage = () => {
                     "userType": user_type
                 }
                 UserService.createUser(user).then();
+                setisAuthorised("true");
+                setcurrent_user_id(currentUsername);
+                setcurrent_user_type(user_type);
+                history.push('/home');
+
+
+            }
+            else if (user_type == "Hospital"){
+
+                let user = {
+                    "userId": currentUsername,
+                    "userName": currentName,
+                    "email": currentEmail,
+                    "password": currentPassword,
+                    "userType": user_type
+                }
+                UserService.createUser(user).then();
+                let hospitalExtraInfo = new HospitalExtraInfoModel(currentUsername, undefined, undefined, hospitalType);
+                HospitalExtraInfoService.createHospitalExtraInfo(hospitalExtraInfo).then();
                 setisAuthorised("true");
                 setcurrent_user_id(currentUsername);
                 setcurrent_user_type(user_type);
@@ -185,9 +219,22 @@ export const SignupPage = () => {
                     {user_type == "Doctor"?
                         <div className="mb-3">
 
-                            <label htmlFor="InputMedicalId" className="form-label">Medical ID</label>
+                            <label htmlFor="InputMedicalId" className="form-label">BMDC registration number</label>
 
-                            <input type="text" className="form-control shadow" id="InputMedicalId" onInput={MedicalIdChanged}/>
+                            <input type="text" className="form-control shadow" id="InputMedicalId" maxLength={7} onInput={MedicalIdChanged}/>
+
+                        </div>
+                        :
+                        <span></span>
+                    }
+                    {user_type == "Hospital"?
+                        <div className="mb-3">
+
+                            <label htmlFor="hospitalTypeSelect" className="form-label">Select Hospital Type</label>
+                            <select className="form-select shadow" id="hospitalTypeSelect" onChange={hospitalTypeSelected}>
+                                <option selected value="Private">Private</option>
+                                <option value="Public">Public</option>
+                            </select>
 
                         </div>
                         :

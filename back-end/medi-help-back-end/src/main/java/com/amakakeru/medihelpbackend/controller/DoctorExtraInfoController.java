@@ -3,12 +3,11 @@ package com.amakakeru.medihelpbackend.controller;
 import com.amakakeru.medihelpbackend.dao.DoctorExtraInfoRepo;
 import com.amakakeru.medihelpbackend.entity.DoctorExtraInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/")
 public class DoctorExtraInfoController {
@@ -18,6 +17,11 @@ public class DoctorExtraInfoController {
     @GetMapping("/doctorExtraInfoes")
     public List<DoctorExtraInfo> getAllDoctorExtraInfo(){
         return doctorExtraInfoRepo.findAll();
+    }
+
+    @PostMapping("/doctorExtraInfoes")
+    public DoctorExtraInfo createDoctorExtraInfo(@RequestBody DoctorExtraInfo doctorExtraInfo){
+        return doctorExtraInfoRepo.save(doctorExtraInfo);
     }
 
 }
