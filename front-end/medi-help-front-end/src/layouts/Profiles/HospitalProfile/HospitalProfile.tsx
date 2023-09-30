@@ -10,6 +10,8 @@ import {ThreadViewerUserProfile} from "../UserProfile/ThreadViewerUserProfile";
 import {FollowingList} from "../UserProfile/FollowingList";
 import HospitalExtraInfoModel from "../../../models/HospitalExtraInfoModel";
 import HospitalExtraInfoService from "../../../Service/HospitalExtraInfoService";
+import {DoctorViwer} from "./DoctorViwer";
+import {TestViewer} from "./TestViewer";
 
 export const HospitalProfile = () => {
     const {globalUserId} = useContext(GlobalContext);
@@ -21,7 +23,7 @@ export const HospitalProfile = () => {
     const [httpError, setHttpError] = useState(null);
     const [isOwner, setisOwner] = useState(false);
     const [totalFollowing, settotalFollowing] = useState(0);
-    const [currentState, setcurrentState] = useState<string>('Timeline');
+    const [currentState, setcurrentState] = useState<string>('Doctors');
     const [hospitalExtraInfo, sethospitalExtraInfo] = useState<HospitalExtraInfoModel>();
 
     const [newDp, setnewDp] = useState<any>("");
@@ -87,32 +89,13 @@ export const HospitalProfile = () => {
             }
             const responseJson = await response.json();
             const responseData = responseJson._embedded.hospitalExtraInfoes[0];
-            sethospitalExtraInfo(new HospitalExtraInfoModel(globalUserId, responseData.website, responseData.bio, responseData.status, responseData.governanceDetails));console.log(hospitalExtraInfo);
+            sethospitalExtraInfo(new HospitalExtraInfoModel(globalUserId, responseData.website, responseData.bio, responseData.status, responseData.governanceDetails));
         };
         fetchProfile().catch((error: any) => {
             setIsLoading(false);
             setHttpError(error.message);
         })
     }, [hospitalExtraInfo]);
-
-    useEffect(() => {
-        const fetchProfile = async () => {
-            const baseUrl: string = "http://localhost:8080/api";
-            const url: string = `${baseUrl}/followingTables/search/findAllByFollowerId?followerId=${globalUserId}`;
-            const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error('Something went wrong!');
-            }
-            const responseJson = await response.json();
-            const responseData = responseJson.page.totalElements;
-            settotalFollowing(responseData);
-        };
-        fetchProfile().catch((error: any) => {
-            setIsLoading(false);
-            setHttpError(error.message);
-        })
-    }, []);
 
 
     if (isLoading) {
@@ -129,12 +112,12 @@ export const HospitalProfile = () => {
         )
     }
 
-    let toggleTimeline  = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        if (currentState == 'Timeline'){
-            setcurrentState("Following")
+    let toggleDoctors  = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        if (currentState == 'Doctors'){
+            setcurrentState("Test")
         }
         else {
-            setcurrentState("Timeline")
+            setcurrentState("Doctors")
         }
     }
 
@@ -449,30 +432,30 @@ export const HospitalProfile = () => {
                     }
 
 
-                    {currentState=='Following'&&
+                    {currentState=='Test'&&
                         <div>
-                            <a href="#" className="btn btn-outline-dark mb-1" onClick={toggleTimeline}>
-                                Timeline
+                            <a href="#" className="btn btn-outline-dark mb-1" onClick={toggleDoctors}>
+                                View Doctors
                             </a>
                         </div>
                     }
 
-                    {currentState=='Timeline'&&
+                    {currentState=='Doctors'&&
                         <div>
-                            <a href="#" className="btn btn-outline-dark" onClick={toggleTimeline}>
-                                Following {totalFollowing} Doctors
+                            <a href="#" className="btn btn-outline-dark" onClick={toggleDoctors}>
+                                View Tests
                             </a>
                         </div>
                     }
                 </div>
-                {currentState == 'Timeline'&&
+                {currentState == 'Doctors'&&
                     <div className="col-lg-9 mt-1">
-                        <ThreadViewerUserProfile userId={globalUserId}/>
+                        <DoctorViwer userId={globalUserId}/>
                     </div>
                 }
-                {currentState == 'Following'&&
+                {currentState == 'Test'&&
                     <div className="col-lg-9 mt-1">
-                        <FollowingList/>
+                        <TestViewer userId={globalUserId}/>
                     </div>
                 }
 

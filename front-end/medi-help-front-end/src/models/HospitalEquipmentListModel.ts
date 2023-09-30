@@ -1,13 +1,13 @@
 class HospitalEquipmentListModel {
   hospitalEquipmentId: number;
   hospitalUserId: string;
-  eqipmentName: string;
+  equipmentName: string;
   quantity: number;
 
-  constructor(hospitalEquipmentId: number, hospitalUserId: string,eqipmentName: string, quantity: number){
+  constructor(hospitalEquipmentId: number, hospitalUserId: string,equipmentName: string, quantity: number){
     this.hospitalEquipmentId = hospitalEquipmentId;
     this.hospitalUserId = hospitalUserId;
-    this.eqipmentName = eqipmentName;
+    this.equipmentName = equipmentName;
     this.quantity = quantity;
   }
 }
