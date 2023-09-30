@@ -9,6 +9,9 @@ import jakarta.persistence.*;
 public class HospitalExtraInfo {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "hospital_extra_info_id")
+    private Long hospitalExtraInfoId;
+
     @Column(name = "hospital_user_id")
     private String hospitalUserId;
 

@@ -1,9 +1,7 @@
 package com.amakakeru.medihelpbackend.controller;
 
 import com.amakakeru.medihelpbackend.dao.HospitalExtraInfoRepo;
-import com.amakakeru.medihelpbackend.dao.UserRepo;
 import com.amakakeru.medihelpbackend.entity.HospitalExtraInfo;
-import com.amakakeru.medihelpbackend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +20,12 @@ public class HospitalExtraInfoController {
     public List<HospitalExtraInfo > getAllHospitalExtraInfo(){
         return hospitalExtraInfoRepo.findAll();
     }
+
+    @PostMapping("/hospitalExtraInfoes")
+    public HospitalExtraInfo createHospitalExtraInfo(@RequestBody HospitalExtraInfo hospitalExtraInfo){
+        return hospitalExtraInfoRepo.save(hospitalExtraInfo);
+    }
+
     @PutMapping("/hospitalExtraInfoes/addBio/{userId}")
     public ResponseEntity<HospitalExtraInfo> addBio(@PathVariable String userId, @RequestBody Map<String, String> bioMap){
 

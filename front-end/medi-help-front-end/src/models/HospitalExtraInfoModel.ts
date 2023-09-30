@@ -1,11 +1,11 @@
 class HospitalExtraInfoModel {
   hospitalUserId: string;
-  website: string;
-  bio: string;
-  status: string;
-  governanceDetails: string;
+  website?: string;
+  bio?: string;
+  status?: string;
+  governanceDetails?: string;
 
-  constructor(hospitalUserId: string, website: string,bio: string, status: string, governanceDetails: string){
+  constructor(hospitalUserId: string, website?: string, bio?: string, status?: string, governanceDetails?: string){
     this.hospitalUserId = hospitalUserId;
     this.website = website;
     this.bio = bio;

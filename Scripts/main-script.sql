@@ -260,13 +260,14 @@ CREATE TABLE `rating` (
 
 DROP TABLE IF EXISTS `hospital_extra_info`;
 CREATE TABLE `hospital_extra_info` (
+  `hospital_extra_info_id` int auto_increment not null,
   `hospital_user_id` varchar(20) not null,
   `website` varchar(50) default NULL,
   `bio`varchar(256) default NULL,
   `status` varchar(15) default NULL,
   `governance_details` varchar(512) default null,
-  PRIMARY KEY (`hospital_user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`hospital_extra_info_id`)
+) ENGINE=InnoDB auto_increment=1 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `hospital_equipment_list`;
 CREATE TABLE `hospital_equipment_list` (
