@@ -12,6 +12,7 @@ import { error } from "console";
 import {TopicBadge} from "../../utils/TopicBadge";
 import TopicTable from "../../../models/TopicTable";
 import DoctorSpecialitiesService from "../../../Service/DoctorSpecialitiesService";
+import {ThreadViewerDoctorProfile} from "./ThreadViewerDoctorProfile";
 
 export const DoctorProfile = () => {
 
