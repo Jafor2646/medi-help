@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface DoctorProfessionalQualificationRepo extends JpaRepository<DoctorProfessionalQualification, Integer> {
     Page<DoctorProfessionalQualification> findAllByCurrentlyWorkingHospitalInfoId(String currentlyWorkingHospitalInfoId, Pageable pageable);
+    Page<DoctorProfessionalQualification> findAllByDoctorUserId(String doctorUserId, Pageable pageable);
 }

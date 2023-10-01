@@ -193,6 +193,7 @@ export const TestViewer: React.FC<{ userId: string }> = (props) => {
               className="form-control shadow fw-bold mt-1"
               id="priceTitle"
               maxLength={20}
+              type={"number"}
               placeholder="Cost"
               onInput={PriceChanged}
             />

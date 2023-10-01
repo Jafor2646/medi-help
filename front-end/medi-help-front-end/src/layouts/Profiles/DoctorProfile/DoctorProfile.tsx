@@ -13,6 +13,9 @@ import {TopicBadge} from "../../utils/TopicBadge";
 import TopicTable from "../../../models/TopicTable";
 import DoctorSpecialitiesService from "../../../Service/DoctorSpecialitiesService";
 import {ThreadViewerDoctorProfile} from "./ThreadViewerDoctorProfile";
+import {FollowingListDoctor} from "./FollowingListDoctor";
+import {DoctorEducation} from "./DoctorEducation";
+import {DoctorProffesion} from "./DoctorProffesion";
 
 export const DoctorProfile = () => {
 
@@ -186,7 +189,7 @@ export const DoctorProfile = () => {
   useEffect(() => {
     const fetchFollowerId = async () => {
       const baseUrl: string = "http://localhost:8080/api";
-      const url: string = `${baseUrl}/followingTables/search/findAllByFollowerId?followerId=${globalUserId}`;
+      const url: string = `${baseUrl}/followingTables/search/findAllByFollowingId?followingId=${globalUserId}`;
       const response = await fetch(url);
 
       if (!response.ok) {
@@ -215,15 +218,6 @@ export const DoctorProfile = () => {
           <p>{httpError}</p>
         </div>
     )
-  }
-
-  let toggleTimeline  = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    if (currentState == 'Timeline'){
-    setcurrentState("Following")
-    }
-    else {
-    setcurrentState("Timeline")
-    }
   }
 
   function getBase64(file: any) {
@@ -501,6 +495,7 @@ export const DoctorProfile = () => {
               Threads
             </a>
           </div>
+
           <div>
             <a href="#" className="btn btn-outline-dark mb-1" onClick={(e) =>{
               setcurrentState("Education");
@@ -509,9 +504,19 @@ export const DoctorProfile = () => {
             </a>
           </div>
 
+          {/*<div>*/}
+          {/*  <a href="#" className="btn btn-outline-dark mb-1" onClick={(e) =>{*/}
+          {/*    setcurrentState("Profession");*/}
+          {/*  }}>*/}
+          {/*    Profession*/}
+          {/*  </a>*/}
+          {/*</div>*/}
+
           <div>
-            <a href="#" className="btn btn-outline-dark" onClick={toggleTimeline}>
-              Following {totalFollowing} Doctors
+            <a href="#" className="btn btn-outline-dark" onClick={(e) =>{
+              setcurrentState("Following");
+            }}>
+              Total {totalFollowing} Follower
             </a>
           </div>
 
@@ -528,9 +533,19 @@ export const DoctorProfile = () => {
         }
         {currentState == 'Following'&&
             <div className="col-lg-9 mt-1">
-              <FollowingList/>
+              <FollowingListDoctor/>
             </div>
         }
+        {currentState == 'Education'&&
+            <div className="col-lg-9 mt-1">
+              <DoctorEducation/>
+            </div>
+        }
+        {/*{currentState == 'Profession'&&*/}
+        {/*    <div className="col-lg-9 mt-1">*/}
+        {/*      <DoctorProffesion/>*/}
+        {/*    </div>*/}
+        {/*}*/}
 
       </div>
     </div>

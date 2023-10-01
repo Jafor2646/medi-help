@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FollowingTableRepo extends JpaRepository<FollowingTable, Integer> {
     Page<FollowingTable> findAllByFollowerId(String followerId, Pageable pageable);
+    Page<FollowingTable> findAllByFollowingId(String followingId, Pageable pageable);
 }

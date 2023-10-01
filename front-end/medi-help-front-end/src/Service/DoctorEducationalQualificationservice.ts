@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const USER_API_BASE_URL = "http://localhost:8080/api/doctorEducationalQualification";
+const USER_API_BASE_URL = "http://localhost:8080/api/doctorEducationalQualifications";
 
 class DoctorEducationalQualificationService{
     createEducationalQualification(doctorEducationalQualification: any){

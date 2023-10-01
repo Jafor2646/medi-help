@@ -1,12 +1,10 @@
 class DoctorEducationalQualificationModel {
-  doctorIdAuto: number;
   doctorUserId: string;
   degreeTitle: string;
   institution: string;
   passingYear: number;
 
-  constructor(doctorIdAuto: number, doctorUserId: string,degreeTitle: string, institution: string, passingYear: number){
-    this.doctorIdAuto = doctorIdAuto;
+  constructor(doctorUserId: string,degreeTitle: string, institution: string, passingYear: number){
     this.doctorUserId = doctorUserId;
     this.degreeTitle = degreeTitle;
     this.institution = institution;
