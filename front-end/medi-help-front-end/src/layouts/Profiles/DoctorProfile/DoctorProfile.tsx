@@ -485,25 +485,44 @@ export const DoctorProfile = () => {
           }
 
 
-          {currentState=='Following'&&
-              <div>
-                <a href="#" className="btn btn-outline-dark mb-1" onClick={toggleTimeline}>
-                  Timeline
-                </a>
-              </div>
-          }
+          <div>
+            <a href="#" className="btn btn-outline-dark mb-1" onClick={(e) =>{
+              setcurrentState("Timeline");
+            }}>
+              Blogs
+            </a>
+          </div>
 
-          {currentState=='Timeline'&&
-              <div>
-                <a href="#" className="btn btn-outline-dark" onClick={toggleTimeline}>
-                  Following {totalFollowing} Doctors
-                </a>
-              </div>
-          }
+          <div>
+            <a href="#" className="btn btn-outline-dark mb-1" onClick={(e) =>{
+              setcurrentState("Threads");
+            }}>
+              Threads
+            </a>
+          </div>
+          <div>
+            <a href="#" className="btn btn-outline-dark mb-1" onClick={(e) =>{
+              setcurrentState("Education");
+            }}>
+              Education
+            </a>
+          </div>
+
+          <div>
+            <a href="#" className="btn btn-outline-dark" onClick={toggleTimeline}>
+              Following {totalFollowing} Doctors
+            </a>
+          </div>
+
         </div>
         {currentState == 'Timeline'&&
             <div className="col-lg-9 mt-1">
               <BlogViewerDoctorProfile userId={globalUserId}/>
+            </div>
+        }
+        {currentState == 'Threads'&&
+            <div className="col-lg-9 mt-1">
+              <ThreadViewerDoctorProfile userId={globalUserId}/>
             </div>
         }
         {currentState == 'Following'&&
