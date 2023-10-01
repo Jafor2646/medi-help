@@ -9,9 +9,9 @@ export const AllSearchResult = () => {
             <div>
                 <AllSearchDoctor/>
             </div>
-            <div>
-                <AllSearchHospital/>
-            </div>
+            {/*<div>*/}
+            {/*    <AllSearchHospital/>*/}
+            {/*</div>*/}
             <div>
                 <AllSearchThread/>
             </div>

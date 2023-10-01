@@ -1,14 +1,16 @@
 import {Link, useHistory} from "react-router-dom";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {UserContext} from "../../Auth/UserContext";
 import {GlobalContext} from "../../Auth/GlobalContext";
 
 export const Navbar = () => {
   const history = useHistory();
 
-  const {setglobalThreadId, setglobalThreadDate, setglobalUserId} = useContext(GlobalContext);
+  const {setglobalThreadId, setglobalThreadDate, setglobalUserId, setglobalSearchText} = useContext(GlobalContext);
 
   const {isAuthorised,setisAuthorised, setcurrent_user_id, current_user_id, setcurrent_user_type } = useContext(UserContext);
+
+  const [searchText, setsearchText] = useState("");
 
   const logoutClicked = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setisAuthorised('false');
@@ -40,8 +42,17 @@ export const Navbar = () => {
             type="search"
             placeholder="Search"
             aria-label="Search"
+            onChange={event => {
+              setsearchText(event.currentTarget.value);
+            }}
           />
-          <button className="btn btn-outline-dark" type="submit">
+          <button className="btn btn-outline-dark" type="submit" onClick={event => {
+            if (searchText.length>0) {
+              setglobalSearchText(searchText);
+              setsearchText("");
+              history.push('/search');
+            }
+          }}>
             Search
           </button>
         </form>

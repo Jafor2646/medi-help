@@ -1,12 +1,10 @@
 class DoctorProfessionalQualificationModel {
-  doctorProfessionId: number;
   currentlyWorkingHospitalInfoId: string;
   doctorUserId: string;
   startingYear: number;
   endingYear?: number;
 
-  constructor(doctorProfessionId: number, currentlyWorkingHospitalInfoId: string,doctorUserId: string, startingYear: number, endingYear: number){
-    this.doctorProfessionId = doctorProfessionId;
+  constructor( currentlyWorkingHospitalInfoId: string,doctorUserId: string, startingYear: number, endingYear?: number){
     this.currentlyWorkingHospitalInfoId = currentlyWorkingHospitalInfoId;
     this.doctorUserId = doctorUserId;
     this.startingYear = startingYear;

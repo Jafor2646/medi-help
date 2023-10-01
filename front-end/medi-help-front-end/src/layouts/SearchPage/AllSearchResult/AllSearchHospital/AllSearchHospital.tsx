@@ -9,11 +9,6 @@ export const AllSearchHospital = () => {
                         Hospitals
                     </h1>
                 </div>
-                <div>
-                    <a type="button" className="btn btn-lg mt-1 me-2 btn-outline-light" href="#">
-                        See More
-                    </a>
-                </div>
             </div>
             <div className="row justify-content-center mt-md-2 ps-2 pe-2 pb-3">
                 <SearchHospitalProfileCard/>
