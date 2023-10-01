@@ -1,9 +1,11 @@
 package com.amakakeru.medihelpbackend.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "doctor_specialities")
+@Data
 public class DoctorSpecialities {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -14,5 +16,5 @@ public class DoctorSpecialities {
     private String doctorId;
 
     @Column(name = "speciality")
-    private String speciality;
+    private String Speciality;
 }

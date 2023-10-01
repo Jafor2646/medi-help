@@ -12,6 +12,6 @@ export const TopicBadge: React.FC<{topic: string}> = (props) => {
     }
 
     return (
-        <a className="btn btn-primary btn-sm m-1 mb-0 mt-0" onClick={topicCLicked}>{props.topic}</a>
+        <a className="btn btn-primary btn-sm m-1" onClick={topicCLicked}>{props.topic}</a>
     );
 };

@@ -9,6 +9,9 @@ import {FollowingList} from "../UserProfile/FollowingList";
 import UserService from "../../../Service/UserService";
 import DoctorExtraInfoModel from "../../../models/DoctorExtraInfoModel";
 import { error } from "console";
+import {TopicBadge} from "../../utils/TopicBadge";
+import TopicTable from "../../../models/TopicTable";
+import DoctorSpecialitiesService from "../../../Service/DoctorSpecialitiesService";
 
 export const DoctorProfile = () => {
 
@@ -26,10 +29,55 @@ export const DoctorProfile = () => {
   const [newDp, setnewDp] = useState<any>("");
   const [newAddress, setnewAddress] = useState<any>("");
   const [addressClicked, setaddressClicked] = useState<any>("false");
+  const [newTopic, setnewTopic] = useState<any>("");
+  const [topicClicked, settopicClicked] = useState<any>("false");
   const [newPhone, setnewPhone] = useState<any>("");
   const [phoneClicked, setphoneClicked] = useState<any>("false");
+  const [doctorSpecialities, setdoctorSpecialities] = useState<string[]>([]);
+  const [topicTable, settopicTable] = useState<TopicTable[]>([]);
 
   const history = useHistory();
+
+  useEffect(() => {
+    const fetchTopic = async () => {
+      const baseUrl: string = "http://localhost:8080/api";
+
+      const url: string = `${baseUrl}/topicTables`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+
+      const responseJson = await response.json();
+
+      const responseData = responseJson._embedded.topicTables;
+
+      const loadedTopics: TopicTable[] = [];
+
+      for (const key in responseData) {
+
+        loadedTopics.push({
+          topicName: responseData[key].topicName
+        });
+      }
+      settopicTable(loadedTopics);
+
+    };
+    fetchTopic().catch((error: any) => {
+      setHttpError(error.message);
+    })
+  }, []);
+
+  const topicSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if(event.target.value != "default"){
+
+      setnewTopic(event.target.value);
+    }
+  }
+
+
 
   useEffect(() => {
     const fetchDoctorExtraInfo =async () => {
@@ -48,7 +96,6 @@ export const DoctorProfile = () => {
         verified: responseData.verified,
         currentRating: responseData.currentRating
       };
-      console.log(tempDoctorExtraInfo)
       setDoctorExtraInfoes(tempDoctorExtraInfo);
       setIsLoading(true);
     };
@@ -57,6 +104,45 @@ export const DoctorProfile = () => {
       setHttpError(error.message);
     })
   }, []);
+
+
+
+
+
+
+
+  useEffect(() => {
+    const fetchDoctorSpecialities =async () => {
+      const baseUrl: string = "http://localhost:8080/api";
+      const url: string = `${baseUrl}/doctorSpecialitieses/search/findDoctorSpecialitiesByDoctorId?doctorId=${globalUserId}`;
+      const response = await fetch(url);
+      if(!response.ok){
+        throw new Error('Something went wrong!');
+      }
+      const responseJson = await response.json();
+      const responseData = responseJson._embedded.doctorSpecialitieses;
+      let tempArr: string[] = [];
+      for (const key in responseData){
+        tempArr.push(responseData[key].speciality);
+      }
+      setdoctorSpecialities(tempArr);
+
+      setIsLoading(true);
+    };
+    fetchDoctorSpecialities().catch((error: any) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    })
+  }, []);
+
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     if (current_user_id == globalUserId){
@@ -97,7 +183,7 @@ export const DoctorProfile = () => {
 
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchFollowerId = async () => {
       const baseUrl: string = "http://localhost:8080/api";
       const url: string = `${baseUrl}/followingTables/search/findAllByFollowerId?followerId=${globalUserId}`;
       const response = await fetch(url);
@@ -109,7 +195,7 @@ export const DoctorProfile = () => {
       const responseData = responseJson.page.totalElements;
       settotalFollowing(responseData);
     };
-    fetchProfile().catch((error: any) => {
+    fetchFollowerId().catch((error: any) => {
       setIsLoading(false);
       setHttpError(error.message);
     })
@@ -243,6 +329,81 @@ export const DoctorProfile = () => {
             </div>
             <p>@{user?.userId}</p>
           </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          {doctorSpecialities.length>0&&
+              doctorSpecialities.map((doctorSpeciality) => (
+                  <TopicBadge topic={doctorSpeciality}/>
+              ))
+          }
+          {(isAuthorised === 'true' && current_user_id == globalUserId)?
+              topicClicked=='false'?
+                  <div className="btn btn-dark btn-sm mb-1" onClick={(event) => {
+                    settopicClicked('true');
+                  }}>
+                    <div>
+                      Add Specialities
+                    </div>
+                  </div>
+                  :
+                  <div className="mb-1">
+                    <div className='mb-1 ms-1'>
+                      <select className="form-select shadow" id="typeSelect" onChange={topicSelected}>
+                        <option selected value='default'> Select a Speciality</option>
+                        {topicTable.map(topic => (
+                            <option value={topic.topicName}>{topic.topicName}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <button className="btn btn-danger me-1 btn-sm" onClick={(event) =>{
+                      settopicClicked('false');
+                      setnewTopic("");
+                    }}>Discard</button>
+                    <button className="btn btn-info btn-sm" onClick={(event) =>{
+                      let speciality = {
+                        "doctorId": current_user_id,
+                        "speciality": newTopic
+                      }
+                      DoctorSpecialitiesService.createDoctorSpecialities(speciality).then();
+                      setnewTopic("");
+                      settopicClicked('false');
+                    }}>Submit</button>
+                  </div>
+              :
+              <span></span>
+
+
+          }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           {user?.address&&
               <div>
